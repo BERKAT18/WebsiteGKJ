@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <form action="{% url 'posttambah_renungan' %}"method="POST">
+        {% csrf_token %}
+        <h1>FORM TAMBAH RENUNGAN</h1>
+        
+        {% if messages %}
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+        {% endif %}
+        <P>ID RENUNGAN :</P>
+        <input type="text" name="id_renungan" id="id_renungan" maxlength="10" required>
+        <P>ISI RENUNGAN :</P>
+        <input type="text" name="isi_renungan" id="isi_renungan" maxlength="500" required>
+        <P>TANGGAL :</P>
+        <input type="date" name="tanggal_renungan" id="tanggal_renungan"  required>
+        <br>
+        <br>
+        <button type="submit">Simpan</button>
+    </form>
+</body>
+</html>

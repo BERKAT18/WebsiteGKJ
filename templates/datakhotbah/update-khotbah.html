@@ -1,0 +1,57 @@
+{% extends "templates/base.html" %} {% block content %}
+<body>
+  <div class="container">
+    <form
+      action="{% url 'postupdate_khotbah' data_khotbah.id_khotbah %}"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+      <table class="table table-striped table-hover">
+        <thead class="">
+          <tr>
+            <th>ID KHOTBAH :</th>
+            <td>
+              <input
+                class="form-control"
+                type="text"
+                name="id_khotbah"
+                maxlength="50"
+                id="id_khotbah"
+                value="{{ data_khotbah.id_khotbah }}"
+                required
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>ISI :</th>
+            <td>
+              <input
+                class="form-control"
+                type="text"
+                name="isi_khotbah"
+                maxlength="50"
+                id="isi_khotbah"
+                value="{{ data_khotbah.isi_khotbah }}"
+                required
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>TANGGAL :</th>
+            <td>
+                <input type="hidden" name="tanggal" value="{{ data_khotbah.tanggal|date:'Y-m-d' }}">
+                <input class="form-control" type="date" name="tanggal" id="tanggal" 
+                    value="{{ data_khotbah.tanggal|date:'Y-m-d' }}" required>
+            </td>
+          </tr>
+          <tr></tr>
+        </thead>
+      </table>
+      <br />
+      <br />
+      <button type="submit">Simpan</button>
+    </form>
+  </div>
+</body>
+{% endblock %}

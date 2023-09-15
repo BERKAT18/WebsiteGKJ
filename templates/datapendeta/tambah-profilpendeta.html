@@ -1,0 +1,78 @@
+{% extends "templates/base.html" %} {% block content %}
+<body>
+  <div class="container">
+    <form action="{% url 'postprofil_pendeta' %}" method="POST"  enctype="multipart/form-data">
+      {% csrf_token %}
+      <table class="table table-striped table-hover">
+        <thead class="">
+          <tr>
+            <th>NAMA PENDETA :</th>
+            <td>
+              <input
+                type="text"
+                name="namapendeta"
+                id="namapendeta"
+                maxlength="500"
+                required
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>FOTO PENDETA :</th>
+            <td>
+              <input
+                class="form-control"
+                style="width: fit-content"
+                type="file"
+                alt=""
+                name="fotopendeta"
+                id="fotopendeta"
+                required
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>VISI :</th>
+            <td>
+              <input
+                type="text"
+                name="visi"
+                id="visi"
+                maxlength="500"
+                required
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>MISI :</th>
+            <td>
+              <input
+                type="text"
+                name="misi"
+                id="misi"
+                maxlength="500"
+                required
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>JADWAL :</th>
+            <td>
+              <input
+                type="text"
+                name="jadwal"
+                id="jadwal"
+                maxlength="500"
+                required
+              />
+            </td>
+          </tr>
+        </thead>
+      </table>
+      <br />
+      <br />
+      <button type="submit">Simpan</button>
+    </form>
+  </div>
+</body>
+{% endblock %}

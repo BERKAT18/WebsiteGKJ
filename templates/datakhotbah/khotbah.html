@@ -1,0 +1,36 @@
+{% extends "templates/base.html" %} {% block content %}
+<div class="container">
+  <td>
+    
+    <a href="{% url 'tambah_khotbah'  %}" class="nav-link">
+      <i class="nav-icon fas fa-plus"> TAMBAH KHOTBAH</i>
+     
+    </a>
+  </td>
+  <br />
+  <table class="table table-striped table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>ID KHOTBAH</th>
+        <th>ISI KHOTBAH</th>
+        <th>TANGGAL</th>
+        <th>ACTION</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for dk in data_khotbah %}
+      <tr>
+        <td>{{ dk.id_khotbah }}</td>
+        <td>{{ dk.isi_khotbah }}</td>
+        <td>{{ dk.tanggal}}</td>
+
+        <td class="">
+          <a href="{% url 'update_khotbah' dk.id_khotbah %}">UPDATE|</a>      
+          <a onclick="return confirm('Apakah anda ingin menghapus data ini?')" href="{% url 'delete_khotbah' dk.id_khotbah %}">DELETE</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

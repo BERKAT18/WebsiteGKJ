@@ -1,0 +1,51 @@
+{% extends "templates/base.html" %} {% block content %}
+<body>
+  <div class="container">
+    <form action="{% url 'postupdateprofilpendeta' datapendeta.id %}" method="POST"  enctype="multipart/form-data">
+      {% csrf_token %}
+      <table class="table table-striped table-hover">
+        <thead class="">
+          <tr>
+            <th>NAMA PENDETA :</th>
+            <td>
+                <input class="form-control" type="text" name="namapendeta" maxlength="50" id="namapendeta"
+                value="{{ datapendeta.namapendeta }}" required>
+            </td>
+          </tr>
+          <tr>
+            <th>FOTO PENDETA :</th>
+            <td>
+                <input class="form-control" type="file" name="fotopendeta" maxlength="50" id="namagereja"
+                value="{{ datapendeta.fotopendeta }}" required>
+            </td>
+          </tr>
+          <tr>
+            <th>VISI :</th>
+            <td>
+                <input class="form-control" type="text" name="visi" maxlength="50" id="visi"
+                value="{{ datapendeta.visi }}" required>
+            </td>
+          </tr>
+          <tr>
+            <th>MISI :</th>
+            <td>
+                <input class="form-control" type="text" name="misi" maxlength="50" id="misi"
+                value="{{ datapendeta.misi }}" required>
+            </td>
+          </tr>
+          <tr>
+            <th>JADWAL :</th>
+            <td>
+                <input class="form-control" type="text" name="jadwal" maxlength="50" id="jadwal"
+                value="{{ datapendeta.jadwal }}" required>
+            </td>
+          </tr>
+        </thead>
+      </table>
+      <br />
+      <br />
+      <button type="submit" >Simpan</button>
+    </form>
+  </div>
+</body>
+{% endblock %}

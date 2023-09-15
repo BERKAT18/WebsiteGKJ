@@ -1,0 +1,57 @@
+{% extends "templates/base.html" %} {% block content %}
+<body>
+  <div class="container">
+    <form
+      action="{% url 'postupdate_warta' data_warta.id_warta %}"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+      <table class="table table-striped table-hover">
+        <thead class="">
+          <tr>
+            <th>ID WARTA :</th>
+            <td>
+              <input
+                class="form-control"
+                type="text"
+                name="id_warta"
+                maxlength="50"
+                id="id_warta"
+                value="{{ data_warta.id_warta }}"
+                required
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>ISI WARTA :</th>
+            <td>
+              <input
+                class="form-control"
+                type="text"
+                name="isi_warta"
+                maxlength="50"
+                id="isi_warta"
+                value="{{ data_warta.isi_warta }}"
+                required
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>TANGGAL WARTA :</th>
+            <td>
+                <input type="hidden" name="tanggal_warta" value="{{ data_warta.tanggal_warta|date:'Y-m-d' }}">
+                <input class="form-control" type="date" name="tanggal_warta" id="tanggal_warta" 
+                    value="{{ data_warta.tanggal_warta|date:'Y-m-d' }}" required>
+            </td>
+          </tr>
+          <tr></tr>
+        </thead>
+      </table>
+      <br />
+      <br />
+      <button type="submit">Simpan</button>
+    </form>
+  </div>
+</body>
+{% endblock %}
