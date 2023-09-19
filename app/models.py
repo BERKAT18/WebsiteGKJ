@@ -16,17 +16,7 @@ class MPendeta(models.Model):
     misi = models.CharField(max_length=1000)
     jadwal = models.CharField(max_length=100)
     
-# class MKategorial(models.Model):
-#     kodekategorial = models.CharField(primary_key=True, max_length=10)
-#     namakategorial = models.CharField(max_length=10)
-    
-# class MKeluarga(models.Model):
-#     kodekeluarga =models.CharField(primary_key=True, max_length=50)
-#     nama_kepala_keluarga = models.CharField(max_length=50)
-#     alamat_keluarga = models.CharField(max_length=10)
-#     jumlah_anggota_keluarga = models.IntegerField(max_length=50)
-#     foto_keluarga = models.ImageField(upload_to='static/dist/img', blank=True, null=True)
-    
+
 class MKhotbah (models.Model):
     id_khotbah = models.CharField(primary_key=True, max_length=10)
     isi_khotbah = models.CharField(max_length=225)
@@ -50,6 +40,20 @@ class MDokumentasi(models.Model):
     tanggal_kegiatan = models.DateField()
     keterangan_kegiatan = models.CharField(max_length=500)
     
+class MadminLog(models.Model):
+    id_admin = models.AutoField(primary_key=True, max_length=10)
+    username = models.CharField(max_length=20)
+    email = models.EmailField(max_length=50, unique=True)
+    password = models.CharField(max_length=20) 
+    # class MKategorial(models.Model):
+#     kodekategorial = models.CharField(primary_key=True, max_length=10)
+#     namakategorial = models.CharField(max_length=10)
     
+# class MKeluarga(models.Model):
+#     kodekeluarga =models.CharField(primary_key=True, max_length=50)
+#     nama_kepala_keluarga = models.CharField(max_length=50)
+#     alamat_keluarga = models.CharField(max_length=10)
+#     jumlah_anggota_keluarga = models.IntegerField(max_length=50)
+#     foto_keluarga = models.ImageField(upload_to='static/dist/img', blank=True, null=True)
        
     

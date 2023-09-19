@@ -2,6 +2,11 @@
 
 {% block content %}
 <div class="container">
+  {% if messages %}
+  {% for message in messages %}
+  <p class="alert alert-warning alert-dismissible fade show" role="alert">{{ message }}</p>
+  {% endfor %}
+  {% endif %}
     <table class="table table-striped table-hover">
         <thead class="table-dark">
             <tr>
@@ -24,7 +29,7 @@
             <td>{{ dt.tema }}</td>
             <td>{{ dt.ayatemas }}</td>
             <td>
-              <a href="{% url 'updateberanda' dt.id %}">UPDATE</a>
+              <a class="btn btn-warning" href="{% url 'updateberanda' dt.id %}">UPDATE</a>
             </td>
           </tr>
           {% endfor %}

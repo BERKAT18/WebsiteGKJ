@@ -1,78 +1,76 @@
 {% extends "templates/base.html" %} {% block content %}
-<body>
-  <div class="container">
+<div class="card">
+  <div class="card-body">
+    {% if messages %} {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %} {% endif %}
+
     <form action="{% url 'postprofil_pendeta' %}" method="POST"  enctype="multipart/form-data">
       {% csrf_token %}
-      <table class="table table-striped table-hover">
-        <thead class="">
-          <tr>
-            <th>NAMA PENDETA :</th>
-            <td>
+      <h1>FORM TAMBAH PENDETA</h1>
+      <div class="form-group">
+            <p>NAMA PENDETA :</p>
               <input
+              class="form-control" 
                 type="text"
                 name="namapendeta"
                 id="namapendeta"
                 maxlength="500"
                 required
               />
-            </td>
-          </tr>
-          <tr>
-            <th>FOTO PENDETA :</th>
-            <td>
-              <input
+      </div>
+      <div class="form-group">
+            <p>FOTO PENDETA :</p>
+                <input
                 class="form-control"
-                style="width: fit-content"
+                
                 type="file"
                 alt=""
                 name="fotopendeta"
                 id="fotopendeta"
                 required
               />
-            </td>
-          </tr>
-          <tr>
-            <th>VISI :</th>
-            <td>
+      </div>
+      <div class="form-group">
+            <p>VISI :</p>
+            
               <input
+              class="form-control" 
                 type="text"
                 name="visi"
                 id="visi"
                 maxlength="500"
                 required
               />
-            </td>
-          </tr>
-          <tr>
-            <th>MISI :</th>
-            <td>
+          </div>
+           <div class="form-group">
+            <p>MISI :</p>
+           
               <input
+              class="form-control" 
                 type="text"
                 name="misi"
                 id="misi"
                 maxlength="500"
                 required
               />
-            </td>
-          </tr>
-          <tr>
-            <th>JADWAL :</th>
-            <td>
+            </div>
+            <div class="form-group">
+            <p>JADWAL :</p>
+           
               <input
+              class="form-control" 
                 type="text"
                 name="jadwal"
                 id="jadwal"
-                maxlength="500"
+                maxlength="50"
                 required
               />
-            </td>
-          </tr>
-        </thead>
-      </table>
+         </div>
       <br />
       <br />
-      <button type="submit">Simpan</button>
+      <button class="btn btn-success" type="submit">Simpan</button>
     </form>
   </div>
-</body>
-{% endblock %}
+  </div>
+  {% endblock %}

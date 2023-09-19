@@ -1,22 +1,26 @@
-{% extends "templates/base.html" %} {% block content %}
+{% extends "base.html" %} {% block content %}
 <div class="container">
-  <td>
-    
-    <a href="{% url 'tambah_renungan'  %}" class="nav-link">
-      <i class="nav-icon fas fa-plus"> TAMBAH RENUNGAN</i>
-     
-    </a>
-  </td>
+  {% if messages %} {% for message in messages %}
+  <p class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{ message }}
+  </p>
+  {% endfor %} {% endif %}
+  <a class="btn btn-info" href="{% url 'tambah_renungan'  %}" class="nav-link">
+    <i class="nav-icon fas fa-plus"> TAMBAH RENUNGAN</i>
+  </a>
+  <br />
   <br />
   <table class="table table-striped table-hover">
-    <thead class="table-dark">
-      <tr>
-        <th>ID RENUNGAN</th>
-        <th>ISI RENUNGAN</th>
-        <th>TANGGAL</th>
-        <th>ACTION</th>
-      </tr>
-    </thead>
+    <tbody>
+      <thead class="table-dark">
+        <tr>
+          <th>ID RENUNGAN</th>
+          <th>ISI RENUNGAN</th>
+          <th>TANGGAL</th>
+          <th>ACTION</th>
+        </tr>
+      </thead>
+    </tbody>
     <tbody>
       {% for dr in data_renungan %}
       <tr>
@@ -24,9 +28,17 @@
         <td>{{ dr.isi_renungan }}</td>
         <td>{{ dr.tanggal_renungan}}</td>
 
-        <td class="">
-          <a href="{% url 'update_renungan' dr.id_renungan %}">UPDATE|</a>      
-          <a onclick="return confirm('Apakah anda ingin menghapus data ini?')" href="{% url 'delete_renungan' dr.id_renungan %}">DELETE</a>
+        <td>
+          <a
+            class="btn btn-warning"
+           a href="{% url 'update_renungan' dr.id_renungan %}"
+            >UPDATE</a>|
+          <a
+            class="btn btn-danger"
+            onclick="return confirm('Apakah anda ingin menghapus data ini?')"
+            href="{% url 'delete_renungan' dr.id_renungan %}"
+            >DELETE</a
+          >
         </td>
       </tr>
       {% endfor %}

@@ -10,6 +10,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>AdminLTE 3 | Starter</title>
 
+    
+
     <!-- Google Font: Source Sans Pro -->
     <link
       rel="stylesheet"
@@ -336,7 +338,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{%url 'dokumentasi'%}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Document</p>
                     </a>
@@ -472,13 +474,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h1 class="m-0">Dashboard</h1>
+                {% comment %} <h1 class="m-0">Dashboard</h1> {% endcomment %}
               </div>
               <!-- /.col -->
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                  <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item active">Starter Page</li>
+                  <li class="breadcrumb-item"><a href="{% url 'logout'%}">Logout</a></li>
+                  {% comment %} <li class="breadcrumb-item active">Starter Page</li> {% endcomment %}
                 </ol>
               </div>
               <!-- /.col -->
