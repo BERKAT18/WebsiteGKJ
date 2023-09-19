@@ -1,0 +1,83 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="card">
+  <div class="card-body">
+    {% if messages %} {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %} {% endif %}
+    <form
+      action="{% url 'postupdate_dokumentasi' data_dokumentasi.id_dokumentasi %}"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+      <h1>UPDATE DATA DOKUMENTASI</h1>
+      <div class="form-group">
+        <p>ID DOKUMENTASI:</p>
+        <input
+          class="form-control"
+          type="text"
+          name="id_dokumentasi"
+          maxlength="50"
+          id="id_dokumentasi"
+          value="{{ data_dokumentasi.id_dokumentasi }}"
+          readonly
+        />
+      </div>
+      <div class="form-group">
+        <p>FOTO DOKUMENTASI :</p>
+        <input
+          class="form-control"
+          type="file"
+          name="foto_dokumentasi"
+          id="foto_dokumentasi"
+          value="{{ data_dokumentasi.foto_dokumentasi }}"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <p>NAMA KEGIATAN :</p>
+        <input
+          class="form-control"
+          type="text"
+          name="nama_kegiatan"
+          id="nama_kegiatan"
+          maxlength="255"
+          value="{{ data_dokumentasi.nama_kegiatan}}"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <p>TANGGGAL KEGIATAN :</p>
+        <input
+          class="form-control"
+          type="date"
+          name="tanggal_kegiatan"
+          id="tanggal_kegiatan"
+          value="{{ data_dokumentasi.tanggal_kegiatan|date:'Y-m-d' }}"
+          required
+          data-original-date="{{ data_dokumentasi.tanggal_kegiatan|date:'Y-m-d' }}"
+        />
+      </div>
+
+      <div class="form-group">
+        <p>KETERANGAN KEGIATAN :</p>
+        <input
+          class="form-control"
+          type="text"
+          name="keterangan_kegiatan"
+          id="keterangan_kegiatan"
+          maxlength="100"
+          value="{{ data_dokumentasi.keterangan_kegiatan}}"
+          required
+        />
+      </div>
+
+      <br />
+      <br />
+      <button class="btn btn-success" type="submit">SUBMIT</button>
+      <a class="btn btn-warning" href="{% url 'dokumentasi' %}">KEMBALI</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,31 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends "templates/base.html" %} {% block content %}
+<div class="card">
+  <div class="card-body">
+    {% if messages %} {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %} {% endif %}
 
-    <form action="{% url 'posttambah_warta' %}"method="POST">
-        {% csrf_token %}
-        <h1>FORM TAMBAH WARTA</h1>
-        
-        {% if messages %}
-        {% for message in messages %}
-        <p>{{ message }}</p>
-        {% endfor %}
-        {% endif %}
-        <P>ID WARTA :</P>
-        <input type="text" name="id_warta" id="id_warta" maxlength="10" required>
-        <P>ISI WARTA :</P>
-        <input type="text" name="isi_warta" id="isi_warta" maxlength="500" required>
-        <P>TANGGAL :</P>
-        <input type="date" name="tanggal_warta" id="tanggal_warta"  required>
-        <br>
-        <br>
-        <button type="submit">Simpan</button>
+    <form action="{% url 'posttambah_warta' %}" method="POST">
+      {% csrf_token %}
+      <h1>FORM TAMBAH WARTA</h1>
+      <div class="form-group">
+        <p>ID WARTA :</p>
+        <input
+        class="form-control"
+          type="text"
+          name="id_warta"
+          id="id_warta"
+          maxlength="10"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <p>ISI WARTA :</p>
+        <input
+        class="form-control"
+          type="text"
+          name="isi_warta"
+          id="isi_warta"
+          maxlength="500"
+          required
+        />
+      </div>
+      <p>TANGGAL :</p>
+      <div class="form-group">
+        <input class="form-control" type="date" name="tanggal_warta" id="tanggal_warta" required />
+      </div>
+      <br />
+      <button class="btn btn-success" type="submit">Simpan</button>
     </form>
-</body>
-</html>
+  </div>
+</div>
+{% endblock %}

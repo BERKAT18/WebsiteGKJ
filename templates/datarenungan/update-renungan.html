@@ -1,57 +1,58 @@
-{% extends "templates/base.html" %} {% block content %}
-<body>
-  <div class="container">
+{% extends "base.html" %} {% block content %}
+
+<div class="card">
+  <div class="card-body">
+    {% if messages %} {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %} {% endif %}
     <form
       action="{% url 'postupdate_renungan' data_renungan.id_renungan %}"
       method="POST"
       enctype="multipart/form-data"
     >
       {% csrf_token %}
-      <table class="table table-striped table-hover">
-        <thead class="">
-          <tr>
-            <th>ID RENUNGAN :</th>
-            <td>
-              <input
-                class="form-control"
-                type="text"
-                name="id_renungan"
-                maxlength="50"
-                id="id_renungan"
-                value="{{ data_renungan.id_renungan }}"
-                required
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>ISI RENUNGAN :</th>
-            <td>
-              <input
-                class="form-control"
-                type="text"
-                name="isi_renungan"
-                maxlength="50"
-                id="isi_renungan"
-                value="{{ data_renungan.isi_renungan }}"
-                required
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>TANGGAL RENUNGAN :</th>
-            <td>
-                <input type="hidden" name="tanggal_renungan" value="{{ data_renungan.tanggal_renungan|date:'Y-m-d' }}">
-                <input class="form-control" type="date" name="tanggal_renungan" id="tanggal_renungan" 
-                    value="{{ data_renungan.tanggal_renungan|date:'Y-m-d' }}" required>
-            </td>
-          </tr>
-          <tr></tr>
-        </thead>
-      </table>
+      <h1>UPDATE DATA RENUNGAN</h1>
+      <div class="form-group">
+        <p>ID RENUNGAN :</p>
+        <input
+          class="form-control"
+          type="text"
+          name="id_renungan"
+          maxlength="50"
+          id="id_renungan"
+          value="{{ data_renungan.id_renungan }}"
+          readonly
+        />
+      </div>
+      <div class="form-group">
+        <p>ISI RENUNGAN :</p>
+
+        <input
+          class="form-control"
+          type="text"
+          name="isi_renungan"
+          maxlength="500"
+          id="isi_renungan"
+          value="{{ data_renungan.isi_renungan }}"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <p>TANGGAL RENUNGAN :</p>
+
+        <input
+          class="form-control"
+          type="date"
+          name="tanggal_renungan"
+          id="tanggal_renungan"
+          value="{{ data_renungan.tanggal_renungan|date:'Y-m-d' }}"
+          required
+        />
+      </div>
       <br />
       <br />
-      <button type="submit">Simpan</button>
+      <button class="btn btn-success" type="submit">Simpan</button>
     </form>
   </div>
-</body>
+</div>
 {% endblock %}

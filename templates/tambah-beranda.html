@@ -1,37 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends "templates/base.html" %} {% block content %}
+<div class="card">
+  <div class="card-body">
+    {% if messages %} {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %} {% endif %}
 
-    <form action="{% url 'postberanda' %}"method="POST">
-        {% csrf_token %}
-        <h1>FORM TAMBAH BERANDA</h1>
-        
-        {% if messages %}
-        {% for message in messages %}
-        <p>{{ message }}</p>
-        {% endfor %}
-        {% endif %}
-        <P>TEMA :</P>
-        <input type="text" name="tema" id="tema" maxlength="100" required>
-        <P>NAMA GEREJA :</P>
-        <input type="text" name="namagereja" id="namagereja" maxlength="500" required>
-        <P>ALAMAT GEREJA :</P>
-        <input type="text" name="alamatgereja" id="alamatgereja" maxlength="500" required>
-        <P>TELEPON GEREJA :</P>
-        <input type="number" name="telepongereja" id="telepongereja" maxlength="15" required>
-        <P>TANGGAL BERDIRI :</P>
-        <input type="date" name="tanggalberdiri" id="tanggalberdiri"  required>
-        <P>AYAT EMAS :</P>
-        <input type="text" name="ayatemas" id="ayatemas" maxlength="500" required>
-        <br>
-        <br>
-        <button type="submit">Simpan</button>
+    <form action="{% url 'postberanda' %}" method="POST">
+      {% csrf_token %}
+      <h1>FORM TAMBAH BERANDA</h1>
+      <div class="form-group">
+        <p>TEMA :</p>
+        <input  class="form-control" type="text" name="tema" id="tema" maxlength="100" required />
+      </div>
+      <div class="form-group">
+        <p>NAMA GEREJA :</p>
+        <input
+        class="form-control"
+          type="text"
+          name="namagereja"
+          id="namagereja"
+          maxlength="500"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <p>ALAMAT GEREJA :</p>
+        <input
+        class="form-control"
+          type="text"
+          name="alamatgereja"
+          id="alamatgereja"
+          maxlength="500"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <p>TELEPON GEREJA :</p>
+        <input
+        class="form-control"
+          type="number"
+          name="telepongereja"
+          id="telepongereja"
+          maxlength="15"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <p>TANGGAL BERDIRI :</p>
+        <input  class="form-control" type="date" name="tanggalberdiri" id="tanggalberdiri" required />
+      </div>
+      <div class="form-group">
+        <p>AYAT EMAS :</p>
+        <input
+        class="form-control"
+          type="text"
+          name="ayatemas"
+          id="ayatemas"
+          maxlength="500"
+          required
+        />
+      </div>
+      <br/>
+      <button class="btn btn-success" type="submit">Simpan</button>
     </form>
-</body>
-</html>
+  </div>
+</div>
+{% endblock %}

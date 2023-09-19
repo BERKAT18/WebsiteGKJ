@@ -1,16 +1,21 @@
-{% extends "templates/base.html" %} {% block content %}
+{% extends "base.html" %}
+
+{% block content %}
 <div class="container">
-  <td>
-    
-    <a href="{% url 'tambah_warta'  %}" class="nav-link">
+  {% if messages %}
+  {% for message in messages %}
+  <p class="alert alert-warning alert-dismissible fade show" role="alert">{{ message }}</p>
+  {% endfor %}
+  {% endif %}
+
+    <a  class= "btn btn-info"href="{% url 'tambah_warta'  %}" class="nav-link">
       <i class="nav-icon fas fa-plus"> TAMBAH WARTA</i>
-     
     </a>
-  </td>
-  <br />
-  <table class="table table-striped table-hover">
-    <thead class="table-dark">
-      <tr>
+    <br>
+    <br>
+    <table class="table table-striped table-hover">
+      <thead class="table-dark">
+        <tr>
         <th>ID WARTA</th>
         <th>ISI WARTA</th>
         <th>TANGGAL</th>
@@ -25,12 +30,12 @@
         <td>{{ dw.tanggal_warta}}</td>
 
         <td class="">
-          <a href="{% url 'update_warta' dw.id_warta %}">UPDATE|</a>      
-          <a onclick="return confirm('Apakah anda ingin menghapus data ini?')" href="{% url 'delete_warta' dw.id_warta %}">DELETE</a>
+          <a class="btn btn-warning" href="{% url 'update_warta' dw.id_warta %}">UPDATE</a>|      
+          <a class="btn btn-danger" onclick="return confirm('Apakah anda ingin menghapus data ini?')" href="{% url 'delete_warta' dw.id_warta %}">DELETE</a>
         </td>
       </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+    {% endfor %}
+  </tbody>
+</table>
 </div>
 {% endblock %}
