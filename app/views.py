@@ -422,4 +422,16 @@ def logout(request):
     request.session.flush()
     messages.success(request, 'BERHASIL LOGOUT')
     return redirect('login')
-    
+
+
+
+# VIEWS Profile Page``
+
+def home_profile(request):
+    data_gereja = MGereja.objects.all()
+    data_pendeta = MPendeta.objects.all()
+    context = {
+        'data_gereja' : data_gereja,
+        'data_pendeta' : data_pendeta,
+    }
+    return render (request, 'profile/index.html', context) 

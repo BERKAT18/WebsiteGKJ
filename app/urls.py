@@ -50,8 +50,11 @@ urlpatterns = [
     
     path('login',login,name='login'),
     path('form_login',form_login,name='form_login'),
-    path('logout',logout,name='logout')
-    
+    path('logout',logout,name='logout'),
+
+
+    # URLS Proile Page
+    path('home_profile', home_profile, name='home_profile'),
  
 ]
 
