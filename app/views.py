@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from django.shortcuts import render
-from .models import MGereja, MPendeta , MKhotbah,MWarta,MRenungan,MDokumentasi,MadminLog
+from .models import MGereja, MPendeta , MKhotbah,MWarta,MRenungan,MDokumentasi,MadminLog, MDokumentasi
 from django.contrib.auth import authenticate, login
 from .decorators import login_required
 # Create your views here.
@@ -435,3 +435,19 @@ def home_profile(request):
         'data_pendeta' : data_pendeta,
     }
     return render (request, 'profile/index.html', context) 
+
+def warta_page(request):
+    return render (request, 'profile/warta.html')
+
+def renungan_page(request):
+    return render (request, 'profile/renungan.html')
+
+def khotbah_page(request):
+    return render (request, 'profile/khotbah.html')
+
+def document_page(request):
+    data_document = MDokumentasi.objects.all()
+    context = {
+        'data_document' : data_document,
+    }
+    return render (request, 'profile/document.html', context)

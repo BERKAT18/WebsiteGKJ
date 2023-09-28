@@ -6,12 +6,12 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>DevFolio Bootstrap Portfolio Template - Index</title>
+    <title>GKJ Genesis - Profile</title>
     <meta content name="description">
     <meta content name="keywords">
 
     <!-- Favicons -->
-    <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+    <link href="{% static 'dist/img/logo-gkj_Y6wbtL6.png' %}" rel="icon">
     <link href="{% static 'assets/img/apple-touch-icon.png' %}"
       rel="apple-touch-icon">
 
@@ -168,7 +168,7 @@
           </div>
           <div class="row">
             <div class="col-md-6">
-              <button class="service-box">
+              <button onclick="location.href='/warta_page'" class="service-box">
                 <div class="service-ico">
                   <span class="ico-circle"><i class="bi bi-briefcase"></i></span>
                 </div>
@@ -181,7 +181,7 @@
               </button>
             </div>
             <div class="col-md-6">
-              <button class="service-box">
+              <button onclick="location.href='/khotbah_page'" class="service-box">
                 <div class="service-ico">
                   <span class="ico-circle"><i class="bi bi-card-checklist"></i></span>
                 </div>
@@ -194,7 +194,7 @@
               </button>
             </div>
             <div class="col-md-6">
-              <button class="service-box">
+              <button onclick="location.href='/renungan_page'" class="service-box">
                 <div class="service-ico">
                   <span class="ico-circle"><i class="bi bi-bar-chart"></i></span>
                 </div>
@@ -207,7 +207,7 @@
               </button>
             </div>
             <div class="col-md-6">
-              <button class="service-box">
+              <button onclick="location.href='/document_page'" class="service-box">
                 <div class="service-ico">
                   <span class="ico-circle"><i class="bi bi-binoculars"></i></span>
                 </div>
@@ -327,13 +327,14 @@
                           laboriosam ratione nobis
                           mollitia inventore?
                         </p>
+                        {% for dg in data_gereja %}
                         <ul class="list-ico">
-                          <li><span class="bi bi-geo-alt"></span> 329 WASHINGTON
-                            ST BOSTON, MA 02108</li>
-                          <li><span class="bi bi-phone"></span> (617) 557-0089</li>
+                          <li><span class="bi bi-geo-alt"></span>{{ dg.alamatgereja }}</li>
+                          <li><span class="bi bi-phone"></span>{{ dg.telepongereja }}</li>
                           <li><span class="bi bi-envelope"></span>
                             contact@example.com</li>
                         </ul>
+                        {% endfor %}
                       </div>
                       <div class="socials">
                         <ul>
