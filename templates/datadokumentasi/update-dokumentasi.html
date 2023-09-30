@@ -62,15 +62,13 @@
 
       <div class="form-group">
         <p>KETERANGAN KEGIATAN :</p>
-        <input
-          class="form-control"
-          type="text"
-          name="keterangan_kegiatan"
-          id="keterangan_kegiatan"
-          maxlength="100"
-          value="{{ data_dokumentasi.keterangan_kegiatan}}"
-          required
-        />
+        <textarea 
+        class="form-control"
+        type="text"
+        name="keterangan_kegiatan"
+        id="keterangan_kegiatan"
+        maxlength="100"
+        required>{{ data_dokumentasi.keterangan_kegiatan}}</textarea>
       </div>
 
       <br />

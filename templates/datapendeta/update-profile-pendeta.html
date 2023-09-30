@@ -26,33 +26,63 @@
       </div>
       <div class="form-group">
         <p>FOTO PENDETA :</p>
-        <img src="{{ datapendeta.fotopendeta.url }}" alt="">
+        <img style="width: 300px;" src="{{ datapendeta.fotopendeta.url }}" alt="">
                 <input class="form-control" type="file" name="fotopendeta" id="fotopendeta"
                 required>
       </div>
       <div class="form-group">
-        <p>VISI :</p>
+        <p>TELEPON PENDETA :</p>
         <input
           class="form-control"
           type="text"
-          name="visi"
+          name="tlpn_pendeta"
           maxlength="50"
-          id="visi"
-          value="{{ datapendeta.visi }}"
+          id="tlpn_pendeta"
+          value="{{ datapendeta.tlpn_pendeta }}"
           required
         />
       </div>
       <div class="form-group">
-        <p>MISI :</p>
+        <p>EMAIL PENDETA :</p>
         <input
           class="form-control"
           type="text"
-          name="misi"
+          name="email_pendeta"
           maxlength="50"
-          id="misi"
-          value="{{ datapendeta.misi }}"
+          id="email_pendeta"
+          value="{{ datapendeta.email_pendeta }}"
           required
         />
+      </div>
+      <div class="form-group">
+        <p>PENDIDIKAN PENDETA :</p>
+        <input
+          class="form-control"
+          type="text"
+          name="pendidikan_pendeta"
+          maxlength="50"
+          id="pendidikan_pendeta"
+          value="{{ datapendeta.pendidikan_pendeta }}"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <p>VISI :</p>
+        <textarea class="form-control"
+        type="text"
+        name="visi"
+        maxlength="500"
+        id="visi"
+        required>{{ datapendeta.visi }}</textarea>
+      </div>
+      <div class="form-group">
+        <p>MISI :</p>
+        <textarea class="form-control"
+        type="text"
+        name="misi"
+        maxlength="500"
+        id="misi"
+        required>{{ datapendeta.misi }}</textarea>
       </div>
       <div class="form-group">
         <p>JADWAL :</p>
