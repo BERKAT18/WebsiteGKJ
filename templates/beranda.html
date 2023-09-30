@@ -16,6 +16,7 @@
                 <th>TANGGAL BERDIRI</th>
                 <th>TEMA</th>
                 <th>AYAT EMAS</th>
+                <th>ISI AYAT EMAS</th>
                 <th>AKSI</th>
             </tr>
         </thead>
@@ -28,6 +29,7 @@
             <td>{{ dt.tanggalberdiri }}</td>
             <td>{{ dt.tema }}</td>
             <td>{{ dt.ayatemas }}</td>
+            <td>{{ dt.isi_ayatemas }}</td>
             <td>
               <a class="btn btn-warning" href="{% url 'updateberanda' dt.id %}">UPDATE</a>
             </td>

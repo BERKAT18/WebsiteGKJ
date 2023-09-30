@@ -15,6 +15,7 @@
       <thead class="table-dark">
         <tr>
           <th>ID RENUNGAN</th>
+          <th>JUDUL RENUNGAN</th>
           <th>ISI RENUNGAN</th>
           <th>TANGGAL</th>
           <th>ACTION</th>
@@ -25,6 +26,7 @@
       {% for dr in data_renungan %}
       <tr>
         <td>{{ dr.id_renungan }}</td>
+        <td>{{ dr.judul_renungan }}</td>
         <td>{{ dr.isi_renungan }}</td>
         <td>{{ dr.tanggal_renungan}}</td>
 

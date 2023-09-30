@@ -17,6 +17,8 @@
     <thead class="table-dark">
       <tr>
         <th>ID KHOTBAH</th>
+        <th>JUDUL KHOTBAH</th>
+        <th>AYAT KHOTBAH</th>
         <th>ISI KHOTBAH</th>
         <th>TANGGAL</th>
         <th>ACTION</th>
@@ -26,6 +28,8 @@
       {% for dk in data_khotbah %}
       <tr>
         <td>{{ dk.id_khotbah }}</td>
+        <td>{{ dk.judul_khotbah }}</td>
+        <td>{{ dk.ayat_khotbah }}</td>
         <td>{{ dk.isi_khotbah }}</td>
         <td>{{ dk.tanggal}}</td>
 

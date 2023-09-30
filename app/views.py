@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from django.shortcuts import render
-from .models import MGereja, MPendeta , MKhotbah,MWarta,MRenungan,MDokumentasi,MadminLog
+from .models import MGereja, MPendeta , MKhotbah,MWarta,MRenungan,MDokumentasi,MadminLog, MDokumentasi
 from django.contrib.auth import authenticate, login
 from .decorators import login_required
 # Create your views here.
@@ -57,6 +57,7 @@ def postupdate_beranda(request, id):  # Menambahkan id sebagai argumen
     tanggalberdiri = request.POST['tanggalberdiri']
     tema = request.POST['tema']
     ayatemas = request.POST['ayatemas']
+    isi_ayatemas = request.POST['isi_ayatemas']
 
     updateberanda = MGereja.objects.get(id=id)
 
@@ -66,6 +67,7 @@ def postupdate_beranda(request, id):  # Menambahkan id sebagai argumen
     updateberanda.tanggalberdiri = tanggalberdiri
     updateberanda.tema = tema
     updateberanda.ayatemas = ayatemas
+    updateberanda.isi_ayatemas =isi_ayatemas
 
     updateberanda.save()
 
@@ -109,6 +111,9 @@ def updateprofil_pendeta(request, id):
 def postupdateprofil_pendeta(request, id):
     namapendeta = request.POST['namapendeta']
     fotopendeta = request.FILES['fotopendeta']
+    tlpn_pendeta = request.POST['tlpn_pendeta']
+    email_pendeta = request.POST['email_pendeta']
+    pendidikan_pendeta = request.POST['pendidikan_pendeta']
     visi = request.POST['visi']
     misi = request.POST['misi']
     jadwal = request.POST['jadwal']
@@ -116,6 +121,9 @@ def postupdateprofil_pendeta(request, id):
     postupdateprofilpendeta = MPendeta.objects.get(id=id)
     postupdateprofilpendeta.namapendeta = namapendeta
     postupdateprofilpendeta.fotopendeta = fotopendeta
+    postupdateprofilpendeta.tlpn_pendeta = tlpn_pendeta
+    postupdateprofilpendeta.email_pendeta = email_pendeta
+    postupdateprofilpendeta.pendidikan_pendeta = pendidikan_pendeta
     postupdateprofilpendeta.visi= visi
     postupdateprofilpendeta.misi = misi
     postupdateprofilpendeta.jadwal= jadwal
@@ -141,11 +149,15 @@ def tambah_khotbah(request):
 
 def posttambah_khotbah(request):
     id_khotbah = request.POST['id_khotbah']
+    judul_khotbah = request.POST['judul_khotbah']
+    ayat_khotbah = request.POST['ayat_khotbah']
     isi_khotbah = request.POST['isi_khotbah']
     tanggal = request.POST['tanggal']
     
     postkhotbah = MKhotbah(
     id_khotbah = id_khotbah,
+    judul_khotbah = judul_khotbah,
+    ayat_khotbah = ayat_khotbah,
     isi_khotbah = isi_khotbah,
     tanggal = tanggal
    
@@ -163,6 +175,8 @@ def update_khotbah(request, id_khotbah):
 
 def postupdate_khotbah(request, id_khotbah):  # Menambahkan id sebagai argumen
     id_khotbah = request.POST['id_khotbah']
+    judul_khotbah = request.POST['judul_khotbah']
+    ayat_khotbah = request.POST['ayat_khotbah']
     isi_khotbah = request.POST['isi_khotbah']
     tanggal = request.POST['tanggal']
   
@@ -170,6 +184,8 @@ def postupdate_khotbah(request, id_khotbah):  # Menambahkan id sebagai argumen
     update_khotbah = MKhotbah.objects.get(id_khotbah=id_khotbah)
 
     update_khotbah.id_khotbah = id_khotbah
+    update_khotbah.judul_khotbah = judul_khotbah
+    update_khotbah.ayat_khotbah = ayat_khotbah
     update_khotbah.isi_khotbah = isi_khotbah
     update_khotbah.tanggal = tanggal
   
@@ -198,11 +214,13 @@ def tambah_warta(request):
 
 def posttambah_warta(request):
     id_warta = request.POST['id_warta']
+    judul_warta = request.POST['judul_warta']
     isi_warta = request.POST['isi_warta']
     tanggal_warta = request.POST['tanggal_warta']
     
     postwarta = MWarta(
     id_warta = id_warta,
+    judul_warta = judul_warta,
     isi_warta = isi_warta,
     tanggal_warta = tanggal_warta
    
@@ -221,6 +239,7 @@ def update_warta(request, id_warta):
 
 def postupdate_warta(request, id_warta):  # Menambahkan id sebagai argumen
     id_warta = request.POST['id_warta']
+    judul_warta = request.POST['judul_warta']
     isi_warta = request.POST['isi_warta']
     tanggal_warta = request.POST['tanggal_warta']
   
@@ -228,6 +247,7 @@ def postupdate_warta(request, id_warta):  # Menambahkan id sebagai argumen
     update_warta = MWarta.objects.get(id_warta=id_warta)
 
     update_warta.id_warta = id_warta
+    update_warta.judul_warta = judul_warta
     update_warta.isi_warta = isi_warta
     update_warta.tanggal_warta = tanggal_warta
   
@@ -257,11 +277,15 @@ def tambah_renungan(request):
 
 def posttambah_renungan(request):
     id_renungan = request.POST['id_renungan']
+    judul_renungan = request.POST['judul_renungan']
+    ayat_renungan = request.POST['ayat_renungan']
     isi_renungan = request.POST['isi_renungan']
     tanggal_renungan = request.POST['tanggal_renungan']
     
     postrenungan = MRenungan(
     id_renungan = id_renungan,
+    judul_renungan = judul_renungan,
+    ayat_renungan = ayat_renungan,
     isi_renungan = isi_renungan,
     tanggal_renungan = tanggal_renungan
    
@@ -279,6 +303,8 @@ def update_renungan(request, id_renungan):
 
 def postupdate_renungan(request, id_renungan):  # Menambahkan id sebagai argumen
     id_renungan = request.POST['id_renungan']
+    judul_renungan = request.POST['judul_renungan']
+    ayat_renungan = request.POST['ayat_renungan']
     isi_renungan = request.POST['isi_renungan']
     tanggal_renungan = request.POST['tanggal_renungan']
   
@@ -286,6 +312,8 @@ def postupdate_renungan(request, id_renungan):  # Menambahkan id sebagai argumen
     update_renungan = MRenungan.objects.get(id_renungan=id_renungan)
 
     update_renungan.id_renungan = id_renungan
+    update_renungan.judul_renungan = judul_renungan
+    update_renungan.ayat_renungan = ayat_renungan
     update_renungan.isi_renungan = isi_renungan
     update_renungan.tanggal_renungan = tanggal_renungan
   
@@ -435,3 +463,51 @@ def home_profile(request):
         'data_pendeta' : data_pendeta,
     }
     return render (request, 'profile/index.html', context) 
+
+def warta_page(request):
+    data_warta = MWarta.objects.all().order_by('tanggal_warta')
+    context = {'data_warta' : data_warta}
+    return render (request, 'profile/warta.html', context)
+
+def renungan_page(request):
+    data_renungan = MRenungan.objects.all()
+    data_pendeta = MPendeta.objects.all()
+    context = {
+        'data_pendeta' : data_pendeta,
+        'data_renungan' : data_renungan,
+    }
+    return render (request, 'profile/renungan.html', context)
+
+def khotbah_page(request):
+    data_khotbah = MKhotbah.objects.all()
+    data_pendeta = MPendeta.objects.all()
+    context = {
+        'data_pendeta' : data_pendeta,
+        'data_khotbah' : data_khotbah,
+    }
+    return render (request, 'profile/khotbah.html', context)
+
+def document_page(request):
+    data_document = MDokumentasi.objects.all()
+    context = {
+        'data_document' : data_document,
+    }
+    return render (request, 'profile/document.html', context)
+
+def detail_renungan(request, id_renungan):
+    data_renungan = MRenungan.objects.get(id_renungan=id_renungan)
+    data_pendeta = MPendeta.objects.all()
+    context = {
+        'data_renungan': data_renungan,
+        'data_pendeta' : data_pendeta,
+    }
+    return render(request, 'profile/detailRenungan.html', context)
+
+def detail_khotbah(request, id_khotbah):
+    data_khotbah = MKhotbah.objects.get(id_khotbah=id_khotbah)
+    data_pendeta = MPendeta.objects.all()
+    context = {
+        'data_khotbah': data_khotbah,
+        'data_pendeta' : data_pendeta,
+    }
+    return render(request, 'profile/detailKhotbah.html', context)

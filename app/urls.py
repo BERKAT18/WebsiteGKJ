@@ -55,6 +55,12 @@ urlpatterns = [
 
     # URLS Proile Page
     path('home_profile', home_profile, name='home_profile'),
+    path('document_page', document_page, name='document_page'),
+    path('warta_page', warta_page, name='warta_page'),
+    path('renungan_page', renungan_page, name='renungan_page'),
+    path('khotbah_page', khotbah_page, name='khotbah_page'),
+    path('detail_renungan/<str:id_renungan>', detail_renungan, name='detail_renungan'),
+    path('detail_khotbah/<str:id_khotbah>', detail_khotbah, name='detail_khotbah'),
  
 ]
 

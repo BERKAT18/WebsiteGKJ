@@ -5,25 +5,38 @@
     <p>{{ message }}</p>
     {% endfor %} {% endif %}
 
-    <form action="{% url 'posttambah_khotbah' %}"method="POST">
-        {% csrf_token %}
-        <h1>FORM TAMBAH KHOTBAH</h1>
-        <div class="form-group">
-        <P>ID KHOTBAH :</P>
-        <input class="form-control"  type="text" name="id_khotbah" id="id_khotbah" maxlength="10" required>
-        </div>
-        <div class="form-group">
-        <P>ISI KHOTBAH :</P>
-        <input class="form-control"  type="text" name="isi_khotbah" id="isi_khotbah" maxlength="500" required>
-        </div>
-        <div class="form-group">
-        <P>TANGGAL :</P>
-        <input class="form-control"  type="date" name="tanggal" id="tanggal"  required>
-        </div>
-        <br>
-        <br>
-        <button class="btn btn-success" type="submit">Simpan</button>
+    <form action="{% url 'posttambah_khotbah' %}" method="POST">
+      {% csrf_token %}
+      <h1>FORM TAMBAH KHOTBAH</h1>
+      <div class="form-group">
+        <p>ID KHOTBAH :</p>
+        <input class="form-control" type="text" name="id_khotbah"
+          id="id_khotbah" maxlength="10" required>
+      </div>
+      <div class="form-group">
+        <p>JUDUL KHOTBAH</p>
+        <input class="form-control" type="text" name="judul_khotbah"
+          id="judul_khotbah" maxlength="500" required>
+      </div>
+      <div class="form-group">
+        <p>AYAT KHOTBAH</p>
+        <input class="form-control" type="text" name="ayat_khotbah" id="ayat_khotbah"
+          maxlength="225" required />
+      </div>
+      <div class="form-group">
+        <p>ISI KHOTBAH :</p>
+        <textarea class="form-control" name="isi_khotbah" id="isi_khotbah"
+          maxlength="1000" required></textarea>
+      </div>
+      <div class="form-group">
+        <p>TANGGAL :</p>
+        <input class="form-control" type="date" name="tanggal" id="tanggal"
+          required>
+      </div>
+      <br>
+      <br>
+      <button class="btn btn-success" type="submit">Simpan</button>
     </form>
-</div>
+  </div>
 </div>
 {% endblock %}

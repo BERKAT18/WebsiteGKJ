@@ -6,12 +6,12 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>DevFolio Bootstrap Portfolio Template - Index</title>
+    <title>GKJ Genesis - Profile</title>
     <meta content name="description">
     <meta content name="keywords">
 
     <!-- Favicons -->
-    <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+    <link href="{% static 'dist/img/logo-gkj_Y6wbtL6.png' %}" rel="icon">
     <link href="{% static 'assets/img/apple-touch-icon.png' %}"
       rel="apple-touch-icon">
 
@@ -60,7 +60,7 @@
     <header id="header" class="fixed-top">
       <div class="container d-flex align-items-center justify-content-between">
 
-        <h1 class="logo"><a href="index.html">GKJ <span style='color: #fcc23f'>
+        <h1 class="logo"><a href="#">GKJ <span style='color: #fcc23f'>
               Genesis </span></a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
@@ -90,8 +90,9 @@
             {% for dg in data_gereja %}
             <h1 class="hero-title mb-4"
               style="color: #fcc23f; padding-top: 18%;">"{{ dg.tema }}"</h1>
+            <h3 style="color: whitesmoke;" class="hero-subtitile">{{ dg.ayatemas }}</h3>
             <p class="hero-subtitle"><span class="typed"
-                data-typed-items="{{ dg.ayatemas }}"></span></p>
+                data-typed-items="{{ dg.isi_ayatemas }}"></span></p>
             <!-- <p class="pt-3"><a class="btn btn-primary btn js-scroll px-4" href="#about" role="button">Learn More</a></p> -->
             {% endfor %}
           </div>
@@ -115,10 +116,9 @@
                 </div>
                 <div class="about-info">
                   <p><span class="title-s">Nama: </span> <span>{{ dp.namapendeta }}</span></p>
-                  <p><span class="title-s">Profile: </span> <span>full stack
-                      developer</span></p>
-                  <p><span class="title-s">Email: </span> <span>contact@example.com</span></p>
-                  <p><span class="title-s">Phone: </span> <span>(617) 557-0089</span></p>
+                  <p><span class="title-s">Pendidikan: </span> <span>{{ dp.pendidikan_pendeta }}</span></p>
+                  <p><span class="title-s">Email: </span> <span>{{ dp.email_pendeta }}</span></p>
+                  <p><span class="title-s">Phone: </span> <span>{{ dp.tlpn_pendeta }}</span></p>
                 </div>
               </div>
               <div class="col-md-6">
@@ -168,9 +168,9 @@
           </div>
           <div class="row">
             <div class="col-md-6">
-              <button class="service-box">
+              <button onclick="location.href='/warta_page'" class="service-box">
                 <div class="service-ico">
-                  <span class="ico-circle"><i class="bi bi-briefcase"></i></span>
+                  <span class="ico-circle"><i class="bi bi-newspaper"></i></span>
                 </div>
                 <div class="service-content">
                   <h2 class="s-title">Warta Gereja</h2>
@@ -181,9 +181,9 @@
               </button>
             </div>
             <div class="col-md-6">
-              <button class="service-box">
+              <button onclick="location.href='/khotbah_page'" class="service-box">
                 <div class="service-ico">
-                  <span class="ico-circle"><i class="bi bi-card-checklist"></i></span>
+                  <span class="ico-circle"><i class="bi bi-book-half"></i></span>
                 </div>
                 <div class="service-content">
                   <h2 class="s-title">Khotbah</h2>
@@ -194,9 +194,9 @@
               </button>
             </div>
             <div class="col-md-6">
-              <button class="service-box">
+              <button onclick="location.href='/renungan_page'" class="service-box">
                 <div class="service-ico">
-                  <span class="ico-circle"><i class="bi bi-bar-chart"></i></span>
+                  <span class="ico-circle"><i class="bi bi-book"></i></span>
                 </div>
                 <div class="service-content">
                   <h2 class="s-title">Renungan</h2>
@@ -207,9 +207,9 @@
               </button>
             </div>
             <div class="col-md-6">
-              <button class="service-box">
+              <button onclick="location.href='/document_page'" class="service-box">
                 <div class="service-ico">
-                  <span class="ico-circle"><i class="bi bi-binoculars"></i></span>
+                  <span class="ico-circle"><i class="bi bi-camera-fill"></i></span>
                 </div>
                 <div class="service-content">
                   <h2 class="s-title">Dokumentasi</h2>
@@ -327,13 +327,13 @@
                           laboriosam ratione nobis
                           mollitia inventore?
                         </p>
+                        {% for dg in data_gereja %}
                         <ul class="list-ico">
-                          <li><span class="bi bi-geo-alt"></span> 329 WASHINGTON
-                            ST BOSTON, MA 02108</li>
-                          <li><span class="bi bi-phone"></span> (617) 557-0089</li>
-                          <li><span class="bi bi-envelope"></span>
-                            contact@example.com</li>
+                          <li><span class="bi bi-geo-alt"></span>{{ dg.alamatgereja }}</li>
+                          <li><span class="bi bi-phone"></span>{{ dg.telepongereja }}</li>
+                          <li><span class="bi bi-envelope"></span>{{ dg.emailgereja }}</li>
                         </ul>
+                        {% endfor %}
                       </div>
                       <div class="socials">
                         <ul>

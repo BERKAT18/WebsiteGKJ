@@ -17,6 +17,7 @@
       <thead class="table-dark">
         <tr>
         <th>ID WARTA</th>
+        <th>JUDUL WARTA</th>
         <th>ISI WARTA</th>
         <th>TANGGAL</th>
         <th>ACTION</th>
@@ -26,6 +27,7 @@
       {% for dw in data_warta %}
       <tr>
         <td>{{ dw.id_warta }}</td>
+        <td>{{ dw.judul_warta }}</td>
         <td>{{ dw.isi_warta }}</td>
         <td>{{ dw.tanggal_warta}}</td>
 
