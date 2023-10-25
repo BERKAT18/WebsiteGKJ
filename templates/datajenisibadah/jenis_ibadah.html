@@ -25,19 +25,19 @@
       {% for di in data_ibadah %}
       <tr  class="text-center">
         <td>{{ di.kode_jenis_ibadah }}</td>
-        <td>{{ di.nama_jenis_ibadah }}</td>
+        <td class="text-left">{{ di.nama_jenis_ibadah }}</td>
         <td>{{ di.periode }}</td>
 
         <td class="">
           <a
             class="btn btn-warning"
             href="{% url 'update_jenis_ibadah' di.kode_jenis_ibadah %}"
-            >UPDATE</a>|
+            ><i class='fas fa-pencil-alt' ></i> UPDATE</a>
         <a
             class="btn btn-danger"
             onclick="return confirm('Apakah anda ingin menghapus data ini?')"
             href="{% url 'delete_jenis_ibadah' di.kode_jenis_ibadah %}"
-            >DELETE</a>
+            ><i class='fas fa-trash' ></i>DELETE</a>
         </td>
       </tr>
       {% endfor %}
