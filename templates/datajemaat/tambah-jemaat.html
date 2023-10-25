@@ -1,0 +1,151 @@
+{% extends "templates/base.html" %} {% block content %}
+<div class="card">
+  <div class="card-body">
+    {% if messages %}
+    {% for message in messages %}
+    <p class="alert alert-warning alert-dismissible fade show" role="alert">{{ message }}</p>
+    {% endfor %}
+    {% endif %}
+    <form
+      action="{% url 'post_jemaat' %}"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+      <h1>FORM TAMBAH KELUARGA</h1>
+
+      <div class="form-group">
+        <p>KODE JEMAAT :</p>
+        <input
+          class="form-control"
+          type="text"
+          name="kode_jemaat"
+          id="kode_jemaat"
+          maxlength="10"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <p>KODE KELUARGA :</p>
+        <select  class="form-control" name="kode_keluarga" id="kode_keluarga">
+          <option value="" disabled selected>Kode Keluarga</option>
+          {% for dt in dataanggotakeluarga  %}
+          {% if dt.kode_keluarga == datakeluarga.kode_keluarga %}
+          <option value="{{ dt.kode_keluarga }}">{{ dt.kode_keluarga }}</option>
+          {% endif %}
+          {% endfor %}
+        </select>
+      </div>
+        <div class="form-group">
+        <p>NAMA JEMAAT :</p>
+        <input
+          class="form-control"
+          type="text"
+          name="nama_jemaat"
+          id="nama_jemaat"
+          maxlength="50"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <p>STATUS DALAM KELUARGA :</p>
+        <select required class="form-control" name="status_dalam_keluarga" id="status_dalam_keluarga">
+            <option value="" disabled selected> --pilih-- </option>
+                <option value="Ayah/Kepala Keluarga"
+                {% for da in dataanggota %}
+                {% if da.kode_keluarga.kode_keluarga == datakeluarga.kode_keluarga and da.status_dalam_keluarga == "Ayah/Kepala Keluarga" %}
+                disabled
+                {% endif %}
+                {% endfor %}
+                >Ayah/Kepala Keluarga</option>
+                <option value="IBU">IBU</option>
+                <option value="ANAK">ANAK</option>
+          </select
+          required>
+      </div>
+      
+        <div class="form-group">
+            <p>TANGGAL LAHIR :</p>
+            <input class="form-control" type="date" name="tanggal_lahir" id="tanggal_lahir"
+              required>
+        </div>
+        <div class="form-group">
+          <p>JENIS KELAMIN :</p>
+          <select required class="form-control" name="jenis_kelamin" id="jenis_kelamin">
+            <option value="" disabled selected> --pilih-- </option>
+                <option value="Laki-Laki">Laki-Laki</option>
+                <option value="Perempuan">Perempuan</option>
+          </select
+          required>
+        </div>
+      
+        <div class="form-group">
+          <p>KODE KATEGORIAL :</p>
+          <select class="form-control" name="kodekategorial" id="kodekategorial">
+              <option value="" disabled selected> --pilih-- </option>
+              {% for dkat in datakategorial %}
+                  <option value="{{ dkat.kodekategorial }}">{{ dkat.kodekategorial }}/ {{dkat.namakategorial}}</option>
+              {% endfor %}
+          </select
+          required>
+      </div> 
+                <div class="form-group">
+                    <p>STATUS BAPTIS :</p>
+                    <select required class="form-control" name="status_baptis" id="status_baptis">
+                        <option value="" disabled selected>Pilih Status :</option>
+                            <option value="Sudah Baptis">Sudah Baptis</option>
+                            <option value="Belum Baptis">Belum Baptis</option>
+                      </select
+                      required>
+                    </div>
+                <div class="form-group">
+                    <p>STATUS SIDI :</p>
+                    <select required class="form-control" name="status_sidi" id="status_sidi">
+                        <option value="" disabled selected>Pilih Status :</option>
+                            <option value="Sudah SIDI">Sudah SIDI</option>
+                            <option value="Belum SIDI">Belum SIDI</option>
+                      </select
+                      required>
+                    </div>
+                    <div class="form-group">
+                        <p>NOMOR TELEPON :</p>
+                        <input
+                          class="form-control"
+                          type="number"
+                          name="nomor_telepon"
+                          id="nomor_telepon"
+                          maxlength="20"
+                          required
+                        />
+                        </div>
+                    <div class="form-group">
+                        <p>PENDIDIKAN :</p>
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="pendidikan"
+                          id="pendidikan"
+                          maxlength="20"
+                          required
+                        />
+                        </div>
+                    <div class="form-group">
+                        <p>PEKERJAAN :</p>
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="pekerjaan"
+                          id="pekerjaan"
+                          maxlength="20"
+                          required
+                        />
+                        </div>
+
+
+      
+      <br />
+      <button class="btn btn-success" type="submit">Simpan</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

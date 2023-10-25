@@ -1,0 +1,156 @@
+{% extends "templates/base.html" %}
+{% block content %}
+<div class="card">
+  <div class="card-body">
+    {% if messages %}
+    {% for message in messages %}
+    <p class="alert alert-warning alert-dismissible fade show" role="alert">{{ message }}</p>
+    {% endfor %}
+    {% endif %}
+    
+    <form
+      action="{% url 'postupdate_jemaat' datajemaat.kode_jemaat %}"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+      <h1>FORM UPDATE JEMAAT</h1>
+
+      <div class="form-group">
+        <p>KODE JEMAAT :</p>
+        <input
+          class="form-control"
+          type="text"
+          name="kode_jemaat"
+          id="kode_jemaat"
+          maxlength="10"
+          required
+          value="{{datajemaat.kode_jemaat }}"
+          readonly
+        />
+      </div>
+      <div class="form-group">
+        <p>KODE KELUARGA :</p>
+        <input
+          class="form-control"
+          type="text"
+          name="kode_keluarga"
+          id="kode_keluarga"
+          maxlength="10"
+          required
+          value="{{datajemaat.kode_keluarga.kode_keluarga }}"
+          
+        />
+    </div>
+    
+      <div class="form-group">
+        <p>NAMA JEMAAT :</p>
+        <input
+          class="form-control"
+          type="text"
+          name="nama_jemaat"
+          id="nama_jemaat"
+          maxlength="50"
+          required
+          value="{{ datajemaat.nama_jemaat }}"
+        />
+      </div>
+      <div class="form-group">
+        <p>STATUS DALAM KELUARGA :</p>
+        <select required class="form-control" name="status_dalam_keluarga" id="status_dalam_keluarga">
+            <option value="" disabled selected>Pilih Status :</option>
+            <option value="Ayah/Kepala Keluarga" {% if datajemaat.status_dalam_keluarga == 'Ayah/Kepala Keluarga' %} selected {% endif %}>Ayah/Kepala Keluarga</option>
+            <option value="IBU" {% if datajemaat.status_dalam_keluarga == 'IBU' %} selected {% endif %}>IBU</option>
+            <option value="ANAK" {% if datajemaat.status_dalam_keluarga == 'ANAK' %} selected {% endif %}>ANAK</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <p>TANGGAL LAHIR :</p>
+        <input
+          class="form-control"
+          type="date"
+          name="tanggal_lahir"
+          id="tanggal_lahir"
+          value="{{ datajemaat.tanggal_lahir|date:'Y-m-d' }}"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <p>JENIS KELAMIN :</p>
+        <select required class="form-control" name="jenis_kelamin" id="jenis_kelamin">
+            <option value="" disabled selected>Pilih Jenis Kelamin</option>
+            <option value="Laki-Laki" {% if datajemaat.jenis_kelamin == 'Laki-Laki' %} selected {% endif %}>Laki-Laki</option>
+            <option value="Perempuan" {% if datajemaat.jenis_kelamin == 'Perempuan' %} selected {% endif %}>Perempuan</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <p>KODE KATEGORIAL:</p>
+        <select class="form-control" name="kodekategorial" id="kodekategorial" required>
+            {% for dkat in datakategorial %}
+                <option value="{{ dkat.kodekategorial }}"
+                    {% if dkat.kodekategorial == datajemaat.kodekategorial.kodekategorial %} selected {% endif %}>
+                    {{ dkat.kodekategorial }} | {{ dkat.namakategorial}}
+                </option>
+            {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <p>STATUS BAPTIS :</p>
+        <select required class="form-control" name="status_baptis" id="status_baptis">
+            <option value="" disabled selected>Pilih Status :</option>
+            <option value="Sudah Baptis" {% if datajemaat.status_baptis == 'Sudah Baptis' %} selected {% endif %}>Sudah Baptis</option>
+            <option value="Belum Baptis" {% if datajemaat.status_baptis == 'Belum Baptis' %} selected {% endif %}>Belum Baptis</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <p>STATUS SIDI :</p>
+        <select required class="form-control" name="status_sidi" id="status_sidi">
+            <option value="" disabled selected>Pilih Status :</option>
+            <option value="Sudah SIDI" {% if datajemaat.status_sidi == 'Sudah SIDI' %} selected {% endif %}>Sudah SIDI</option>
+            <option value="Belum SIDI" {% if datajemaat.status_sidi == 'Belum SIDI' %} selected {% endif %}>Belum SIDI</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <p>NOMOR TELEPON :</p>
+        <input
+          class="form-control"
+          type="number"
+          name="nomor_telepon"
+          id="nomor_telepon"
+          maxlength="20"
+          required
+          value="{{ datajemaat.nomor_telepon }}"
+        />
+      </div>
+      <div class="form-group">
+        <p>PENDIDIKAN :</p>
+        <input
+          class="form-control"
+          type="text"
+          name="pendidikan"
+          id="pendidikan"
+          maxlength="20"
+          required
+          value="{{ datajemaat.pendidikan }}"
+        />
+      </div>
+      <div class="form-group">
+        <p>PEKERJAAN :</p>
+        <input
+          class="form-control"
+          type="text"
+          name="pekerjaan"
+          id="pekerjaan"
+          maxlength="20"
+          required
+          value="{{ datajemaat.pekerjaan }}"
+        />
+      </div>
+
+      <br>
+      <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

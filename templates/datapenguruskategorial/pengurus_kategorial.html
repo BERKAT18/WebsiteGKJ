@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    {% if messages %}
+    {% for message in messages %}
+    <p class="alert alert-warning alert-dismissible fade show" role="alert">{{ message }}</p>
+    {% endfor %}
+    {% endif %}
+
+    <div class="row">
+        <div class="col-5">
+            <a class="btn btn-info" href="{% url 'tambah_pengurus_kategorial' %}" class="nav-link">
+                <i class="nav-icon fas fa-plus"> TAMBAH PENGURUS KATEGORIAL</i>
+            </a>
+        </div>
+        <div class="form-group col-4">
+            <select class="form-control btn btn-warning" name="kodekategorial" id="kodekategorial">
+                <option value="" disabled selected><i class="nav-icon fas fa-filter"></i> Filter Komisi</option>
+                <option value=""> All Data </option>
+                {% for dk in data_kategorial %}
+                <option value="{{ dk.kodekategorial }}">{{ dk.kodekategorial }} | {{ dk.namakategorial }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <br>
+    <br>
+    <table class="table table-bordered table-hover">
+        <thead style="background-color: #5f5b5b;">
+            <tr style="color: white;">
+                <th>PERIODE</th>
+                <th>KODE KATEGORIAL</th>
+                <th>NAMA KATEGORIAL</th>
+                <th>JABATAN</th>
+                <th>KODE JEMAAT</th>
+                <th>NAMA JEMAAT</th>
+                <th>ACTION</th>
+            </tr>
+        </thead>
+        <tbody class="table-hover">
+            {% for dpk in data_pengkat %}
+            <tr id="row_{{ dpk.id }}">
+                <td>{{ dpk.periode }}</td>
+                <td>{{ dpk.kodekategorial.kodekategorial }}</td>
+                <td>{{ dpk.kodekategorial.namakategorial }}</td>
+                <td>{{ dpk.jabatan_kategorial.jabatan_kategorial }}</td>
+                <td>{{ dpk.kode_jemaat.kode_jemaat }}</td>
+                <td>{{ dpk.kode_jemaat.nama_jemaat }}</td>
+                <td class="">
+                   <a class="btn btn-warning" href="{% url 'update_pengurus_kategorial' dpk.id %}">
+                        <i class="fas fa-pencil-alt"></i>UPDATE</a>
+                   <a class="btn btn-danger" onclick="return confirm('Apakah anda ingin menghapus data ini?')"
+                        href="{% url 'delete_pengurus_kategorial' dpk.id %}">
+                        <i class="fas fa-trash"></i>DELETE</a> 
+                </td> 
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+document.getElementById('kodekategorial').addEventListener('change', function () {
+    var selectedKodeKategorial = this.value;
+    var rows = document.getElementsByTagName('tr');
+    for (var i = 1; i < rows.length; i++) { // Start from 1 to skip the header row
+        var row = rows[i];
+        var kodeKategorialCell = row.querySelector('td:nth-child(2)');
+        if (kodeKategorialCell) {
+            var kodeKategorial = kodeKategorialCell.innerText;
+            if (selectedKodeKategorial === '' || selectedKodeKategorial === kodeKategorial) {
+                row.style.display = ''; // Show the row
+            } else {
+                row.style.display = 'none'; // Hide the row
+            }
+        }
+    }
+});
+</script>
+{% endblock %}

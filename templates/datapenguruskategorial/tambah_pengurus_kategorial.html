@@ -1,0 +1,59 @@
+{% extends "templates/base.html" %} {% block content %}
+<div class="card">
+  <div class="card-body">
+    {% if messages %} {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %} {% endif %}
+
+    <form action="{% url 'post_pengurus_kategorial' %}" method="POST">
+      {% csrf_token %}
+      <h1>FORM TAMBAH PENGURUS KATEGORIAL</h1>
+      <div class="form-group">
+        <p>PERIODE :</p>
+        <input
+        class="form-control"
+          type="text"
+          name="periode"
+          id="periode"
+          maxlength="10"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <p>KODE KATEGORIAL </p>
+        <select class="form-control" name="kodekategorial" id="kodekategorial">
+            <option value="" disabled selected> --pilih-- </option>
+            {% for dkat in datakategorial %}
+                <option value="{{ dkat.kodekategorial }}">{{ dkat.kodekategorial }}/ {{dkat.namakategorial}}</option>
+            {% endfor %}
+        </select
+        required>
+    </div>   
+    <div class="form-group">
+      <p>JABATAN :</p>
+      <select class="form-control" name="jabatan_kategorial" id="jabatan_kategorial">
+          <option value="" disabled selected> --pilih-- </option>
+          {% for dak in data_organisasi %}
+              <option value="{{ dak.jabatan_kategorial }}">{{ dak.jabatan_kategorial }}</option>
+          {% endfor %}
+      </select
+      required>
+    </div>
+    <div class="form-group">
+      <p>KODE JEMAAT :</p>
+      <select class="form-control" name="kode_jemaat" id="kode_jemaat">
+          <option value="" disabled selected> --pilih-- </option>
+          {% for dj in datajemaat %}
+              <option value="{{ dj.kode_jemaat }}">{{ dj.kode_jemaat }} / {{ dj.nama_jemaat }}</option>
+          {% endfor %}
+      </select
+      required>
+    </div>
+    
+
+      <br />
+      <button class="btn btn-success" type="submit">Simpan</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

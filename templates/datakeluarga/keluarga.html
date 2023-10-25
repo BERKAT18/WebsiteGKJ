@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  {% if messages %}
+  {% for message in messages %}
+  <p class="alert alert-warning alert-dismissible fade show" role="alert">{{ message }}</p>
+  {% endfor %}
+  {% endif %}
+
+    <a  class= "btn btn-info"href="{% url 'tambah_keluarga'  %}" class="nav-link">
+      <i class="nav-icon fas fa-plus"> TAMBAH KELUARGA </i>
+    </a>
+    <br>
+    <br>
+    <table class="table table-striped table-hover">
+      <thead class="table-dark">
+        <tr>
+        <th>KODE KELUARGA</th>
+        <th>NAMA KEPALA KELUARGA</th>
+        <th>ALAMAT KELUARGA</th>
+        <th>JUMLAH ANGGOTA KELUARGA</th>
+        <th>FOTO KELUARGA</th>
+        <th>ACTION</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for dk in datakeluarga %}
+      <tr>
+        <td>{{ dk.kode_keluarga}}</td>
+        <td>{{ dk.nama_kepala_keluarga }}</td>
+        <td>{{ dk.alamat_keluarga }}</td>
+        <td>{{ dk.jumlah_anggota_keluarga}}</td>
+        <td>        
+          <img style="width: 200px" src="{{ dk.foto_keluarga }}" alt="" />
+        </td>
+
+        <td class="">
+          <a class="btn btn-warning" href="{% url 'update_keluarga' dk.kode_keluarga %}">
+          <i class="fas fa-pencil-alt"></i>UPDATE</a>     
+          <a class="btn btn-info" href="{% url 'detail_keluarga' dk.kode_keluarga %}" >
+            <i class="fa fa-eye"></i> DETAIL
+        </a>    
+          <a class="btn btn-danger" onclick="return confirm('Apakah anda ingin menghapus data ini?')" href="{% url 'delete_keluarga' dk.kode_keluarga %}">
+            <i class="fa fa-trash"></i> DELETE</a>
+        </td>
+      </tr>
+  
+  {% endfor %}
+</table>
+</div>
+{% endblock %}

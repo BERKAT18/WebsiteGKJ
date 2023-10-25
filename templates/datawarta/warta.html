@@ -32,7 +32,7 @@
         <td>{{ dw.tanggal_warta}}</td>
 
         <td class="">
-          <a class="btn btn-warning" href="{% url 'update_warta' dw.id_warta %}">UPDATE</a>|      
+          <a class="btn btn-warning" href="{% url 'update_warta' dw.id_warta %}">UPDATE</a>     
           <a class="btn btn-danger" onclick="return confirm('Apakah anda ingin menghapus data ini?')" href="{% url 'delete_warta' dw.id_warta %}">DELETE</a>
         </td>
       </tr>

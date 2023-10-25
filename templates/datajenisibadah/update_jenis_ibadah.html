@@ -1,0 +1,57 @@
+{% extends "templates/base.html" %} {% block content %}
+<div class="card">
+  <div class="card-body">
+    {% if messages %} {% for message in messages %}
+    <p class="alert alert-warning alert-dismissible fade show" role="alert">
+      {{ message }}
+    </p>
+    {% endfor %} {% endif %}
+
+    <form action="{% url 'postupdate_jenis_ibadah' data_ibadah.kode_jenis_ibadah %}" method="POST">
+      {% csrf_token %}
+      <h1>FORM UPDATE IBADAH</h1>
+    
+      <div class="form-group">
+        <p>KODE JENIS IBADAH</p>
+        <input
+          class="form-control"
+          type="text"
+          name="kode_jenis_ibadah"
+          id="kode_jenis_ibadah"
+          maxlength="50"
+          value ="{{ data_ibadah.kode_jenis_ibadah }}"
+          required
+          readonly
+        />
+      </div>
+      <div class="form-group">
+        <p>NAMA JENIS IBADAH</p>
+        <input
+          class="form-control"
+          type="text"
+          name="nama_jenis_ibadah"
+          id="nama_jenis_ibadah"
+          maxlength="225"
+          value ="{{ data_ibadah.nama_jenis_ibadah }}"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <p>PERIODE :</p>
+        <input
+          class="form-control"
+          name="periode"
+          id="periode"
+          maxlength="100"
+          value ="{{ data_ibadah.periode }}"
+          required
+        />
+      </div>
+      
+      <br />
+      <br />
+      <button class="btn btn-success" type="submit">Simpan</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

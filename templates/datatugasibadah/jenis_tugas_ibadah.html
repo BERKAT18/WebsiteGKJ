@@ -1,0 +1,52 @@
+{% extends "templates/base.html" %} {% block content %}
+<div class="card">
+  <div class="card-body">
+    {% if messages %} {% for message in messages %}
+    <p class="alert alert-warning alert-dismissible fade show" role="alert"> {{ message }}</p>
+    {% endfor %} {% endif %}
+
+  <td>
+    <a class="btn btn-info" href="{% url 'tambah_jenis_tugas_ibadah'  %}" class="nav-link">
+      <i class="nav-icon fas fa-plus"> TAMBAH TUGAS IBADAH</i>
+    </a>
+  </td>
+  <br />
+  <br />
+  <table class="table table-striped table-hover">
+    <thead class="table-dark">
+      <tr  class="text-center">
+        <th class='col-1'>NOMOR URUT</th>
+        <th class='col-2'>KODE JENIS TUGAS IBADAH</th>
+        <th class='col-2'>KODE JENIS IBADAH</th>
+        <th class='col-2'>JENIS IBADAH</th>
+        <th class='col-2'>JENIS TUGAS IBADAH</th>
+        <th class='col-3'>ACTION</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for dti in data_tugas_ibadah %}
+        <tr  class="text-center">
+            <tr  class="text-center">
+          <td>{{ dti.nomor_urut }}</td>
+        <td>{{ dti.kode_jenis_tugas_ibadah }}</td>
+        <td>{{ dti.kode_jenis_ibadah.kode_jenis_ibadah }}</td>
+        <td>{{ dti.kode_jenis_ibadah.nama_jenis_ibadah }}</td>
+        <td>{{ dti.jenis_tugas_ibadah }}</td>
+
+       <td class="">
+          <a
+            class="btn btn-warning"
+            href="{% url 'update_jenis_tugas_ibadah' dti.kode_jenis_tugas_ibadah %}"
+            ><i class="fas fa-pencil-alt"></i>UPDATE</a>
+         <a
+            class="btn btn-danger"
+            onclick="return confirm('Apakah anda ingin menghapus data ini?')"
+            href="{% url 'delete_jenis_tugas_ibadah' dti.kode_jenis_tugas_ibadah %}"
+            ><i class="fas fa-trash"></i>DELETE</a> 
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -2,8 +2,10 @@
 <div class="card">
   <div class="card-body">
     {% if messages %} {% for message in messages %}
-    <p>{{ message }}</p>
+    <p class="alert alert-warning alert-dismissible fade show" role="alert"> {{ message }}</p>
     {% endfor %} {% endif %}
+  
+    
 
     <form action="{% url 'posttambah_renungan' %}"method="POST">
         {% csrf_token %}

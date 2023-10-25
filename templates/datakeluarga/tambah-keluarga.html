@@ -1,0 +1,89 @@
+{% extends "templates/base.html" %} {% block content %}
+<div class="card">
+  <div class="card-body">
+    {% if messages %}
+    {% for message in messages %}
+    <p class="alert alert-warning alert-dismissible fade show" role="alert">{{ message }}</p>
+    {% endfor %}
+    {% endif %}
+    
+    <form
+      action="{% url 'post_keluarga' %}"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+      <h1>FORM TAMBAH KELUARGA</h1>
+
+      <div class="form-group">
+        <p>NAMA KEPALA KELUARGA :</p>
+        <input  class="form-control" type="text" name="nama_kepala_keluarga" id="nama_kepala_keluarga" maxlength="50" required>
+      </div>
+
+      <div class="form-group">
+        <p>KODE KELUARGA :</p>
+        <input  class="form-control" type="text" name="kode_keluarga" id="kode_keluarga"
+        maxlength="500"
+        required
+      />
+      </div>
+
+      <div class="form-group">
+        <p>ALAMAT KELUARGA :</p>
+        <input
+          class="form-control"
+          type="text"
+          name="alamat_keluarga"
+          id="alamat_keluarga"
+          maxlength="500"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <p>JUMLAH ANGGOTA KELUARGA :</p>
+        <input
+          class="form-control"
+          type="number"
+          name="jumlah_anggota_keluarga"
+          id="jumlah_anggota_keluarga"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <p>FOTO KELUARGA :</p>
+        <input
+          class="form-control"
+          type="file"
+          alt=""
+          name="foto_keluarga"
+          id="foto_keluarga"
+          accept=".jpg, .jpeg, .png"
+          required
+        />
+      </div>
+      <br />
+      <button class="btn btn-success" type="submit">Simpan</button>
+    </form>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('#nama_jemaat').on('change', function() {
+    var selectedNamaJemaat = $(this).val();
+    var selectedKodeKeluarga = '';
+
+    {% for dj in keluarga %}
+      if ("{{ dj.nama_jemaat }}" === selectedNamaJemaat) {
+        selectedKodeKeluarga = "{{ dj.kode_keluarga }}";
+      }
+    {% endfor %}
+
+    $('#kode_keluarga').val(selectedKodeKeluarga);
+  });
+});
+</script>
+{% endblock %}

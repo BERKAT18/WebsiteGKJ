@@ -1,0 +1,47 @@
+{% extends "templates/base.html" %} {% block content %}
+<div class="card">
+  <div class="card-body">
+    {% if messages %} {% for message in messages %}
+    <p class="alert alert-warning alert-dismissible fade show" role="alert"> {{ message }}</p>
+    {% endfor %} {% endif %}
+
+  <td>
+    <a class="btn btn-info" href="{% url 'tambah_jenis_ibadah'  %}" class="nav-link">
+      <i class="nav-icon fas fa-plus"> TAMBAH JENIS IBADAH</i>
+    </a>
+  </td>
+  <br />
+  <br />
+  <table class="table table-striped table-hover">
+    <thead class="table-dark">
+      <tr  class="text-center">
+        <th>KODE JENIS IBADAH</th>
+        <th>NAMA JENIS IBADAH</th>
+        <th>PERIODE</th>
+        <th>ACTION</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for di in data_ibadah %}
+      <tr  class="text-center">
+        <td>{{ di.kode_jenis_ibadah }}</td>
+        <td>{{ di.nama_jenis_ibadah }}</td>
+        <td>{{ di.periode }}</td>
+
+        <td class="">
+          <a
+            class="btn btn-warning"
+            href="{% url 'update_jenis_ibadah' di.kode_jenis_ibadah %}"
+            >UPDATE</a>|
+        <a
+            class="btn btn-danger"
+            onclick="return confirm('Apakah anda ingin menghapus data ini?')"
+            href="{% url 'delete_jenis_ibadah' di.kode_jenis_ibadah %}"
+            >DELETE</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

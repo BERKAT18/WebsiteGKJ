@@ -1,10 +1,11 @@
-{% extends "base.html" %} {% block content %}
-<div class="container">
-  {% if messages %} {% for message in messages %}
-  <p class="alert alert-warning alert-dismissible fade show" role="alert">
-    {{ message }}
-  </p>
-  {% endfor %} {% endif %}
+{% extends "templates/base.html" %} {% block content %}
+<div class="card">
+  <div class="card-body">
+    {% if messages %} {% for message in messages %}
+    <p class="alert alert-warning alert-dismissible fade show" role="alert"> {{ message }}</p>
+    {% endfor %} {% endif %}
+  
+    
   <a class="btn btn-info" href="{% url 'tambah_renungan'  %}" class="nav-link">
     <i class="nav-icon fas fa-plus"> TAMBAH RENUNGAN</i>
   </a>

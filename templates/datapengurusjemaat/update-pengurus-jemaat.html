@@ -1,0 +1,69 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="card">
+  <div class="card-body">
+    {% if messages %} {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %} {% endif %}
+    <form
+      action="{% url 'postupdate_pengurus_jemaat' data_pengjem.id %}"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+      <h1>UPDATE PENGURUS JEMAAT</h1>
+      <div class="form-group">
+        <p>PERIODE:</p>
+        <input
+          class="form-control"
+          type="text"
+          name="periode"
+          maxlength="50"
+          id="periode"
+          value="{{ data_pengjem.periode }}"
+          readonly
+        />
+      </div>
+      <div class="form-group">
+        <p>KODE ORGANISASI JEMAAT:</p>
+        <select class="form-control" name="kode_org_jemaat" id="kode_org_jemaat" required>
+          {% for do in data_orjem %}
+              <option value="{{ do.kode_org_jemaat }}"
+                  {% if do.kode_org_jemaat == data_pengjem.kode_org_jemaat.kode_org_jemaat %} selected {% endif %}>
+                  {{ do.kode_org_jemaat }}
+              </option>
+          {% endfor %}
+      </select>
+      
+      </div>
+      <div class="form-group">
+        <p>KODE JEMAAT:</p>
+        <select class="form-control" name="kode_jemaat" id="kode_jemaat" required>
+            {% for dj in datajemaat %}
+                <option value="{{ dj.kode_jemaat }}"
+                    {% if dj.kode_jemaat == data_pengjem.kode_jemaat.kode_jemaat %} selected {% endif %}>
+                    {{ dj.kode_jemaat }} | {{ dj.nama_jemaat }}
+                </option>
+            {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <p>KEMAJELISAN:</p>
+        <input
+          class="form-control"
+          type="text"
+          name="kemajelisan"
+          maxlength="100"
+          id="kemajelisan"
+          value="{{ data_pengjem.kemajelisan }}"
+          required
+        />
+      </div>
+      
+      <br />
+      <button class="btn btn-success" type="submit">Simpan</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+

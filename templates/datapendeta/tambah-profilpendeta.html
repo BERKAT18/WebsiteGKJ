@@ -20,40 +20,73 @@
               />
       </div>
       <div class="form-group">
-            <p>FOTO PENDETA :</p>
+        <p>FOTO PENDETA :</p>
+        <input
+            class="form-control"
+            type="file"
+            alt=""
+            name="fotopendeta"
+            id="fotopendeta"
+            accept=".jpg, .jpeg, .png"
+            required
+        />
+    </div>
+    
+      <div class="form-group">
+            <p>TELEPON PENDETA :</p>
                 <input
                 class="form-control"
-                
-                type="file"
+                type="number"
                 alt=""
-                name="fotopendeta"
-                id="fotopendeta"
+                name="tlpn_pendeta"
+                id="tlpn_pendeta"
+                maxlength ="15"
                 required
               />
       </div>
       <div class="form-group">
+            <p>EMAIL PENDETA :</p>
+                <input
+                class="form-control"
+                type="email"
+                alt=""
+                name="email_pendeta"
+                id="email_pendeta"
+                maxlength ="30"
+                required
+              />
+      </div>
+      <div class="form-group">
+        <p>PENDIDIKAN PENDETA :</p>
+        <input
+          class="form-control"
+          type="text"
+          name="pendidikan_pendeta"
+          maxlength="50"
+          id="pendidikan_pendeta"
+          required
+        />
+      <div class="form-group">
             <p>VISI :</p>
-            
-              <input
+              <textarea
               class="form-control" 
-                type="text"
                 name="visi"
                 id="visi"
                 maxlength="500"
-                required
-              />
+                required>
+              </textarea>
           </div>
            <div class="form-group">
             <p>MISI :</p>
            
-              <input
+              <textarea
               class="form-control" 
-                type="text"
+                type="textarea"
                 name="misi"
                 id="misi"
                 maxlength="500"
-                required
-              />
+                required>
+           </textarea>
             </div>
             <div class="form-group">
             <p>JADWAL :</p>

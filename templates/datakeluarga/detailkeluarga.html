@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  {% if messages %}
+  {% for message in messages %}
+  <p class="alert alert-warning alert-dismissible fade show" role="alert">{{ message }}</p>
+  {% endfor %}
+  {% endif %}
+
+    <a  class= "btn btn-info"href="{% url 'tambah_jemaat' datakeluarga.kode_keluarga %}" class="nav-link">
+      <i class="nav-icon fas fa-plus"> TAMBAH ANGGOTA KELUARGA </i>
+    </a>
+    <br>
+    <br>
+    <table class="table table-striped table-hover">
+      <thead class="table-dark">
+        <tr>
+        <th>KODE JEMAAT</th>
+        <th>KODE KELUARGA</th>
+        <th>NAMA JEMAAT</th>
+        <th>STATUS DALAM KELUARGA</th>
+        <th>TANGGAL LAHIR</th>
+        <th>JENIS KELAMIN</th>
+        <th>KODE KATEGORIAL</th>
+        <th>STATUS BAPTIS</th>
+        <th>STATUS SIDI</th>
+        <th>NOMOR TELEPON</th>
+        <th>PENDIDIKAN</th>
+        <th>PEKERJAAN</th>
+        <th>ACTION</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      {% for dak in dataanggotakeluarga %}
+      <tr>
+        <td>{{ dak.kode_jemaat }}</td>
+        <td>{{ dak.kode_keluarga.kode_keluarga}}</td>
+        <td>{{ dak.nama_jemaat }}</td>
+        <td>{{ dak.status_dalam_keluarga }}</td>
+        <td>{{ dak.tanggal_lahir }}</td>
+        <td>{{ dak.jenis_kelamin}}</td>
+        <td>{{ dak.kodekategorial.kodekategorial}}</td>
+        <td>{{ dak.status_baptis}}</td>
+        <td>{{ dak.status_sidi}}</td>
+        <td>{{ dak.nomor_telepon}}</td>
+        <td>{{ dak.pendidikan}}</td>
+        <td>{{ dak.pekerjaan}}</td>
+
+
+
+        <td class="">
+          <a class="btn btn-warning" href="{% url 'update_jemaat' dak.kode_jemaat %}">
+            <i class="fas fa-pencil-alt"></i>UPDATE</a>     
+          <a class="btn btn-danger" onclick="return confirm('Apakah anda ingin menghapus data ini?')" href="{% url 'delete_jemaat' dak.kode_jemaat %}">
+            <i class="fas fa-trash"></i>DELETE</a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}

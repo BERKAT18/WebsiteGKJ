@@ -1,0 +1,70 @@
+{% extends "templates/base.html" %} {% block content %}
+<div class="card">
+  <div class="card-body">
+    {% if messages %} {% for message in messages %}
+    <p class="alert alert-warning alert-dismissible fade show" role="alert">
+      {{ message }}
+    </p>
+    {% endfor %} {% endif %}
+
+    <form action="{% url 'postupdate_jenis_tugas_ibadah' data_tugas_ibadah.kode_jenis_tugas_ibadah %}" method="POST">
+      {% csrf_token %}
+      <h1>FORM UPDATE TUGAS IBADAH</h1>
+    
+      <div class="form-group">
+        <p>KODE JENIS TUGAS IBADAH</p>
+        <input
+          class="form-control"
+          type="text"
+          name="kode_jenis_tugas_ibadah"
+          id="kode_jenis_tugas_ibadah"
+          maxlength="50"
+          value={{ data_tugas_ibadah.kode_jenis_tugas_ibadah }}
+          readonly
+          required
+        />
+      </div>
+      <div class="form-group">
+        <p>KODE JENIS IBADAH</p>
+        <select class="form-control" name="kode_jenis_ibadah" id="kode_jenis_ibadah">
+            <option value="" disabled selected> --pilih-- </option>
+            {% for di in data_ibadah %}
+                <option value="{{ di.kode_jenis_ibadah }}"
+                {% if di.kode_jenis_ibadah == data_tugas_ibadah.kode_jenis_ibadah.kode_jenis_ibadah %} selected {% endif %}>
+                {{ di.kode_jenis_ibadah }}|{{di.nama_jenis_ibadah}}</option>
+            {% endfor %}
+        </select
+          required
+        />
+      </div>
+      <div class="form-group">
+        <p>NOMOR URUT</p>
+        <input
+          class="form-control"
+          type="number"
+          name="nomor_urut"
+          id="nomor_urut"
+          maxlength="225"
+          value={{ data_tugas_ibadah.nomor_urut }}
+          required
+        />
+      </div>
+      <div class="form-group">
+        <p>JENIS TUGAS IBADAH :</p>
+        <input
+          class="form-control"
+          name="jenis_tugas_ibadah"
+          id="jenis_tugas_ibadah"
+          maxlength="100"
+          value= {{ data_tugas_ibadah.jenis_tugas_ibadah }}
+          required
+        />
+      </div>
+      
+      <br />
+      <br />
+      <button class="btn btn-success" type="submit">Simpan</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
