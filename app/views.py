@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from django.shortcuts import render
-from .models import MGereja, MPendeta , MKhotbah,MWarta,MRenungan,MDokumentasi,MadminLog, MDokumentasi,MKeluarga,MJemaat,MOrjem,MPengjem,MKategorial,MOrkat,MPengkat,MJenisibadah,MJnstgsibd,MJdwlibadah
+from .models import MGereja, MPendeta , MKhotbah,MWarta,MRenungan,MDokumentasi,MadminLog, MDokumentasi,MKeluarga,MJemaat,MOrjem,MPengjem,MKategorial,MOrkat,MPengkat,MJenisibadah,MJnstgsibd,MJdwlibadah,MPtgsibadah
 from django.contrib.auth import authenticate, login
 from .decorators import login_required
 from django.core.mail import send_mail
@@ -1213,4 +1213,62 @@ def postupdate_jadwal_ibadah(request,id_ibadah):
     messages.success(request, 'Jadwal ibadah berhasil diupdate.')
     return redirect('jadwal_ibadah')
      
+def delete_jadwal_ibadah(request,id_ibadah):
+    MJdwlibadah.objects.get(id_ibadah=id_ibadah).delete()
+    messages.success(request, 'Berhasil hapus jadwal ibadah')
+    return redirect('jadwal_ibadah')
+
+def petugas_ibadah(request):
+    data_petugas = MPtgsibadah.objects.all()
+    data_jadwal = MJdwlibadah.objects.all()
+    data_tugas_ibadah = MJnstgsibd.objects.all()
+    data_ibadah = MJenisibadah.objects.all()
+    datajemaat = MJemaat.objects.all()
+    context = {
+        'data_petugas' : data_petugas,
+        'data_jadwal' : data_jadwal,
+        'data_tugas_ibadah' : data_tugas_ibadah,
+        'data_ibadah': data_ibadah,
+        'datajemaat' :datajemaat
+    }
+    return render(request, 'datapetugasibadah/petugas_ibadah.html', context)
+
+def tambah_petugas_ibadah(request):
+    data_petugas = MPtgsibadah.objects.all()
+    data_jadwal = MJdwlibadah.objects.all()
+    data_tugas_ibadah = MJnstgsibd.objects.all()
+    data_ibadah = MJenisibadah.objects.all()
+    datajemaat = MJemaat.objects.all()
+    context = {
+        'data_petugas' : data_petugas,
+        'data_jadwal' : data_jadwal,
+        'data_tugas_ibadah' : data_tugas_ibadah,
+        'data_ibadah': data_ibadah,
+        'datajemaat' :datajemaat
+    }
+    return render(request, 'datapetugasibadah/tambah_petugas_ibadah.html', context)
+
+def post_petugas_ibadah(request):
+
+    id_ibadah = request.POST['id_ibadah']
+    kode_jenis_tugas_ibadah = request.POST['kode_jenis_tugas_ibadah'] 
+    kode_jemaat = request.POST['kode_jemaat']
+    nomor_urut = request.POST['nomor_urut']
+  
+  
+    m_jdwl = MJdwlibadah.objects.get(id_ibadah=id_ibadah)
+    m_jns = MJnstgsibd.objects.get(kode_jenis_tugas_ibadah=kode_jenis_tugas_ibadah)
+    m_jemaat = MJemaat.objects.get(kode_jemaat=kode_jemaat)
+    post_petugas = MPtgsibadah(
+        id_ibadah = m_jdwl,
+        kode_jenis_tugas_ibadah = m_jns,
+        kode_jemaat = m_jemaat,
+        nomor_urut = nomor_urut
+        
+    )
+    post_petugas.save()
+    messages.success(request, 'Petugas ibadah berhasil ditambah.')
+    return redirect('petugas_ibadah')    
+
+    
     

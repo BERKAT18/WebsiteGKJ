@@ -124,6 +124,13 @@ class MJdwlibadah(models.Model):
     jam_ibadah = models.CharField(max_length=50)
     persembahan = models.CharField(max_length=50)
     
+class MPtgsibadah(models.Model):
+    id_ibadah = models.ForeignKey(MJdwlibadah, on_delete=models.CASCADE)
+    kode_jenis_tugas_ibadah = models.ForeignKey(MJnstgsibd, on_delete=models.CASCADE)
+    kode_jemaat = models.ForeignKey(MJemaat, on_delete=models.CASCADE)
+    nomor_urut = models.CharField(max_length=50)
+    
+    
 
     
     
