@@ -28,20 +28,18 @@
             <tr class="text-center">
               <td>{{ di.id_ibadah }}</td>
               <td>{{ di.kode_jenis_ibadah.kode_jenis_ibadah }}</td>
-              <td>{{ di.tanggal_ibadah }}</td>
+              <td>{{ di.tanggal_ibadah|date:"l, d F Y"  }}</td>
               <td>{{ di.jam_ibadah }}</td>
               <td>{{ di.persembahan }}</td>
               <td>
                 <a class="btn btn-warning" href="{% url 'update_jadwal_ibadah' di.id_ibadah %}">
                   <i class="fas fa-pencil-alt"></i> UPDATE
                 </a>
-                {% comment %} <a
+                <a
                   class="btn btn-danger"
                   onclick="return confirm('Apakah anda ingin menghapus data ini?')"
-                  href="{% url 'delete_jadwal_ibadah' di.id_ibadah %}"
-                >
-                  <i class="fas fa-trash"></i> DELETE
-                </a> {% endcomment %}
+                  href="{% url 'delete_jadwal_ibadah' di.id_ibadah %}">
+                  <i class="fas fa-trash"></i> DELETE</a>
               </td>
             </tr>
             {% endfor %}
