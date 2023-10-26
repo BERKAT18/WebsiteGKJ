@@ -1,0 +1,73 @@
+{% extends "templates/base.html" %} {% block content %}
+<div class="card">
+  <div class="card-body">
+    {% if messages %} {% for message in messages %}
+    <p class="alert alert-warning alert-dismissible fade show" role="alert">
+      {{ message }}
+    </p>
+    {% endfor %} {% endif %}
+
+    <form action="{% url 'post_jadwal_ibadah' %}" method="POST">
+      {% csrf_token %}
+      <h1>FORM TAMBAH JADWAL IBADAH</h1>
+    
+      <div class="form-group">
+        <p>ID IBADAH</p>
+        <input
+          class="form-control"
+          type="text"
+          name="id_ibadah"
+          id="id_ibadah"
+          maxlength="50"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <p>KODE JENIS IBADAH</p>
+        <select class="form-control" name="kode_jenis_ibadah" id="kode_jenis_ibadah">
+            <option value="" disabled selected> --pilih-- </option>
+            {% for di in data_ibadah %}
+                <option value="{{ di.kode_jenis_ibadah }}">{{ di.kode_jenis_ibadah }}|{{di.nama_jenis_ibadah}}</option>
+            {% endfor %}
+        </select
+          required
+        />
+      </div>
+      <div class="form-group">
+        <p>TANGGAL :</p>
+        <input
+          class="form-control"
+          type="date"
+          name="tanggal_ibadah"
+          id="tanggal_ibadah"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <p>JAM IBADAH :</p>
+        <input
+          class="form-control"
+          name="jam_ibadah"
+          id="jam_ibadah"
+          maxlength="100"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <p>PERSEMBAHAN :</p>
+        <input
+          class="form-control"
+          name="persembahan"
+          id="persembahan"
+          maxlength="100"
+          required
+        />
+      </div>
+      
+      <br />
+      <br />
+      <button class="btn btn-success" type="submit">Simpan</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

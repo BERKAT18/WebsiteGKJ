@@ -351,14 +351,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </li>
                 </ul>
               </li>
-              <li class="nav-item">
+              {% comment %} <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-info"></i>
                   <p>
                     About us
                   </p>
                 </a>
-              </li>
+              </li> {% endcomment %}
               <li class="nav-item">
                 <a href="{%url 'keluarga'%}" class="nav-link">
                   <i class="nav-icon fas fa-user"></i>
@@ -384,7 +384,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'pengurus_kategorial'%}" class="nav-link">
+                <a href="{% url 'pengurus_kategorial'%}" class="nav-link" >
                   <i class="nav-icon fas fa-book-open"></i>
                   <p>
                     Pengurus Kategorial
@@ -438,6 +438,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <i class="nav-icon fas fa-user"></i>
                   <p>
                     Jenis Tugas Ibadah
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{%url 'jadwal_ibadah' %}" class="nav-link">
+                  <i class="nav-icon fas fa-clock"></i>
+                  <p>
+                    Jadwal Ibadah
                   </p>
                 </a>
               </li>
@@ -591,7 +599,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           >Copyright &copy; 2023
           <a href="">Kelompok P2</a>.</strong
         >
-        PPL.
+        Pengembagan Perangkat Lunak.
       </footer>
     </div>
     <!-- ./wrapper -->

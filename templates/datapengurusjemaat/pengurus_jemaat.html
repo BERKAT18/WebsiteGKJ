@@ -28,14 +28,14 @@
     <tbody>
       {% for dp in data_pengjem %}
       <tr>
-        <td>{{ dp.periode }}</td>
-        <td>{{ dp.kode_org_jemaat.kode_org_jemaat }}</td>
-        <td>{{ dp.kode_org_jemaat.jabatan_org_jemaat }}</td>
-        <td>{{ dp.kode_jemaat.kode_jemaat }}</td>
-        <td>{{ dp.kode_jemaat.nama_jemaat }}</td>
-        <td>{{ dp.kemajelisan}}</td>
+        <td class='col-1' >{{ dp.periode }}</td>
+        <td class='col-3' >{{ dp.kode_org_jemaat.kode_org_jemaat }}</td>
+        <td class='col-1'>{{ dp.kode_org_jemaat.jabatan_org_jemaat }}</td>
+        <td class='col-1'>{{ dp.kode_jemaat.kode_jemaat }}</td>
+        <td class='col-1'>{{ dp.kode_jemaat.nama_jemaat }}</td>
+        <td class='col-1'>{{ dp.kemajelisan}}</td>
 
-        <td class="">
+        <td class="col-4">
           <a class="btn btn-warning" href="{% url 'update_pengurus_jemaat' dp.id %}">
           <i class="fas fa-pencil-alt"></i>UPDATE</a>    
           <a class="btn btn-danger" onclick="return confirm('Apakah anda ingin menghapus data ini?')" href="{% url 'delete_pengurus_jemaat' dp.id %}">

@@ -119,6 +119,14 @@ urlpatterns = [
     path('postupdate_jenis_tugas_ibadah/<str:kode_jenis_tugas_ibadah>',postupdate_jenis_tugas_ibadah,name='postupdate_jenis_tugas_ibadah'),
     path('delete_jenis_tugas_ibadah/<str:kode_jenis_tugas_ibadah>',delete_jenis_tugas_ibadah,name='delete_jenis_tugas_ibadah'),
     
+    #jadwal ibadah
+    path('jadwal_ibadah',jadwal_ibadah,name='jadwal_ibadah'),
+    path('tambah_jadwal_ibadah',tambah_jadwal_ibadah,name='tambah_jadwal_ibadah'),
+    path('post_jadwal_ibadah',post_jadwal_ibadah,name='post_jadwal_ibadah'),
+    path('update_jadwal_ibadah/<str:id_ibadah>',update_jadwal_ibadah,name='update_jadwal_ibadah'),
+    path('postupdate_jadwal_ibadah/<str:id_ibadah>',postupdate_jadwal_ibadah,name='postupdate_jadwal_ibadah'),
+    # path('delete_jadwal_ibadah/<str:id_ibadah>',delete_jadwal_ibadah,name='delete_jenis_tugas_ibadah'),
+    
     
 ]
 
