@@ -24,7 +24,7 @@
         <select class="form-control" name="kode_org_jemaat" id="kode_org_jemaat">
             <option value="" disabled selected> --pilih-- </option>
             {% for do in data_orjem %}
-                <option value="{{ do.kode_org_jemaat }}">{{ do.kode_org_jemaat }}</option>
+                <option value="{{ do.kode_org_jemaat }}">{{ do.kode_org_jemaat }}|{{do.jabatan_org_jemaat}}</option>
             {% endfor %}
         </select
         required>

@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'projectGereja.wsgi.application'
 DATABASES = {
    'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'websitegereja6',
+        'NAME': 'websitegereja7',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',

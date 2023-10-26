@@ -1,0 +1,53 @@
+{% extends "templates/base.html" %} {% block content %}
+<div class="card">
+  <div class="card-body">
+    {% if messages %} {% for message in messages %}
+    <p class="alert alert-warning alert-dismissible fade show" role="alert">
+      {{ message }}
+    </p>
+    {% endfor %} {% endif %}
+
+    
+        <a class="btn btn-info" href="{% url 'tambah_jadwal_ibadah' %}" class="nav-link">
+          <i class="nav-icon fas fa-plus"></i> TAMBAH JADWAL IBADAH
+        </a>
+        <br /><br />
+        <table class="table table-striped table-hover">
+          <thead class="table-dark">
+            <tr class="text-center">
+              <th class="col-2">ID IBADAH</th>
+              <th class="col-2">KODE JENIS IBADAH</th>
+              <th class="col-2">TANGGAL IBADAH</th>
+              <th class="col-2">JAM IBADAH</th>
+              <th class="col-3">PERSEMBAHAN</th>
+              <th class="col-3">ACTION</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for di in data_jadwal %}
+            <tr class="text-center">
+              <td>{{ di.id_ibadah }}</td>
+              <td>{{ di.kode_jenis_ibadah.kode_jenis_ibadah }}</td>
+              <td>{{ di.tanggal_ibadah }}</td>
+              <td>{{ di.jam_ibadah }}</td>
+              <td>{{ di.persembahan }}</td>
+              <td>
+                <a class="btn btn-warning" href="{% url 'update_jadwal_ibadah' di.id_ibadah %}">
+                  <i class="fas fa-pencil-alt"></i> UPDATE
+                </a>
+                {% comment %} <a
+                  class="btn btn-danger"
+                  onclick="return confirm('Apakah anda ingin menghapus data ini?')"
+                  href="{% url 'delete_jadwal_ibadah' di.id_ibadah %}"
+                >
+                  <i class="fas fa-trash"></i> DELETE
+                </a> {% endcomment %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% endblock %}
+    

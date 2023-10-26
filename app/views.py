@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from django.shortcuts import render
-from .models import MGereja, MPendeta , MKhotbah,MWarta,MRenungan,MDokumentasi,MadminLog, MDokumentasi,MKeluarga,MJemaat,MOrjem,MPengjem,MKategorial,MOrkat,MPengkat,MJenisibadah,MJnstgsibd
+from .models import MGereja, MPendeta , MKhotbah,MWarta,MRenungan,MDokumentasi,MadminLog, MDokumentasi,MKeluarga,MJemaat,MOrjem,MPengjem,MKategorial,MOrkat,MPengkat,MJenisibadah,MJnstgsibd,MJdwlibadah
 from django.contrib.auth import authenticate, login
 from .decorators import login_required
 from django.core.mail import send_mail
@@ -1139,5 +1139,78 @@ def delete_jenis_tugas_ibadah(request,kode_jenis_tugas_ibadah):
     MJnstgsibd.objects.get(kode_jenis_tugas_ibadah=kode_jenis_tugas_ibadah).delete()
     messages.success(request, 'Berhasil hapus data tugas ibadah')
     return redirect('jenis_tugas_ibadah')
+
+#view jadwal ibadah
+def jadwal_ibadah(request):
+    data_jadwal = MJdwlibadah.objects.all()
+    context = {
+        'data_jadwal' : data_jadwal,
+    }
+    return render(request, 'datajadwalibadah/jadwal_ibadah.html', context)
+
+def tambah_jadwal_ibadah(request):
+    data_jadwal = MJdwlibadah.objects.all()
+    data_ibadah = MJenisibadah.objects.all()
+    context = {
+        'data_jadwal' : data_jadwal,
+        'data_ibadah' : data_ibadah
+    }
+    return render(request, 'datajadwalibadah/tambah_jadwal_ibadah.html', context)
+
+def post_jadwal_ibadah(request):
+    id_ibadah = request.POST['id_ibadah']
+    kode_jenis_ibadah = request.POST['kode_jenis_ibadah']
+    tanggal_ibadah = request.POST['tanggal_ibadah']
+    jam_ibadah = request.POST['jam_ibadah']    
+    persembahan = request.POST['persembahan']    
+  
+  
+    if MJdwlibadah.objects.filter(id_ibadah=id_ibadah).exists():
+        messages.error(request, 'ID Ibadah Sudah Terdaftar ')
+        return redirect('tambah_jadwal_ibadah')
     
+    m_jenisibadah = MJenisibadah.objects.get(kode_jenis_ibadah=kode_jenis_ibadah)
+    
+    post_ibadah = MJdwlibadah(
+        id_ibadah = id_ibadah,
+        kode_jenis_ibadah = m_jenisibadah,
+        tanggal_ibadah = tanggal_ibadah,
+        jam_ibadah = jam_ibadah,
+        persembahan = persembahan
+        
+    )
+    post_ibadah.save()
+    messages.success(request, 'Jadwal ibadah berhasil ditambah.')
+    return redirect('jadwal_ibadah')
+
+def update_jadwal_ibadah(request,id_ibadah):
+    data_jadwal = MJdwlibadah.objects.get(id_ibadah=id_ibadah)
+    data_ibadah = MJenisibadah.objects.all()
+    context = {
+        'data_jadwal': data_jadwal,
+        'data_ibadah' :data_ibadah
+    }
+    return render(request, 'datajadwalibadah/update_jadwal_ibadah.html', context)
+
+def postupdate_jadwal_ibadah(request,id_ibadah):
+    id_ibadah = request.POST['id_ibadah']
+    kode_jenis_ibadah = request.POST['kode_jenis_ibadah']
+    tanggal_ibadah = request.POST['tanggal_ibadah']
+    jam_ibadah = request.POST['jam_ibadah'] 
+    persembahan = request.POST['persembahan'] 
+       
+    
+    m_jenisibadah = MJenisibadah.objects.get(kode_jenis_ibadah=kode_jenis_ibadah)
+    update_jadwal = MJdwlibadah.objects.get(id_ibadah=id_ibadah)
+    
+    update_jadwal.id_ibadah = id_ibadah
+    update_jadwal.kode_jenis_ibadah = m_jenisibadah
+    update_jadwal.tanggal_ibadah = tanggal_ibadah
+    update_jadwal.jam_ibadah = jam_ibadah
+    update_jadwal.persembahan = persembahan
+        
+    update_jadwal.save()
+    messages.success(request, 'Jadwal ibadah berhasil diupdate.')
+    return redirect('jadwal_ibadah')
+     
     
