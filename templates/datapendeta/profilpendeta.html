@@ -5,9 +5,16 @@
     {{ message }}
   </p>
   {% endfor %} {% endif %}
-  <table class="table table-striped table-hover">
-    <thead class="table-dark">
-      <tr>
+  <div class="card shadow-lg">
+    <div class="card-header bg-teal">
+      <div class="text-center">
+        <h2>PROFIL</h2>
+      </div>
+    </div>
+    <div class="card-body" style="background-color:whitesmoke">
+      <table class="table table-bordered table-hover table-responsive text-center">
+        <thead style="background-color: #5f5b5b;">
+            <tr style="color: white;" >
         <th>NAMA PENDETA</th>
         <th>FOTO PENDETA</th>
         <th>TELEPON PENDETA</th>
@@ -29,15 +36,16 @@
         <td>{{ gj.tlpn_pendeta }}</td>
         <td>{{ gj.email_pendeta }}</td>
         <td>{{ gj.pendidikan_pendeta }}</td>
-        <td>{{ gj.visi }}</td>
-        <td>{{ gj.misi }}</td>
+        <td  class="text-left">{{ gj.visi }}</td>
+        <td  class="text-left">{{ gj.misi }}</td>
         <td>{{ gj.jadwal }}</td>
 
         <td>
           <a
             class="btn btn-warning"
             href="{% url 'updateprofilpendeta' gj.id %}"
-            >UPDATE</a
+            >
+            <i class="fas fa-pencil-alt"></i>UPDATE</a
           >
         </td>
       </tr>

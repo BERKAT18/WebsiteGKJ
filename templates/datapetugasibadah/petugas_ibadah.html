@@ -1,16 +1,22 @@
 {% extends "templates/base.html" %} {% block content %}
-<div class="card">
-  <div class="card-body">
     {% if messages %} {% for message in messages %}
     <p class="alert alert-warning alert-dismissible fade show" role="alert">
       {{ message }}
     </p>
     {% endfor %} {% endif %}
 
+    <div class="card shadow-lg">
+      <div class="card-header bg-teal">
+        <div class="text-center">
+          <h2>PETUGAS IBADAH</h2>
+        </div>
+      </div>
+      <div class="card-body" style="background-color: whitesmoke">
+
     
     <div class="row">
         <div class="col-5">
-            <a class="btn btn-info" href="{% url 'tambah_petugas_ibadah' %}" class="nav-link">
+            <a class="btn btn-info" href="{% url 'select_ibadah' %}" class="nav-link">
                 <i class="nav-icon fas fa-plus"> TAMBAH PETUGAS IBADAH</i>
             </a>
         </div>
@@ -24,39 +30,39 @@
             </select>
         </div>
     </div>
-        <br /><br />
-        <table class="table table-striped table-hover">
-          <thead class="table-dark">
-            <tr class="text-center">
-              <th class="col-2">ID IBADAH</th>
-              <th class="col-2">JENIS IBADAH</th>
+  
+    <table id="example4" class="table table-bordered table-striped table-hover">
+      <thead class="bg-secondary">
+        <tr class="text-center">
+              <th class="col-1">ID IBADAH</th>
+              <th class="col-1">JENIS IBADAH</th>
               <th class="col-2">TANGGAL</th>
-              <th class="col-3">JENIS TUGAS IBADAH</th>
-              <th class="col-2">NAMA JEMAAT</th>
-              <th class="col-2">NOMOR URUT</th>
-              <th class="col-3">ACTION</th>
+              <th class="col-2">JENIS TUGAS IBADAH</th>
+              <th class="col-1">NAMA JEMAAT</th>
+              <th class="col-1">NOMOR URUT</th>
+              <th class="col-4">ACTION</th>
             </tr>
           </thead>
           <tbody>
             {% for dp in data_petugas %}
             <tr class="text-center">
               <td>{{ dp.id_ibadah.id_ibadah }}</td>
-              <td>{{ dp.id_ibadah.kode_jenis_ibadah.nama_jenis_ibadah }}</td>
-              <td>{{ dp.id_ibadah.tanggal_ibadah|date:"l, d F Y" }}</td>
+              <td class="text-left">{{ dp.id_ibadah.kode_jenis_ibadah.nama_jenis_ibadah }}</td>
+              <td class="text-left">{{ dp.id_ibadah.tanggal_ibadah|date:"l, d F Y" }}</td>
               <td>{{ dp.kode_jenis_tugas_ibadah.jenis_tugas_ibadah }}</td>
               <td>{{ dp.kode_jemaat.nama_jemaat }}</td>
               <td>{{ dp.nomor_urut }}</td>
               
-              {% comment %} <td>
-                <a class="btn btn-warning" href="{% url 'update_jadwal_ibadah' di.id_ibadah %}">
+              <td>
+                <a class="btn btn-warning" href="{% url 'update_petugas_ibadah' dp.id %}">
                   <i class="fas fa-pencil-alt"></i> UPDATE
                 </a>
                 <a
                   class="btn btn-danger"
                   onclick="return confirm('Apakah anda ingin menghapus data ini?')"
-                  href="{% url 'delete_jadwal_ibadah' di.id_ibadah %}">
+                  href="{% url 'delete_petugas_ibadah' dp.id %}">
                   <i class="fas fa-trash"></i> DELETE</a>
-              </td> {% endcomment %}
+              </td>
             </tr>
             {% endfor %}
           </tbody>

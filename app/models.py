@@ -13,7 +13,7 @@ class MGereja(models.Model):
     
 class MPendeta(models.Model):
     namapendeta = models.CharField(max_length=50)
-    fotopendeta = models.ImageField(upload_to='static/dist/img', null=True)
+    fotopendeta = models.ImageField(upload_to='static/dist/img', blank=True, null=True)
     tlpn_pendeta = models.CharField(max_length=20, blank=True)
     email_pendeta = models.EmailField(max_length=225, unique=True, blank=True)
     pendidikan_pendeta = models.CharField(max_length=225, blank=True)
@@ -63,7 +63,7 @@ class MKategorial(models.Model):
     
 
 class MKeluarga(models.Model):
-    kode_keluarga = models.AutoField(primary_key=True, default=None)
+    kode_keluarga = models.CharField(primary_key=True,max_length=50)
     nama_kepala_keluarga = models.CharField(max_length=50)
     alamat_keluarga = models.CharField(max_length=100)
     jumlah_anggota_keluarga = models.IntegerField()
@@ -122,13 +122,31 @@ class MJdwlibadah(models.Model):
     kode_jenis_ibadah =models.ForeignKey(MJenisibadah, on_delete=models.CASCADE)
     tanggal_ibadah =  models.DateTimeField()
     jam_ibadah = models.CharField(max_length=50)
-    persembahan = models.CharField(max_length=50)
     
 class MPtgsibadah(models.Model):
     id_ibadah = models.ForeignKey(MJdwlibadah, on_delete=models.CASCADE)
     kode_jenis_tugas_ibadah = models.ForeignKey(MJnstgsibd, on_delete=models.CASCADE)
     kode_jemaat = models.ForeignKey(MJemaat, on_delete=models.CASCADE)
     nomor_urut = models.CharField(max_length=50)
+    
+class MJnskolekte(models.Model):
+    kode_jenis_persembahan = models.CharField(primary_key=True,max_length=50)
+    nama_jenis_persembahan = models.CharField(max_length=50)
+    
+class MKolekte(models.Model):
+    id_ibadah = models.ForeignKey(MJdwlibadah, on_delete=models.CASCADE)
+    kode_jenis_persembahan = models.ForeignKey(MJnskolekte, on_delete=models.CASCADE)
+    jumlah_persembahan = models.CharField(max_length=50)
+
+class MHadir(models.Model):
+    id_ibadah = models.ForeignKey(MJdwlibadah, on_delete=models.CASCADE)
+    kodekategorial = models.ForeignKey(MKategorial, on_delete=models.CASCADE)
+    jumlah_kehadiran = models.CharField(max_length=50)
+
+    
+    
+
+    
     
     
 

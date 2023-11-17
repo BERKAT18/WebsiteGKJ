@@ -129,12 +129,37 @@ urlpatterns = [
     
     #petugas ibadah
     path('petugas_ibadah',petugas_ibadah,name='petugas_ibadah'),
+    path('select_ibadah', select_ibadah, name='select_ibadah'),
+    # path('post_selected_ibadah', post_selected_ibadah, name='post_selected_ibadah'),
     path('tambah_petugas_ibadah',tambah_petugas_ibadah,name='tambah_petugas_ibadah'),
     path('post_petugas_ibadah',post_petugas_ibadah,name='post_petugas_ibadah'),
-    # path('update_petugas_ibadah/<int:id>',update_petugas_ibadah,name='update_petugas_ibadah'),
-    # path('postupdate_petugas_ibadah/<int:id>',postupdate_petugas_ibadah,name='postupdate_petugas_ibadah'),
-    # path('delete_petugas_ibadah/<int:id>',delete_petugas_ibadah,name='delete_petugas_ibadah')
+    path('update_petugas_ibadah/<int:id>',update_petugas_ibadah,name='update_petugas_ibadah'),
+    path('postupdate_petugas_ibadah/<int:id>',postupdate_petugas_ibadah,name='postupdate_petugas_ibadah'),
+    path('delete_petugas_ibadah/<int:id>',delete_petugas_ibadah,name='delete_petugas_ibadah'),
+    # path('get_kode_jenis_tugas_ibadah/',get_kode_jenis_tugas_ibadah, name='get_kode_jenis_tugas_ibadah'),
    
+    #persembahan
+    path('jenis_kolekte',jenis_kolekte,name='jenis_kolekte'),
+    
+    path('kolekte',kolekte,name='kolekte'),
+    path('tambah_kolekte',tambah_kolekte,name='tambah_kolekte'),
+    path('post_kolekte',post_kolekte,name='post_kolekte'),
+    path('update_kolekte/<str:id>',update_kolekte,name='update_kolekte'),
+    path('postupdate_kolekte/<str:id>',postupdate_kolekte,name='postupdate_kolekte'),
+    path('delete_kolekte/<str:id>',delete_kolekte,name='delete_kolekte'),
+    
+    #kehadiran
+    path('kehadiran',kehadiran,name='kehadiran'),
+    path('tambah_kehadiran',tambah_kehadiran,name='tambah_kehadiran'),
+    path('post_kehadiran',post_kehadiran,name='post_kehadiran'),
+    path('update_kehadiran/<str:id>',update_kehadiran,name='update_kehadiran'),
+    path('postupdate_kehadiran/<str:id>',postupdate_kehadiran,name='postupdate_kehadiran'),
+    path('delete_kehadiran/<str:id>',delete_kehadiran,name='delete_kehadiran'),
+    
+    path('export_pdf',export_pdf,name='export_pdf'),
+    
+    # path('check_existing_combinations',check_existing_combinations,name='check_existing_combinations'),
+    path('get_existing_combinations',get_existing_combinations,name='get_existing_combinations'),
     
 ]
 

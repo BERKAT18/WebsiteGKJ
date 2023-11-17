@@ -2,6 +2,13 @@
 
 <div class="card">
   <div class="card-body">
+    <div class="card shadow-lg">
+      <div class="card-header bg-primary">
+        <div class="text-center">
+          <h2>UPDATE WARTA</h2>
+        </div>
+      </div>
+      <div class="card-body" style="background-color:whitesmoke">
     {% if messages %} {% for message in messages %}
     <p>{{ message }}</p>
     {% endfor %} {% endif %}
@@ -11,7 +18,6 @@
       enctype="multipart/form-data"
     >
       {% csrf_token %}
-      <h1>UPDATE DATA WARTA</h1>
       <div class="form-group">
         <p>ID WARTA:</p>
         <input

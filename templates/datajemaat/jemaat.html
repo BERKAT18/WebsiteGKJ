@@ -8,54 +8,61 @@
   {% endfor %}
   {% endif %}
 
-      {% comment %} <i class="nav-icon fas fa-plus"> TAMBAH JEMAAT </i>y {% endcomment %}
-    </a>
-    <br>
-    <br>
-    <table class="table table-striped table-hover">
-      <thead class="table-dark">
-        <tr>
-        <th>KODE JEMAAT</th>
-        <th>KODE KELUARGA</th>
-        <th>NAMA JEMAAT</th>
-        <th>STATUS DALAM KELUARGA</th>
-        <th>TANGGAL LAHIR</th>
-        <th>JENIS KELAMIN</th>
-        <th>KODE KATEGORIAL</th>
-        <th>STATUS BAPTIS</th>
-        <th>STATUS SIDI</th>
-        <th>NOMOR TELEPON</th>
-        <th>PENDIDIKAN</th>
-        <th>PEKERJAAN</th>
-        <th>ACTION</th>
+  <div class="card shadow-lg">
+    <div class="card-header bg-teal">
+      <div class="text-center">
+        <h2>DATA JEMAAT</h2>
+      </div>
+    </div>
+    <div class="card-body" style="background-color: whitesmoke">
 
-      </tr>
-    </thead>
-    <tbody>
-      {% for dj in datajemaat %}
-      <tr>
-        <td>{{ dj.kode_jemaat }}</td>
-        <td>{{ dj.kode_keluarga.kode_keluarga}}</td>
-        <td>{{ dj.nama_jemaat }}</td>
-        <td>{{ dj.status_dalam_keluarga }}</td>
-        <td>{{ dj.tanggal_lahir }}</td>
-        <td>{{ dj.jenis_kelamin}}</td>
-        <td>{{ dj.kodekategorial.kodekategorial}}</td>
-        <td>{{ dj.status_baptis}}</td>
-        <td>{{ dj.status_sidi}}</td>
-        <td>{{ dj.nomor_telepon}}</td>
-        <td>{{ dj.pendidikan}}</td>
-        <td>{{ dj.pekerjaan}}</td>
-        
-       
-
-        <td class="">
-          <a class="btn btn-warning" href="{% url 'update_jemaat' dj.kode_jemaat %}">UPDATE</a>     
-          <a class="btn btn-danger" onclick="return confirm('Apakah anda ingin menghapus data ini?')" href="{% url 'delete_jemaat' dj.kode_jemaat %}">DELETE</a>
-        </td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
+      <table id="example1" class="table table-bordered table-striped table-responsive text-center">
+        <thead class="bg-secondary">
+          <tr>
+            <th>KODE JEMAAT</th>
+            <th>KODE KELUARGA</th>
+            <th>NAMA JEMAAT</th>
+            <th>STATUS DALAM KELUARGA</th>
+            <th>TANGGAL LAHIR</th>
+            <th>JENIS KELAMIN</th>
+            <th>KODE KATEGORIAL</th>
+            <th>STATUS BAPTIS</th>
+            <th>STATUS SIDI</th>
+            <th>NOMOR TELEPON</th>
+            <th>PENDIDIKAN</th>
+            <th>PEKERJAAN</th>
+            <th>ACTION</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for dj in datajemaat %}
+          <tr>
+            <td>{{ dj.kode_jemaat }}</td>
+            <td>{{ dj.kode_keluarga.kode_keluarga}}</td>
+            <td>{{ dj.nama_jemaat }}</td>
+            <td>{{ dj.status_dalam_keluarga }}</td>
+            <td>{{ dj.tanggal_lahir }}</td>
+            <td>{{ dj.jenis_kelamin}}</td>
+            <td>{{ dj.kodekategorial.kodekategorial}}</td>
+            <td>{{ dj.status_baptis}}</td>
+            <td>{{ dj.status_sidi}}</td>
+            <td>{{ dj.nomor_telepon}}</td>
+            <td>{{ dj.pendidikan}}</td>
+            <td>{{ dj.pekerjaan}}</td>
+            <td class="">
+              <a class="btn btn-warning" href="{% url 'update_jemaat' dj.kode_jemaat %}">UPDATE</a>
+              <a class="btn btn-danger" onclick="return confirm('Apakah anda ingin menghapus data ini?')"
+                href="{% url 'delete_jemaat' dj.kode_jemaat %}">DELETE</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
+
+
+</body>
+
 {% endblock %}

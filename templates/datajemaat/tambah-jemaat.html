@@ -1,40 +1,61 @@
 {% extends "templates/base.html" %} {% block content %}
-<div class="card">
-  <div class="card-body">
-    {% if messages %}
-    {% for message in messages %}
-    <p class="alert alert-warning alert-dismissible fade show" role="alert">{{ message }}</p>
-    {% endfor %}
-    {% endif %}
-    <form
+{% if messages %}
+{% for message in messages %}
+<p class="alert alert-warning alert-dismissible fade show" role="alert">{{ message }}</p>
+{% endfor %}
+{% endif %}
+
+
+    <div class="card shadow-lg">
+      <div class="card-header bg-primary">
+        <div class="text-center">
+          <h2>FORM TAMBAH JEMAAT</h2>
+        </div>
+      </div>
+      <div class="card-body" style="background-color:whitesmoke">
+    
+<form
       action="{% url 'post_jemaat' %}"
       method="POST"
       enctype="multipart/form-data"
     >
       {% csrf_token %}
-      <h1>FORM TAMBAH KELUARGA</h1>
 
-      <div class="form-group">
+      {% comment %} <div class="form-group">
         <p>KODE JEMAAT :</p>
         <input
           class="form-control"
           type="text"
           name="kode_jemaat"
-          id="kode_jemaat"
+          id="kode_jemaatt"
           maxlength="10"
           required
         />
-      </div>
+      </div> {% endcomment %}
       <div class="form-group">
         <p>KODE KELUARGA :</p>
-        <select  class="form-control" name="kode_keluarga" id="kode_keluarga">
+        {% comment %} <select  class="form-control" name="kode_keluarga" id="kode_keluarga">
           <option value="" disabled selected>Kode Keluarga</option>
           {% for dt in dataanggotakeluarga  %}
           {% if dt.kode_keluarga == datakeluarga.kode_keluarga %}
           <option value="{{ dt.kode_keluarga }}">{{ dt.kode_keluarga }}</option>
           {% endif %}
           {% endfor %}
-        </select>
+        </select> {% endcomment %}
+        <input
+          readonly
+          class="form-control"
+          type="text"
+          name="kode_keluarga"
+          id="kode_keluarga"
+          maxlength="50"
+          {% for dt in dataanggotakeluarga  %}
+          {% if dt.kode_keluarga == datakeluarga.kode_keluarga %}
+          value="{{ dt.kode_keluarga }}">
+          {% endif %}
+          {% endfor %}
+          
+
       </div>
         <div class="form-group">
         <p>NAMA JEMAAT :</p>
@@ -148,4 +169,5 @@
     </form>
   </div>
 </div>
+
 {% endblock %}

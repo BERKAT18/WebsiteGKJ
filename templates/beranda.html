@@ -1,25 +1,32 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <div class="container">
-  {% if messages %}
-  {% for message in messages %}
-  <p class="alert alert-warning alert-dismissible fade show" role="alert">{{ message }}</p>
-  {% endfor %}
-  {% endif %}
-    <table class="table table-striped table-hover">
-        <thead class="table-dark">
-            <tr>
-                <th>NAMA GEREJA</th>
-                <th>ALAMAT GEREJA</th>
-                <th>TELEPON GEREJA</th>
-                <th>EMAIL GEREJA</th>
-                <th>TANGGAL BERDIRI</th>
-                <th>TEMA</th>
-                <th>AYAT EMAS</th>
-                <th>ISI AYAT EMAS</th>
-                <th>AKSI</th>
-            </tr>
+  
+      {% if messages %} {% for message in messages %}
+      <p class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ message }}
+      </p>
+      {% endfor %} {% endif %}
+      <div class="card shadow-lg">
+        <div class="card-header bg-teal">
+          <div class="text-center">
+            <h2>BERANDA</h2>
+          </div>
+        </div>
+        <div class="card-body" style="background-color: whitesmoke">
+
+      <table class="table table-bordered table-hover table-responsive text-center ">
+        <thead style="background-color: #5f5b5b">
+          <tr style="color: white">
+            <th>NAMA GEREJA</th>
+            <th>ALAMAT GEREJA</th>
+            <th>TELEPON GEREJA</th>
+            <th>EMAIL GEREJA</th>
+            <th>TANGGAL BERDIRI</th>
+            <th>TEMA</th>
+            <th>AYAT EMAS</th>
+            <th>ISI AYAT EMAS</th>
+            <th>AKSI</th>
+          </tr>
         </thead>
         <tbody>
           {% for dt in databeranda %}
@@ -29,16 +36,21 @@
             <td>{{ dt.telepongereja }}</td>
             <td>{{ dt.emailgereja }}</td>
             <td>{{ dt.tanggalberdiri }}</td>
-            <td>{{ dt.tema }}</td>
+            <td class="text-left">{{ dt.tema }}</td>
             <td>{{ dt.ayatemas }}</td>
-            <td>{{ dt.isi_ayatemas }}</td>
+            <td class="text-left">{{ dt.isi_ayatemas }}</td>
             <td>
-              <a class="btn btn-warning" href="{% url 'updateberanda' dt.id %}">UPDATE</a>
+              <a class="btn btn-warning" href="{% url 'updateberanda' dt.id %}">
+                <i class="fas fa-pencil-alt"></i>UPDATE</a>
             </td>
           </tr>
           {% endfor %}
         </tbody>
-        
-    </table>
+    </div>
+  </div>
+</div>
+</table>
 </div>
 {% endblock %}
+</div>
+</div>

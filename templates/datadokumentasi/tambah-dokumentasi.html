@@ -1,15 +1,20 @@
 {% extends "templates/base.html" %} {% block content %}
+{% if messages %} {% for message in messages %}
+<p class="alert alert-warning alert-dismissible fade show" role="alert"> {{ message }}</p>
+{% endfor %} {% endif %}
+
 <div class="card">
   <div class="card-body">
-    {% if messages %} {% for message in messages %}
-    <p class="alert alert-warning alert-dismissible fade show" role="alert"> {{ message }}</p>
-    {% endfor %} {% endif %}
-  
-    
+    <div class="card shadow-lg">
+      <div class="card-header bg-primary">
+        <div class="text-center">
+          <h2>FORM TAMBAH DOKUMENTASI</h2>
+        </div>
+      </div>
+      <div class="card-body" style="background-color:whitesmoke">
 
     <form action="{% url 'posttambah_dokumentasi' %}"method="POST"  enctype="multipart/form-data">
         {% csrf_token %}
-        <h1>FORM TAMBAH DOKUMENTASI</h1>
         <div class="form-group">
         <P>ID DOKUMENTASI :</P>
         <input class="form-control"  type="text" name="id_dokumentasi" id="id_dokumentasi" maxlength="10" required>

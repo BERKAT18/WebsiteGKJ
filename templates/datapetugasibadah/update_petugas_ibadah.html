@@ -1,0 +1,77 @@
+{% extends "base.html" %} {% block content %}
+
+
+    {% if messages %} {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %} {% endif %}
+
+    
+    <div class="card shadow-lg">
+      <div class="card-header bg-primary">
+        <div class="text-center">
+          <h2>UPDATE PETUGAS IBADAH</h2>
+        </div>
+      </div>
+      <div class="card-body" style="background-color:whitesmoke">
+    
+    <form
+      action="{% url 'postupdate_petugas_ibadah' data_petugas.id %}"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+      <div class="form-group">
+        <p>ID IBADAH:</p>
+        <select class="form-control" name="id_ibadah" id="id_ibadah" required>
+          {% for dj in data_jadwal %}
+              <option value="{{ dj.id_ibadah }}"
+                  {% if dj.id_ibadah == data_petugas.id_ibadah.id_ibadah %} selected {% endif %}>
+                  {{ dj.id_ibadah }}
+              </option>
+          {% endfor %}
+      </select>
+      
+      </div>
+      <div class="form-group">
+        <p>KODE JENIS TUGAS IBADAH:</p>
+        <select class="form-control" name="kode_jenis_tugas_ibadah" id="kode_jenis_tugas_ibadah" required>
+          {% for dti in data_tugas_ibadah %}
+              <option value="{{ dti.kode_jenis_tugas_ibadah }}"
+                  {% if dti.kode_jenis_tugas_ibadah == data_petugas.kode_jenis_tugas_ibadah.kode_jenis_tugas_ibadah %} selected {% endif %}>
+                  {{ dti.kode_jenis_tugas_ibadah }}|{{ dti.jenis_tugas_ibadah }}
+              </option>
+          {% endfor %}
+      </select>
+      
+      </div>
+      <div class="form-group">
+        <p>KODE JEMAAT:</p>
+        <select class="form-control" name="kode_jemaat" id="kode_jemaat" required>
+            {% for dj in datajemaat %}
+                <option value="{{ dj.kode_jemaat }}"
+                    {% if dj.kode_jemaat == data_petugas.kode_jemaat.kode_jemaat %} selected {% endif %}>
+                    {{ dj.kode_jemaat }} | {{ dj.nama_jemaat }}
+                </option>
+            {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <p>NOMOR URUT:</p>
+        <input
+          class="form-control"
+          type="number"
+          name="nomor_urut"
+          maxlength="100"
+          id="nomor_urut"
+          value="{{ data_petugas.nomor_urut }}"
+          required
+        />
+      </div>
+      
+      <br />
+      <button class="btn btn-success" type="submit">Simpan</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+

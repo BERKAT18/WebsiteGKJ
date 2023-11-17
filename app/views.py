@@ -1,13 +1,18 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from django.shortcuts import render
-from .models import MGereja, MPendeta , MKhotbah,MWarta,MRenungan,MDokumentasi,MadminLog, MDokumentasi,MKeluarga,MJemaat,MOrjem,MPengjem,MKategorial,MOrkat,MPengkat,MJenisibadah,MJnstgsibd,MJdwlibadah,MPtgsibadah
+from .models import MGereja, MPendeta , MKhotbah,MWarta,MRenungan,MDokumentasi,MadminLog, MDokumentasi,MKeluarga,MJemaat,MOrjem,MPengjem,MKategorial,MOrkat,MPengkat,MJenisibadah,MJnstgsibd,MJdwlibadah,MPtgsibadah,MJnskolekte,MKolekte,MHadir
 from django.contrib.auth import authenticate, login
 from .decorators import login_required
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.http import HttpResponse
+import os
+from django.http import JsonResponse
+from django.shortcuts import render
+# from .forms import KolekteForm
+from .models import MKolekte
 
 
 # Create your views here.
@@ -49,7 +54,8 @@ def postberanda(request):
 def beranda(request):
     databeranda = MGereja.objects.all()
     context = {
-        'databeranda': databeranda
+        'databeranda': databeranda,
+        'menu' : 'beranda'
 
     }
     return render(request, 'beranda.html', context)
@@ -91,7 +97,8 @@ def postupdate_beranda(request, id):  # Menambahkan id sebagai argumen
 def profilpendeta(request):
     gereja = MPendeta.objects.all() # Mengambil objek berdasarkan id yang diberikan dalam URL
     context = {
-       'gereja' : gereja 
+       'gereja' : gereja,
+       'menu': 'profil'
     }
     
     return render(request, 'datapendeta/profilpendeta.html', context)
@@ -128,28 +135,25 @@ def updateprofil_pendeta(request, id):
     return render(request, 'datapendeta/update-profile-pendeta.html', context)
 
 def postupdateprofil_pendeta(request, id):
-    namapendeta = request.POST['namapendeta']
-    fotopendeta = request.FILES['fotopendeta']
-    tlpn_pendeta = request.POST['tlpn_pendeta']
-    email_pendeta = request.POST['email_pendeta']
-    pendidikan_pendeta = request.POST['pendidikan_pendeta']
-    visi = request.POST['visi']
-    misi = request.POST['misi']
-    jadwal = request.POST['jadwal']
-    
     postupdateprofilpendeta = MPendeta.objects.get(id=id)
-    postupdateprofilpendeta.namapendeta = namapendeta
-    postupdateprofilpendeta.fotopendeta = fotopendeta
-    postupdateprofilpendeta.tlpn_pendeta = tlpn_pendeta
-    postupdateprofilpendeta.email_pendeta = email_pendeta
-    postupdateprofilpendeta.pendidikan_pendeta = pendidikan_pendeta
-    postupdateprofilpendeta.visi= visi
-    postupdateprofilpendeta.misi = misi
-    postupdateprofilpendeta.jadwal= jadwal
-  
+
+    if request.FILES.get('fotopendeta'):
+        if postupdateprofilpendeta.fotopendeta:
+            os.remove(postupdateprofilpendeta.fotopendeta.path)
+        postupdateprofilpendeta.fotopendeta = request.FILES['fotopendeta']
+
+    postupdateprofilpendeta.namapendeta = request.POST.get('namapendeta')
+    postupdateprofilpendeta.tlpn_pendeta = request.POST.get('tlpn_pendeta')
+    postupdateprofilpendeta.email_pendeta = request.POST.get('email_pendeta')
+    postupdateprofilpendeta.pendidikan_pendeta = request.POST.get('pendidikan_pendeta')
+    postupdateprofilpendeta.visi = request.POST.get('visi')
+    postupdateprofilpendeta.misi = request.POST.get('misi')
+    postupdateprofilpendeta.jadwal = request.POST.get('jadwal')
+
     postupdateprofilpendeta.save()
     messages.success(request, 'Data telah diperbarui.')
-    return redirect('profilpendeta') 
+    return redirect('profilpendeta')
+
 
 def profil(request):
     return render(request,'datapendeta/tambah-profilpendeta.html')
@@ -158,7 +162,8 @@ def profil(request):
 def khotbah(request):
     data_khotbah = MKhotbah.objects.all()
     context = {
-       'data_khotbah' : data_khotbah 
+       'data_khotbah' : data_khotbah,
+       'menu': 'khotbah'
     }
     
     return render(request, 'datakhotbah/khotbah.html', context)
@@ -223,7 +228,8 @@ def delete_khotbah(request, id_khotbah):
 def warta(request):
     data_warta = MWarta.objects.all()
     context = {
-       'data_warta' : data_warta
+       'data_warta' : data_warta,
+       'menu' : 'warta'
     }
     
     return render(request, 'datawarta/warta.html', context)
@@ -290,7 +296,8 @@ def delete_warta(request, id_warta):
 def renungan(request):
     data_renungan = MRenungan.objects.all()
     context = {
-       'data_renungan' : data_renungan
+       'data_renungan' : data_renungan,
+       'menu' : 'renungan'
     }
     
     return render(request, 'datarenungan/renungan.html', context)
@@ -359,7 +366,8 @@ def delete_renungan(request, id_renungan):
 def dokumentasi(request):
     data_dokumentasi = MDokumentasi.objects.all()
     context = {
-       'data_dokumentasi' : data_dokumentasi
+       'data_dokumentasi' : data_dokumentasi,
+       'menu':'dokumentasi'
     }
     
     return render(request, 'datadokumentasi/dokumentasi.html', context)
@@ -374,27 +382,34 @@ def update_dokumentasi(request, id_dokumentasi):
     }
     return render(request, 'datadokumentasi/update-dokumentasi.html', context) # Menggunakan 'khotbah.html' tanpa path ke folder 'templates'
 
-
-def postupdate_dokumentasi(request,id_dokumentasi):
-    id_dokumentasi = request.POST['id_dokumentasi']
-    foto_dokumentasi = request.FILES['foto_dokumentasi']
-    nama_kegiatan = request.POST['nama_kegiatan']
-    tanggal_kegiatan = request.POST['tanggal_kegiatan']
-    keterangan_kegiatan = request.POST['keterangan_kegiatan'] 
-    
+def postupdate_dokumentasi(request, id_dokumentasi):
     update_dokumentasi = MDokumentasi.objects.get(id_dokumentasi=id_dokumentasi)
 
-    update_dokumentasi.id_dokumentasi = id_dokumentasi
-    update_dokumentasi.foto_dokumentasi = foto_dokumentasi
+    if request.FILES.get('foto_dokumentasi'):
+        if update_dokumentasi.foto_dokumentasi:
+            os.remove(update_dokumentasi.foto_dokumentasi.path)
+        update_dokumentasi.foto_dokumentasi = request.FILES['foto_dokumentasi']
+
+    # Hapus baris-baris berikut, karena Anda sudah mengambil 'id_dokumentasi' dan 'foto_dokumentasi' di atas.
+    # id_dokumentasi = request.POST['id_dokumentasi']
+    # foto_dokumentasi = request.FILES['foto_dokumentasi']
+
+    # Gunakan request.POST.get() untuk mengambil nilai dari permintaan POST.
+    nama_kegiatan = request.POST.get('nama_kegiatan')
+    tanggal_kegiatan = request.POST.get('tanggal_kegiatan')
+    keterangan_kegiatan = request.POST.get('keterangan_kegiatan')
+
+    # Perbarui atribut-atribut objek 'update_dokumentasi'.
+    # Tidak perlu mengatur 'id_dokumentasi' atau 'foto_dokumentasi' karena Anda sudah melakukannya di atas.
     update_dokumentasi.nama_kegiatan = nama_kegiatan
     update_dokumentasi.tanggal_kegiatan = tanggal_kegiatan
-    update_dokumentasi.keterangan_kegiatan= keterangan_kegiatan
-
+    update_dokumentasi.keterangan_kegiatan = keterangan_kegiatan
 
     update_dokumentasi.save()
 
-    messages.success(request, 'Data Dokumentasi Berhasil Ditambah.')
+    messages.success(request, 'Data Dokumentasi Berhasil DiUpdate.')
     return redirect('dokumentasi')
+
 
 def posttambah_dokumentasi(request):
     id_dokumentasi = request.POST['id_dokumentasi']
@@ -557,13 +572,14 @@ def send_email(request):
     return render(request, 'profile/index.html')
 
 #views data keluarga
-
+@login_required()
 def keluarga(request):
-    datakeluarga = MKeluarga.objects.all()
+    datakeluarga = MKeluarga.objects.all().order_by('nama_kepala_keluarga')
     datajemaat = MJemaat.objects.all()
     context = {
         'datakeluarga': datakeluarga,
-        'datajemaat': datajemaat
+        'datajemaat': datajemaat,
+        'menu': 'keluarga'
 
     }
     return render(request, 'datakeluarga/keluarga.html', context)
@@ -584,9 +600,18 @@ def post_keluarga(request):
         jumlah_anggota_keluarga = int(request.POST.get('jumlah_anggota_keluarga'))
         foto_keluarga = request.FILES.get('foto_keluarga')
         
-        if MKeluarga.objects.filter(kode_keluarga=kode_keluarga).exists():
-            messages.error(request, 'Kode Keluarga Sudah Digunakan')
-            return redirect('tambah_keluarga')
+        # if MKeluarga.objects.filter(kode_keluarga=kode_keluarga).exists():
+        #     messages.error(request, 'Kode Keluarga Sudah Digunakan')
+        #     return redirect('tambah_keluarga')
+        first_letter = nama_kepala_keluarga[0].upper()
+        # Cari semua kelompok yang memiliki huruf awal yang sama
+        existing_kepala_kelarga = MKeluarga.objects.filter(kode_keluarga__startswith=first_letter)
+        # Tentukan nomor yang akan digunakan (misalnya, 001 jika belum ada yang sama)
+        number = 1
+        while existing_kepala_kelarga.filter(kode_keluarga=first_letter + str(number).zfill(3)).exists():
+            number += 1
+        # Setel kode_kelompok dengan format yang sesuai
+        kode_keluarga = first_letter + str(number).zfill(3)
 
         simpankeluarga = MKeluarga(
             nama_kepala_keluarga=nama_kepala_keluarga,
@@ -643,10 +668,17 @@ def kategorial(requset):
     }
     return render ('kategorial',context)
 
+@login_required()
 def jemaat(request):
+    # search_term = request.GET.get('search')
     datajemaat = MJemaat.objects.all()
+    # if search_term:
+    #     datajemaat = datajemaat.filter(nama_jemaat__icontains=search_term)
+        
     context = {
-        'datajemaat': datajemaat
+        'datajemaat': datajemaat,
+        #  'search_term' : search_term,
+         'menu' : 'jemaat'
 
     }
     return render(request, 'datajemaat/jemaat.html', context)
@@ -669,7 +701,7 @@ def tambah_jemaat(request, kode_keluarga):
 
 def post_jemaat(request):
     if request.method == 'POST':
-        kode_jemaat = request.POST['kode_jemaat']
+        # kode_jemaat = request.POST['kode_jemaat']
         kode_keluarga = request.POST['kode_keluarga']
         kodekategorial = request.POST['kodekategorial']
 
@@ -680,9 +712,21 @@ def post_jemaat(request):
             messages.error(request, 'MKeluarga tidak ditemukan')
             return redirect('tambah_jemaat')
         
-        if MJemaat.objects.filter(kode_jemaat=kode_jemaat).exists():
-            messages.error(request, 'Kode jemaat Sudah Digunakan')
-            return redirect('tambah_jemaat')
+        # if MJemaat.objects.filter(kode_jemaat=kode_jemaat).exists():
+        #     messages.error(request, 'Kode jemaat Sudah Digunakan')
+        #     return redirect('tambah_jemaat')
+        # Ambil huruf pertama dari nama_kelompok
+        first_letter = request.POST['nama_jemaat'][0].upper()
+        # Cari semua kelompok yang memiliki huruf awal yang sama
+        existing_jemaat = MJemaat.objects.filter(kode_jemaat__startswith=first_letter)
+        # Tentukan nomor yang akan digunakan (misalnya, 001 jika belum ada yang sama)
+        number = 1
+        while existing_jemaat.filter(kode_jemaat=first_letter + str(number).zfill(3)).exists():
+            number += 1
+        # Setel kode_kelompok dengan format yang sesuai
+        kode_jemaat = first_letter + str(number).zfill(3)
+    
+    # jika ada kode kelompok yang sama maka akan ada pesan error
 
         m_kategorial = MKategorial.objects.get(kodekategorial=kodekategorial)
 
@@ -738,7 +782,7 @@ def postupdate_jemaat(request, kode_jemaat):
             # Cari objek MKeluarga yang sesuai dengan kode_keluarga_id
             kode_keluarga = MKeluarga.objects.get(pk=kode_keluarga_id)
         except MKeluarga.DoesNotExist:
-            return HttpResponse("MKeluarga tidak ditemukan.")
+            return HttpResponse("Kode Keluarga tidak ditemukan.")
         
         # Setel MJemaat.kode_keluarga ke objek MKeluarga yang ditemukan
         datajemaat.kode_keluarga = kode_keluarga
@@ -772,6 +816,7 @@ def delete_jemaat(request, kode_jemaat):
     messages.success(request, 'Berhasil hapus data jemaat')
     return redirect('jemaat')
 
+@login_required()
 def detail_keluarga(request, kode_keluarga):
     dataanggotakeluarga = MJemaat.objects.filter(kode_keluarga=kode_keluarga)
     datakeluarga = MKeluarga.objects.get(kode_keluarga=kode_keluarga)
@@ -784,18 +829,19 @@ def detail_keluarga(request, kode_keluarga):
 
 
 #Pengurus Jemaat
-
+@login_required()
 def organisasi_jemaat(request):
     data_orjem = MOrjem.objects.all()
     context = {
         'data_orjem' : data_orjem
     }
     return render (request,'datapengurusjemaat/pengurus_jemaat.html', context)
-
+@login_required()
 def pengurus_jemaat(request):
     data_pengjem = MPengjem.objects.all()
     context = {
         'data_pengjem' : data_pengjem,
+        'menu':'pengurus_jemaat',
     }
     return render(request, 'datapengurusjemaat/pengurus_jemaat.html', context)
 
@@ -901,12 +947,14 @@ def organisasi_kategorial(request):
     }
     return render (request,'datapengurusjemaat/pengurus_kategorial.html', context)
 
+@login_required()
 def pengurus_kategorial(request):
     data_kategorial = MKategorial.objects.all()
     data_pengkat = MPengkat.objects.all()
     context = {
         'data_pengkat' : data_pengkat,
-        'data_kategorial' : data_kategorial
+        'data_kategorial' : data_kategorial,
+        'menu':'pengurus_kategorial'
     }
     return render (request,'datapenguruskategorial/pengurus_kategorial.html', context)
 
@@ -996,11 +1044,12 @@ def delete_pengurus_kategorial(request,id):
     return redirect('pengurus_kategorial')
 
 #view jenis ibadah
-
+@login_required()
 def jenis_ibadah(request):
     data_ibadah = MJenisibadah.objects.all()
     context = {
-        'data_ibadah': data_ibadah
+        'data_ibadah': data_ibadah,
+        'menu':'jenis_ibadah',
     }
     return render(request, 'datajenisibadah/jenis_ibadah.html', context)
 
@@ -1013,14 +1062,24 @@ def tambah_jenis_ibadah(request):
  
 def post_jenis_ibadah(request):
     
-    kode_jenis_ibadah = request.POST['kode_jenis_ibadah']
-    nama_jenis_ibadah = request.POST['nama_jenis_ibadah']
+    kode_jenis_ibadah = request.POST.get('kode_jenis_ibadah')
+    nama_jenis_ibadah = request.POST.get('nama_jenis_ibadah')
     periode = request.POST['periode']    
   
   
-    if MJenisibadah.objects.filter(kode_jenis_ibadah=kode_jenis_ibadah).exists():
-        messages.error(request, 'Kode Jenis Ibadah Sudah Terdaftar ')
-        return redirect('tambah_jenis_ibadah')
+    # if MJenisibadah.objects.filter(kode_jenis_ibadah=kode_jenis_ibadah).exists():
+    #     messages.error(request, 'Kode Jenis Ibadah Sudah Terdaftar ')
+    #     return redirect('tambah_jenis_ibadah')
+    first_letter = nama_jenis_ibadah[0].upper()
+        # Cari semua kelompok yang memiliki huruf awal yang sama
+    existing_kepala_kelarga = MJenisibadah.objects.filter(kode_jenis_ibadah__startswith=first_letter)
+        # Tentukan nomor yang akan digunakan (misalnya, 001 jika belum ada yang sama)
+    number = 1
+    while existing_kepala_kelarga.filter(kode_jenis_ibadah=first_letter + str(number).zfill(3)).exists():
+        number += 1
+        # Setel kode_kelompok dengan format yang sesuai
+    kode_jenis_ibadah = first_letter + str(number).zfill(3)
+
     
     post_ibadah = MJenisibadah(
         kode_jenis_ibadah = kode_jenis_ibadah,
@@ -1062,13 +1121,14 @@ def delete_jenis_ibadah(request,kode_jenis_ibadah):
     
     
 #view jenis tugas ibadah
-
+@login_required()
 def jenis_tugas_ibadah(request):
-    data_tugas_ibadah = MJnstgsibd.objects.all()
+    data_tugas_ibadah = MJnstgsibd.objects.all().order_by('nomor_urut')
     data_ibadah = MJenisibadah.objects.all()
     context = {
         'data_tugas_ibadah': data_tugas_ibadah,
-        'data_ibadah' : data_ibadah
+        'data_ibadah' : data_ibadah,
+        'menu':'jenis_tugas',
     }
     return render(request, 'datatugasibadah/jenis_tugas_ibadah.html', context)
 
@@ -1082,15 +1142,24 @@ def tambah_jenis_tugas_ibadah(request):
     return render(request, 'datatugasibadah/tambah_jenis_tugas_ibadah.html', context)
  
 def post_jenis_tugas_ibadah(request):
-    kode_jenis_tugas_ibadah = request.POST['kode_jenis_tugas_ibadah']
+    kode_jenis_tugas_ibadah = request.POST.get('kode_jenis_tugas_ibadah')
     kode_jenis_ibadah = request.POST['kode_jenis_ibadah']
     nomor_urut = request.POST['nomor_urut']
     jenis_tugas_ibadah = request.POST['jenis_tugas_ibadah']    
   
   
-    if MJnstgsibd.objects.filter(kode_jenis_tugas_ibadah=kode_jenis_tugas_ibadah).exists():
-        messages.error(request, 'Kode Tugas Ibadah Sudah Terdaftar ')
-        return redirect('tambah_jenis_tugas_ibadah')
+    # if MJnstgsibd.objects.filter(kode_jenis_tugas_ibadah=kode_jenis_tugas_ibadah).exists():
+    #     messages.error(request, 'Kode Tugas Ibadah Sudah Terdaftar ')
+    #     return redirect('tambah_jenis_tugas_ibadah')
+    first_letter = jenis_tugas_ibadah[0].upper()
+        # Cari semua kelompok yang memiliki huruf awal yang sama
+    existing_kepala_kelarga = MJnstgsibd.objects.filter(kode_jenis_tugas_ibadah__startswith=first_letter)
+        # Tentukan nomor yang akan digunakan (misalnya, 001 jika belum ada yang sama)
+    number = 1
+    while existing_kepala_kelarga.filter(kode_jenis_tugas_ibadah=first_letter + str(number).zfill(3)).exists():
+        number += 1
+        # Setel kode_kelompok dengan format yang sesuai
+    kode_jenis_tugas_ibadah = first_letter + str(number).zfill(3)
     
     m_jenisibadah = MJenisibadah.objects.get(kode_jenis_ibadah=kode_jenis_ibadah)
     
@@ -1141,10 +1210,12 @@ def delete_jenis_tugas_ibadah(request,kode_jenis_tugas_ibadah):
     return redirect('jenis_tugas_ibadah')
 
 #view jadwal ibadah
+@login_required()
 def jadwal_ibadah(request):
     data_jadwal = MJdwlibadah.objects.all()
     context = {
         'data_jadwal' : data_jadwal,
+        'menu':'jadwal',
     }
     return render(request, 'datajadwalibadah/jadwal_ibadah.html', context)
 
@@ -1158,13 +1229,24 @@ def tambah_jadwal_ibadah(request):
     return render(request, 'datajadwalibadah/tambah_jadwal_ibadah.html', context)
 
 def post_jadwal_ibadah(request):
-    id_ibadah = request.POST['id_ibadah']
-    kode_jenis_ibadah = request.POST['kode_jenis_ibadah']
+    id_ibadah = request.POST.get('id_ibadah')
+    kode_jenis_ibadah = request.POST.get('kode_jenis_ibadah')
     tanggal_ibadah = request.POST['tanggal_ibadah']
     jam_ibadah = request.POST['jam_ibadah']    
-    persembahan = request.POST['persembahan']    
   
   
+    # if MJdwlibadah.objects.filter(id_ibadah=id_ibadah).exists():
+    #     messages.error(request, 'ID Ibadah Sudah Terdaftar ')
+    #     return redirect('tambah_jadwal_ibadah')
+    first_letter = tanggal_ibadah[0].upper()
+        # Cari semua kelompok yang memiliki huruf awal yang sama
+    existing_kepala_kelarga = MJdwlibadah.objects.filter(id_ibadah__startswith=first_letter)
+        # Tentukan nomor yang akan digunakan (misalnya, 001 jika belum ada yang sama)
+    number = 1
+    while existing_kepala_kelarga.filter(id_ibadah=first_letter + str(number).zfill(3)).exists():
+        number += 1
+        # Setel kode_kelompok dengan format yang sesuai
+    id_ibadah = first_letter + str(number).zfill(3)
     if MJdwlibadah.objects.filter(id_ibadah=id_ibadah).exists():
         messages.error(request, 'ID Ibadah Sudah Terdaftar ')
         return redirect('tambah_jadwal_ibadah')
@@ -1175,8 +1257,7 @@ def post_jadwal_ibadah(request):
         id_ibadah = id_ibadah,
         kode_jenis_ibadah = m_jenisibadah,
         tanggal_ibadah = tanggal_ibadah,
-        jam_ibadah = jam_ibadah,
-        persembahan = persembahan
+        jam_ibadah = jam_ibadah
         
     )
     post_ibadah.save()
@@ -1197,9 +1278,7 @@ def postupdate_jadwal_ibadah(request,id_ibadah):
     kode_jenis_ibadah = request.POST['kode_jenis_ibadah']
     tanggal_ibadah = request.POST['tanggal_ibadah']
     jam_ibadah = request.POST['jam_ibadah'] 
-    persembahan = request.POST['persembahan'] 
-       
-    
+           
     m_jenisibadah = MJenisibadah.objects.get(kode_jenis_ibadah=kode_jenis_ibadah)
     update_jadwal = MJdwlibadah.objects.get(id_ibadah=id_ibadah)
     
@@ -1207,7 +1286,6 @@ def postupdate_jadwal_ibadah(request,id_ibadah):
     update_jadwal.kode_jenis_ibadah = m_jenisibadah
     update_jadwal.tanggal_ibadah = tanggal_ibadah
     update_jadwal.jam_ibadah = jam_ibadah
-    update_jadwal.persembahan = persembahan
         
     update_jadwal.save()
     messages.success(request, 'Jadwal ibadah berhasil diupdate.')
@@ -1218,6 +1296,7 @@ def delete_jadwal_ibadah(request,id_ibadah):
     messages.success(request, 'Berhasil hapus jadwal ibadah')
     return redirect('jadwal_ibadah')
 
+@login_required()
 def petugas_ibadah(request):
     data_petugas = MPtgsibadah.objects.all()
     data_jadwal = MJdwlibadah.objects.all()
@@ -1229,24 +1308,57 @@ def petugas_ibadah(request):
         'data_jadwal' : data_jadwal,
         'data_tugas_ibadah' : data_tugas_ibadah,
         'data_ibadah': data_ibadah,
-        'datajemaat' :datajemaat
+        'datajemaat' :datajemaat,
+        'menu':'petugas',
     }
     return render(request, 'datapetugasibadah/petugas_ibadah.html', context)
 
-def tambah_petugas_ibadah(request):
-    data_petugas = MPtgsibadah.objects.all()
-    data_jadwal = MJdwlibadah.objects.all()
+def select_ibadah(request):
+    data_jadwal_ibadah = MJdwlibadah.objects.all()
     data_tugas_ibadah = MJnstgsibd.objects.all()
-    data_ibadah = MJenisibadah.objects.all()
-    datajemaat = MJemaat.objects.all()
+    
     context = {
-        'data_petugas' : data_petugas,
-        'data_jadwal' : data_jadwal,
-        'data_tugas_ibadah' : data_tugas_ibadah,
-        'data_ibadah': data_ibadah,
-        'datajemaat' :datajemaat
+        'data_jadwal_ibadah' : data_jadwal_ibadah,
+        'data_tugas_ibadah': data_tugas_ibadah
     }
-    return render(request, 'datapetugasibadah/tambah_petugas_ibadah.html', context)
+    
+    return render(request, 'datapetugasibadah/select_ibadah.html', context)
+
+# def post_selected_ibadah(request):
+#     if request.method == 'POST':
+#         selected_ibadah = request.POST.get('id_ibadah')
+        
+#         return render(request, 'datapetugasibadah/tambah_petugas_ibadah.html', {'selected_ibadah' : selected_ibadah})
+# from django.http import JsonResponse
+
+# def get_kode_jenis_tugas_ibadah(request):
+#     if request.is_ajax() and request.method == 'GET':
+#         id_ibadah = request.GET.get('id_ibadah')
+#         # Ambil data kode_jenis_tugas_ibadah dari MJnstgsibd berdasarkan id_ibadah yang dipilih
+#         kode_jenis_tugas_ibadah = list(
+#             MJnstgsibd.objects.filter(id_ibadah=id_ibadah).values('kode_jenis_tugas_ibadah')
+#         )
+#         return JsonResponse({'kode_jenis_tugas_ibadah': kode_jenis_tugas_ibadah}, safe=False)
+#     return JsonResponse({}, status=400)
+
+def tambah_petugas_ibadah(request):
+    if request.method == 'POST':
+        selected_ibadah = request.POST.get('id_ibadah')
+        
+        data_petugas = MPtgsibadah.objects.all()
+        data_jadwal = MJdwlibadah.objects.all()
+        data_tugas_ibadah = MJnstgsibd.objects.all()
+        data_ibadah = MJenisibadah.objects.all()
+        datajemaat = MJemaat.objects.all()
+        context = {
+            'selected_ibadah' : selected_ibadah,
+            'data_petugas' : data_petugas,
+            'data_jadwal' : data_jadwal,
+            'data_tugas_ibadah' : data_tugas_ibadah,
+            'data_ibadah': data_ibadah,
+            'datajemaat' :datajemaat
+        }
+        return render(request, 'datapetugasibadah/tambah_petugas_ibadah.html', context)
 
 def post_petugas_ibadah(request):
 
@@ -1268,7 +1380,299 @@ def post_petugas_ibadah(request):
     )
     post_petugas.save()
     messages.success(request, 'Petugas ibadah berhasil ditambah.')
-    return redirect('petugas_ibadah')    
+    return redirect('petugas_ibadah')
+
+def update_petugas_ibadah(request,id):
+    data_petugas = MPtgsibadah.objects.get(id=id)
+    data_jadwal = MJdwlibadah.objects.all()
+    data_tugas_ibadah = MJnstgsibd.objects.all()
+    data_ibadah = MJenisibadah.objects.all()
+    datajemaat = MJemaat.objects.all()
+    context = {
+        'data_petugas' : data_petugas,
+        'data_jadwal' : data_jadwal,
+        'data_tugas_ibadah' : data_tugas_ibadah,
+        'data_ibadah': data_ibadah,
+        'datajemaat' :datajemaat
+    }
+    return render(request, 'datapetugasibadah/update_petugas_ibadah.html', context)
+
+def postupdate_petugas_ibadah(request,id):
+    id_ibadah = request.POST['id_ibadah']
+    kode_jenis_tugas_ibadah = request.POST['kode_jenis_tugas_ibadah']
+    kode_jemaat = request.POST['kode_jemaat']
+    nomor_urut = request.POST['nomor_urut'] 
+       
+    m_jdwl = MJdwlibadah.objects.get(id_ibadah=id_ibadah)
+    m_jns = MJnstgsibd.objects.get(kode_jenis_tugas_ibadah=kode_jenis_tugas_ibadah)
+    m_jemaat = MJemaat.objects.get(kode_jemaat=kode_jemaat)
+    
+    update_ptgs = MPtgsibadah.objects.get(id=id)
+    
+    update_ptgs.id_ibadah = m_jdwl
+    update_ptgs.kode_jenis_tugas_ibadah = m_jns
+    update_ptgs.kode_jemaat = m_jemaat
+    update_ptgs.nomor_urut = nomor_urut
+        
+    update_ptgs.save()
+    messages.success(request, 'Petugas ibadah berhasil diupdate.')
+    return redirect('petugas_ibadah')
+
+def delete_petugas_ibadah(request,id):
+    MPtgsibadah.objects.get(id=id).delete()
+    messages.success(request, 'Berhasil hapus petugas ibadah')
+    return redirect('petugas_ibadah')
+
+    
+#persembahan
+@login_required()
+def jenis_kolekte(request):
+    data_jkolekte = MJnskolekte.objects.all()
+    context = {
+        'data_jkolekte' : data_jkolekte
+    }
+    return redirect(request, 'kolekte', context)
+
+def kolekte(request):
+    data_kolekte = MKolekte.objects.all()
+    data_jadwal = MJdwlibadah.objects.all()
+    data_ibadah = MJenisibadah.objects.all()
+    context = {
+        'data_kolekte' : data_kolekte,
+        'data_jadwal': data_jadwal,
+        'data_ibadah' : data_ibadah, 
+        'menu' : 'persembahan'
+    }
+    return render(request, 'datakolekte/kolekte.html', context)
+
+def tambah_kolekte(request):
+    data_jkolekte = MJnskolekte.objects.all()
+    data_kolekte = MKolekte.objects.all()
+    data_jadwal = MJdwlibadah.objects.all()
+
+    selected_id_ibadah = request.GET.get('id_ibadah')
+
+    # Filter data_jkolekte based on selected_id_ibadah and existing data_kolekte
+    if selected_id_ibadah:
+        existing_kolekte = data_kolekte.filter(id_ibadah=selected_id_ibadah).values_list('kode_jenis_persembahan', flat=True)
+        data_jkolekte = data_jkolekte.exclude(kode_jenis_persembahan__in=existing_kolekte)
+
+    context = {
+        'data_jkolekte': data_jkolekte,
+        'data_kolekte': data_kolekte,
+        'data_jadwal': data_jadwal,
+        'selected_id_ibadah': selected_id_ibadah,
+    }
+    return render(request, 'datakolekte/tambah_kolekte.html', context)
+
+def post_kolekte(request):
+    if request.method == 'POST':
+        id_ibadah = request.POST['id_ibadah']
+        kode_jenis_persembahan = request.POST['kode_jenis_persembahan']
+        jumlah_persembahan = request.POST['jumlah_persembahan']
+        
+        # Pengecekan apakah kombinasi id_ibadah dan kode_jenis_persembahan sudah ada di MKolekte
+        # if MKolekte.objects.filter(id_ibadah=id_ibadah, kode_jenis_persembahan=kode_jenis_persembahan).exists():
+        #     messages.error(request, 'Kombinasi ID Ibadah dan Kode Jenis Persembahan sudah terdaftar.')
+        #     return redirect('tambah_kolekte')
+
+        m_jdwl = MJdwlibadah.objects.get(id_ibadah=id_ibadah)
+        m_jk = MJnskolekte.objects.get(kode_jenis_persembahan=kode_jenis_persembahan)
+        
+        post_kolekte = MKolekte(
+            id_ibadah=m_jdwl,
+            kode_jenis_persembahan=m_jk,
+            jumlah_persembahan=jumlah_persembahan
+        )
+        post_kolekte.save()
+        messages.success(request, 'Data kolekte ibadah berhasil ditambah.')
+        return redirect('kolekte')
+
+    return render(request, 'datakolekte/tambah_kolekte.html', {'data_jkolekte': MJnskolekte.objects.all()})
+
+def update_kolekte(request,id):
+    data_jkolekte = MJnskolekte.objects.all()
+    data_kolekte = MKolekte.objects.get(id=id)
+    data_jadwal = MJdwlibadah.objects.all()
+    context = {
+        'data_jkolekte': data_jkolekte,
+        'data_kolekte': data_kolekte,
+        'data_jadwal': data_jadwal
+    }
+    return render(request, 'datakolekte/update_kolekte.html', context)
+    
+def postupdate_kolekte(request,id):
+    id_ibadah = request.POST['id_ibadah']
+    kode_jenis_persembahan = request.POST['kode_jenis_persembahan']
+    jumlah_persembahan = request.POST['jumlah_persembahan']
+       
+    m_jdwl = MJdwlibadah.objects.get(id_ibadah=id_ibadah)
+    m_jns = MJnskolekte.objects.get(kode_jenis_persembahan=kode_jenis_persembahan)
+    
+    update_kolekte = MKolekte.objects.get(id=id)
+    
+    update_kolekte.id_ibadah = m_jdwl
+    update_kolekte.kode_jenis_persembahan = m_jns
+    update_kolekte.jumlah_persembahan = jumlah_persembahan
+        
+    update_kolekte.save()
+    messages.success(request, 'Data kolekte berhasil diupdate.')
+    return redirect('kolekte')
+
+def delete_kolekte(request,id):
+    MKolekte.objects.get(id=id).delete()
+    messages.success(request, 'Berhasil hapus data kolekte ')
+    return redirect('kolekte')
+    
+    
+    
+#kehadiran
+def kehadiran(request):
+    data_kehadiran = MHadir.objects.all()
+    data_jadwal = MJdwlibadah.objects.all()
+    data_kategorial = MKategorial.objects.all()
+    
+    context = {
+        'data_kehadiran' :data_kehadiran,
+        'data_jadwal' : data_jadwal,
+        'datakategorial' : data_kategorial,
+        'menu':'kehadiran'
+        
+    }
+    return render(request, 'datakehadiran/kehadiran.html', context)
+
+def tambah_kehadiran(request):
+    data_kehadiran = MHadir.objects.all()
+    data_jadwal = MJdwlibadah.objects.all()
+    data_kategorial = MKategorial.objects.all()
+
+    context = {
+        'data_kehadiran' :data_kehadiran,
+        'data_jadwal' : data_jadwal,
+        'datakategorial' : data_kategorial   
+    }
+    return render(request, 'datakehadiran/tambah_kehadiran.html', context)
+
+def post_kehadiran(request):
+    id_ibadah = request.POST['id_ibadah']
+    kodekategorial = request.POST['kodekategorial']
+    jumlah_kehadiran = request.POST['jumlah_kehadiran']
+    
+    m_jdwl = MJdwlibadah.objects.get(id_ibadah=id_ibadah)
+    m_kategorial = MKategorial.objects.get(kodekategorial=kodekategorial)
+    
+    post_hadir =MHadir (
+        id_ibadah =m_jdwl,
+        kodekategorial=m_kategorial,
+        jumlah_kehadiran=jumlah_kehadiran
+    )
+    post_hadir.save()
+    messages.success(request, 'data kehadiran ibadah berhasil ditambah.')
+    return redirect('kehadiran') 
+
+
+
+def update_kehadiran(request,id):
+    data_kehadiran = MHadir.objects.get(id=id)
+    data_jadwal = MJdwlibadah.objects.all()
+    data_kategorial = MKategorial.objects.all()
+
+    context = {
+        'data_kehadiran' :data_kehadiran,
+        'data_jadwal' : data_jadwal,
+        'datakategorial' : data_kategorial   
+    }
+    return render(request, 'datakehadiran/update_kehadiran.html', context)
+    
+def postupdate_kehadiran(request,id):
+    id_ibadah = request.POST['id_ibadah']
+    kodekategorial = request.POST['kodekategorial']
+    jumlah_kehadiran = request.POST['jumlah_kehadiran']
+       
+    m_jdwl = MJdwlibadah.objects.get(id_ibadah=id_ibadah)
+    m_kategorial = MKategorial.objects.get(kodekategorial=kodekategorial)
+    
+    update_kehadiran = MHadir.objects.get(id=id)
+    
+    update_kehadiran.id_ibadah = m_jdwl
+    update_kehadiran.kodekategorial = m_kategorial
+    update_kehadiran.jumlah_kehadiran = jumlah_kehadiran
+        
+    update_kehadiran.save()
+    messages.success(request, 'Data kehadiran berhasil diupdate.')
+    return redirect('kehadiran')
+
+def delete_kehadiran(request,id):
+    MHadir.objects.get(id=id).delete()
+    messages.success(request, 'Berhasil hapus data kehadiran ')
+    return redirect('kehadiran')
+
+
+   
+
+from xhtml2pdf import pisa
+from django.template.loader import get_template
+def export_pdf(request):
+    # Ambil data penjualan dari database atau sumber lainnya
+    datajemaat = MJemaat.objects.all().order_by('-kode_jemaat')
+    context = {
+        'datajemaat': datajemaat
+    }
+
+    # Render template
+    template = get_template('datajemaat/exportPDF.html')
+    rendered_template = template.render(context)
+
+    # Buat objek HttpResponse dengan tipe konten application/pdf
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="data_jemaat.pdf"'
+
+    # Buat PDF menggunakan HTML yang dirender
+    pisa_status = pisa.CreatePDF(rendered_template, dest=response)
+
+    # Jika pembuatan PDF gagal, kirimkan tanggapan error
+    if pisa_status.err:
+        return HttpResponse('Error generating PDF')
+    return response
+
+# views.py
+
+
+# def check_existing_combinations(request):
+#     if request.method == 'GET' and request.is_ajax():
+#         id_ibadah = request.GET.get('id_ibadah', None)
+#         kode_jenis_persembahan = request.GET.get('kode_jenis_persembahan', None)
+
+#         if id_ibadah and kode_jenis_persembahan:
+#             existing_combination = MKolekte.objects.filter(
+#                 id_ibadah=id_ibadah,
+#                 kode_jenis_persembahan=kode_jenis_persembahan
+#             ).exists()
+
+#             return JsonResponse({'exists': existing_combination})
+
+#     return JsonResponse({'exists': False})
+
+
+from django.http import JsonResponse
+
+def get_existing_combinations(request):
+    existing_combinations = list(MKolekte.objects.values_list('id_ibadah', 'kode_jenis_persembahan'))
+    existing_combinations = [f"{id_ibadah}|{kode_jenis_persembahan}" for id_ibadah, kode_jenis_persembahan in existing_combinations]
+    return JsonResponse({'combinations': existing_combinations})
+
+
+
+
+
+    
+
+    
+
 
     
     
+
+
+
+

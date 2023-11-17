@@ -1,10 +1,18 @@
 {% extends "templates/base.html" %} {% block content %}
-<div class="card">
-  <div class="card-body">
-    {% if messages %} {% for message in messages %}
-    <p class="alert alert-warning alert-dismissible fade show" role="alert"> {{ message }}</p>
-    {% endfor %} {% endif %}
 
+{% if messages %} {% for message in messages %}
+<p class="alert alert-warning alert-dismissible fade show" role="alert"> {{ message }}</p>
+{% endfor %} {% endif %}
+
+
+    <div class="card shadow-lg">
+      <div class="card-header bg-teal">
+        <div class="text-center">
+          <h2>DATA DOKUMENTASI</h2>
+        </div>
+      </div>
+      <div class="card-body" style="background-color: whitesmoke">
+  
   <td>
     <a class="btn btn-info" href="{% url 'tambah_dokumentasi'  %}" class="nav-link">
       <i class="nav-icon fas fa-plus"> TAMBAH DOKUMENTASI</i>
@@ -12,15 +20,15 @@
   </td>
   <br />
   <br />
-  <table class="table table-striped table-hover">
-    <thead class="table-dark">
-      <tr>
-        <th>ID DOKUMENTASI</th>
-        <th>FOTO</th>
-        <th>NAMA KEGIATAN</th>
-        <th>TANGGAL</th>
-        <th>KETERANGAN</th>
-        <th>ACTION</th>
+  <table id="example1" class="table table-bordered table-striped table-responsive text-center">
+    <thead class="bg-secondary">
+    <tr>
+        <th class="col-1">ID </th>
+        <th class="col-1">FOTO</th>
+        <th class="col-1">NAMA KEGIATAN</th>
+        <th class="col-1">TANGGAL</th>
+        <th class="col-1">KETERANGAN</th>
+        <th class="col-6">ACTION</th>
       </tr>
     </thead>
     <tbody>
@@ -35,13 +43,16 @@
         <td>{{ dok.keterangan_kegiatan}}</td>
 
         <td class="">
-         <a class="btn btn-warning" href="{% url 'update_dokumentasi' dok.id_dokumentasi %}">UPDATE</a>      
-         <a class="btn btn-danger" onclick="return confirm('Apakah anda ingin menghapus data ini?')" href="{% url 'delete_dokumentasi' dok.id_dokumentasi %}">DELETE</a> 
+         <a class="btn btn-warning" href="{% url 'update_dokumentasi' dok.id_dokumentasi %}">
+          <i class="fas fa-pencil-alt"></i>UPDATE</a>      
+         <a class="btn btn-danger" onclick="return confirm('Apakah anda ingin menghapus data ini?')" href="{% url 'delete_dokumentasi' dok.id_dokumentasi %}">
+          <i class="fas fa-trash-alt"></i>DELETE</a> 
          
         </td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
+</div>
 </div>
 {% endblock %}

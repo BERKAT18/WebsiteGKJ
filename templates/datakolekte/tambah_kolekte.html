@@ -1,0 +1,105 @@
+{% extends "templates/base.html" %}
+{% block content %}
+
+    {% if messages %} 
+      {% for message in messages %}
+        <p class="alert alert-warning alert-dismissible fade show" role="alert">
+          {{ message }}
+        </p>
+      {% endfor %} 
+    {% endif %}
+
+    <div class="card shadow-lg">
+      <div class="card-header bg-primary">
+        <div class="text-center">
+          <h2>FORM TAMBAH KOLEKTE</h2>
+        </div>
+      </div>
+      <div class="card-body" style="background-color:whitesmoke">
+
+    <form action="{% url 'post_kolekte' %}" method="POST" id="kolekteForm">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <p>ID IBADAH</p>
+        <select class="form-control" name="id_ibadah" id="id_ibadah" required>
+          <option value="" disabled selected> --pilih-- </option>
+          {% for dj in data_jadwal %}
+            <option value="{{ dj.id_ibadah }}">{{ dj.id_ibadah }}|{{dj.kode_jenis_ibadah.nama_jenis_ibadah}}|{{dj.tanggal_ibadah|date:"l, d F Y"}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <p>KODE JENIS PERSEMBAHAN</p>
+        <select class="form-control" name="kode_jenis_persembahan" id="kode_jenis_persembahan" required>
+          <option value="" disabled selected> --pilih-- </option>
+          {% for dj in data_jkolekte %}
+            <option value="{{ dj.kode_jenis_persembahan }}">{{ dj.kode_jenis_persembahan }}|{{ dj.nama_jenis_persembahan }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <p>JUMLAH PERSEMBAHAN :</p>
+        <input
+          class="form-control"
+          type="number"
+          name="jumlah_persembahan"
+          id="jumlah_persembahan"
+          required
+        />
+      </div>
+      <br />
+      <br />
+      <button class="btn btn-success" type="submit">Simpan</button>
+
+      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+      <script>
+        $(document).ready(function () {
+          // Mengambil data kombinasi yang sudah ada dari server
+          var existingCombinations = [];
+          $.ajax({
+            url: '{% url "get_existing_combinations" %}',
+            type: 'GET',
+            success: function (data) {
+              existingCombinations = data.combinations;
+            },
+            error: function (error) {
+              console.error('Error fetching existing combinations:', error);
+            }
+          });
+
+          $('#id_ibadah').change(function () {
+            var selectedIdIbadah = $(this).val();
+            var options = $('#kode_jenis_persembahan option');
+
+            options.prop('disabled', false);
+
+            options.each(function () {
+              var dataKodeJenisPersembahan = $(this).val();
+
+              // Periksa apakah kombinasi sudah ada dalam data yang diambil dari server
+              if (existingCombinations.includes(selectedIdIbadah + '|' + dataKodeJenisPersembahan)) {
+                $(this).prop('disabled', true);
+              }
+            });
+          });
+
+          // Menangani perubahan pada Kode Jenis Persembahan
+          $('#kode_jenis_persembahan').change(function () {
+            var selectedIdIbadah = $('#id_ibadah').val();
+            var selectedKodeJenisPersembahan = $(this).val();
+
+            // Mengecek apakah kombinasi sudah terdaftar
+            if (existingCombinations.includes(selectedIdIbadah + '|' + selectedKodeJenisPersembahan)) {
+              alert('Kombinasi ID Ibadah dan Kode Jenis Persembahan sudah terdaftar.');
+              // Reset nilai pada dropdown kode_jenis_persembahan
+              $(this).val('');
+            }
+          });
+        });
+      </script>
+    </form>
+  </div>
+</div>
+{% endblock %}

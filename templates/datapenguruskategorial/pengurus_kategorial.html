@@ -8,8 +8,16 @@
     {% endfor %}
     {% endif %}
 
+    <div class="card shadow-lg">
+        <div class="card-header bg-teal">
+          <div class="text-center">
+            <h2>DATA PENGURUS KATEGORIAL</h2>
+          </div>
+        </div>
+        <div class="card-body" style="background-color: whitesmoke">
+
     <div class="row">
-        <div class="col-5">
+        <div class="col-6">
             <a class="btn btn-info" href="{% url 'tambah_pengurus_kategorial' %}" class="nav-link">
                 <i class="nav-icon fas fa-plus"> TAMBAH PENGURUS KATEGORIAL</i>
             </a>
@@ -24,26 +32,25 @@
             </select>
         </div>
     </div>
-    <br>
-    <br>
-    <table class="table table-bordered table-hover">
-        <thead style="background-color: #5f5b5b;">
-            <tr style="color: white;">
-                <th>PERIODE</th>
-                <th>KODE KATEGORIAL</th>
-                <th>NAMA KATEGORIAL</th>
-                <th>JABATAN</th>
-                <th>KODE JEMAAT</th>
-                <th>NAMA JEMAAT</th>
-                <th>ACTION</th>
+
+    <table id="example3" class="table table-bordered table-striped table-responsive text-center">
+        <thead class="bg-secondary">
+        <tr>
+                <th class="col-1">PERIODE</th>
+                <th class="col-1">KODE KATEGORIAL</th>
+                <th class="col-1 class="text-left"">NAMA KATEGORIAL</th>
+                <th class="col-1">JABATAN</th>
+                <th class="col-2">KODE JEMAAT</th>
+                <th class="col-2">NAMA JEMAAT</th>
+                <th class="col-4 text-center">ACTION</th>
             </tr>
         </thead>
-        <tbody class="table-hover">
+        <tbody class="table-hover text-center">
             {% for dpk in data_pengkat %}
             <tr id="row_{{ dpk.id }}">
                 <td>{{ dpk.periode }}</td>
                 <td>{{ dpk.kodekategorial.kodekategorial }}</td>
-                <td>{{ dpk.kodekategorial.namakategorial }}</td>
+                <td >{{ dpk.kodekategorial.namakategorial }}</td>
                 <td>{{ dpk.jabatan_kategorial.jabatan_kategorial }}</td>
                 <td>{{ dpk.kode_jemaat.kode_jemaat }}</td>
                 <td>{{ dpk.kode_jemaat.nama_jemaat }}</td>

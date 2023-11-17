@@ -8,16 +8,25 @@
   {% endfor %}
   {% endif %}
 
+  <div class="card shadow-lg">
+    <div class="card-header bg-teal">
+      <div class="text-center">
+        <h2>DATA KELUARGA</h2>
+      </div>
+    </div>
+    <div class="card-body" style="background-color: whitesmoke">
+
+
     <a  class= "btn btn-info"href="{% url 'tambah_keluarga'  %}" class="nav-link">
       <i class="nav-icon fas fa-plus"> TAMBAH KELUARGA </i>
     </a>
     <br>
     <br>
-    <table class="table table-striped table-hover">
-      <thead class="table-dark">
-        <tr>
+    <table id="example1" class="table table-bordered table-striped table-responsive text-center">
+      <thead class="bg-secondary">
+      <tr>
         <th>KODE KELUARGA</th>
-        <th>NAMA KEPALA KELUARGA</th>
+        <th>NAMA KELUARGA</th>
         <th>ALAMAT KELUARGA</th>
         <th>JUMLAH ANGGOTA KELUARGA</th>
         <th>FOTO KELUARGA</th>

@@ -1,49 +1,62 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
+
   {% if messages %}
   {% for message in messages %}
   <p class="alert alert-warning alert-dismissible fade show" role="alert">{{ message }}</p>
   {% endfor %}
   {% endif %}
 
-    <a  class= "btn btn-info"href="{% url 'tambah_pengurus_jemaat' %}" class="nav-link">
-      <i class="nav-icon fas fa-plus"> TAMBAH PENGURUS JEMAAT</i>
-    </a>
-    <br>
-    <br>
-    <table class="table table-striped table-hover">
-      <thead class="table-dark">
-        <tr>
-        <th>PERIODE</th>
-        <th>KODE ORGANISASI JEMAAT</th>
-        <th>JABATAN</th>
-        <th>KODE JEMAAT</th>
-        <th>NAMA JEMAAT</th>
-        <th>KEMAJELISAN</th>
-        <th>ACTION</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for dp in data_pengjem %}
-      <tr>
-        <td class='col-1' >{{ dp.periode }}</td>
-        <td class='col-3' >{{ dp.kode_org_jemaat.kode_org_jemaat }}</td>
-        <td class='col-1'>{{ dp.kode_org_jemaat.jabatan_org_jemaat }}</td>
-        <td class='col-1'>{{ dp.kode_jemaat.kode_jemaat }}</td>
-        <td class='col-1'>{{ dp.kode_jemaat.nama_jemaat }}</td>
-        <td class='col-1'>{{ dp.kemajelisan}}</td>
+  <div class="card shadow-lg">
+    <div class="card-header bg-teal">
+      <div class="text-center">
+        <h2>DATA PENGURUS JEMAAT</h2>
+      </div>
+    </div>
+    <div class="card-body" style="background-color: whitesmoke">
 
-        <td class="col-4">
-          <a class="btn btn-warning" href="{% url 'update_pengurus_jemaat' dp.id %}">
-          <i class="fas fa-pencil-alt"></i>UPDATE</a>    
-          <a class="btn btn-danger" onclick="return confirm('Apakah anda ingin menghapus data ini?')" href="{% url 'delete_pengurus_jemaat' dp.id %}">
-          <i class="fas fa-trash"></i>DELETE</a>
-        </td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
-</div>
+      <a class="btn btn-info" href="{% url 'tambah_pengurus_jemaat' %}" class="nav-link">
+        <i class="nav-icon fas fa-plus"> TAMBAH PENGURUS JEMAAT</i>
+      </a>
+      <br>
+      <br>
+      <table id="example1" class="table table-bordered table-striped table-responsive text-center">
+        <thead class="bg-secondary">
+          <tr>
+            <th>NOMOR</th>
+            <th>PERIODE</th>
+            <th>KODE ORGANISASI JEMAAT</th>
+            <th>JABATAN</th>
+            <th>KODE JEMAAT</th>
+            <th>NAMA JEMAAT</th>
+            <th>KEMAJELISAN</th>
+            <th>ACTION</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for dp in data_pengjem %}
+          <tr>
+            <td class='col-1'>{{ forloop.counter }}</td>
+            <td class='col-1'>{{ dp.periode }}</td>
+            <td class='col-3'>{{ dp.kode_org_jemaat.kode_org_jemaat }}</td>
+            <td class='col-1 text-left'>{{ dp.kode_org_jemaat.jabatan_org_jemaat }}</td>
+            <td class='col-1'>{{ dp.kode_jemaat.kode_jemaat }}</td>
+            <td class='col-1 text-left'>{{ dp.kode_jemaat.nama_jemaat }}</td>
+            <td class='col-1 text-left'>{{ dp.kemajelisan }}</td>
+
+            <td class="col-4">
+              <a class="btn btn-warning" href="{% url 'update_pengurus_jemaat' dp.id %}">
+                <i class="fas fa-pencil-alt"></i> UPDATE
+              </a>    
+              <a class="btn btn-danger" onclick="return confirm('Apakah anda ingin menghapus data ini?')" href="{% url 'delete_pengurus_jemaat' dp.id %}">
+                <i class="fas fa-trash"></i> DELETE
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
 {% endblock %}

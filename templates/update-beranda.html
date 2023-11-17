@@ -1,15 +1,23 @@
 {% extends "base.html" %} {% block content %}
 
-<div class="card">
-  <div class="card-body">
     {% if messages %} {% for message in messages %}
     <p>{{ message }}</p>
     {% endfor %} {% endif %}
+
+        <div class="card">
+          <div class="card-body">
+            <div class="card shadow-lg">
+              <div class="card-header bg-primary">
+                <div class="text-center">
+                  <h2>UPDATE DATA BERANDA</h2>
+                </div>
+              </div>
+              <div class="card-body" style="background-color:whitesmoke">    
+
     <form action="{% url 'postupdate_beranda' databeranda.id %}" method="POST">
       {% csrf_token %}
-      <h1>UPDATE DATA BERANDA</h1>
       <div class="form-group">
-        <p>NAMA GEREJA:</p>
+       <p>NAMA GEREJA:</p>
         <input
           class="form-control"
           type="text"
@@ -113,5 +121,6 @@
       <a class="btn btn-warning" href="{% url 'beranda' %}">KEMBALI</a>
     </form>
   </div>
+</div>
 </div>
 {% endblock %}

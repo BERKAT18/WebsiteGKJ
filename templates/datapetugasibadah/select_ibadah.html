@@ -1,0 +1,39 @@
+{% extends "templates/base.html" %} 
+{% block content %}
+<div class="card shadow-lg">
+  <div class="card-header bg-primary">
+    <div class="text-center">
+      <h2>FORM TAMBAH PETUGAS IBADAH</h2>
+    </div>
+  </div>
+  <div class="card-body" style="background-color:whitesmoke">
+    {% if messages %} {% for message in messages %}
+    <p class="alert alert-warning alert-dismissible fade show" role="alert">
+      {{ message }}
+    </p>
+    {% endfor %} {% endif %}
+
+    <form action="{% url 'tambah_petugas_ibadah' %}" method="POST">
+      {% csrf_token %}
+      <!-- <h1>FORM TAMBAH PETUGAS IBADAH</h1> -->
+
+      <div class="form-group">
+        <p>ID IBADAH</p>
+        <select class="form-control" name="id_ibadah" id="id_ibadah">
+          <option value="" disabled selected> --pilih-- </option>
+          {% for dj in data_jadwal_ibadah %}
+          <option value="{{ dj.kode_jenis_ibadah.kode_jenis_ibadah }}">
+            {{ dj.kode_jenis_ibadah.kode_jenis_ibadah }}|
+            {{dj.kode_jenis_ibadah.nama_jenis_ibadah}}|
+            {{ dj.tanggal_ibadah|date:"l, d F Y" }}
+        </option>
+          {% endfor %}
+        </select required />
+      </div>
+      <br />
+      <br />
+      <button class="btn btn-success" type="submit">Next</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
