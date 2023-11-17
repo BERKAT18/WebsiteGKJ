@@ -1,17 +1,25 @@
 {% extends "base.html" %} {% block content %}
 
-<div class="card">
-  <div class="card-body">
     {% if messages %} {% for message in messages %}
     <p>{{ message }}</p>
     {% endfor %} {% endif %}
+
+    <div class="card">
+      <div class="card-body">
+        <div class="card shadow-lg">
+          <div class="card-header bg-primary">
+            <div class="text-center">
+              <h2>UPDATE PROFIL PENDETA</h2>
+            </div>
+          </div>
+          <div class="card-body" style="background-color:whitesmoke">
+
     <form
       action="{% url 'postupdateprofilpendeta' datapendeta.id %}"
       method="POST"
       enctype="multipart/form-data"
     >
       {% csrf_token %}
-      <h1>UPDATE DATA PENDETA</h1>
       <div class="form-group">
         <p>NAMA PENDETA :</p>
         <input
@@ -26,10 +34,12 @@
       </div>
       <div class="form-group">
         <p>FOTO PENDETA :</p>
-        <img style="width: 300px;" src="{{ datapendeta.fotopendeta.url }}" alt="">
-                <input class="form-control" type="file" name="fotopendeta" id="fotopendeta"
-                required>
+        {% if datapendeta.fotopendeta.url %}
+            <img style="width: 100px;" src="{{ datapendeta.fotopendeta.url }}" alt="">
+        {% endif %}
+        <input class="form-control" type="file" name="fotopendeta" id="fotopendeta" accept=".jpg,.jpeg,.png">
       </div>
+    
       <div class="form-group">
         <p>TELEPON PENDETA :</p>
         <input
@@ -86,15 +96,14 @@
       </div>
       <div class="form-group">
         <p>JADWAL :</p>
-        <input
-          class="form-control"
-          type="text"
+        <textarea
+          class="form-control" 
+          type="textarea"
           name="jadwal"
-          maxlength="50"
           id="jadwal"
-          value="{{ datapendeta.jadwal }}"
-          required
-        />
+          maxlength="500"
+          required> {{ datapendeta.jadwal }}
+        </textarea>
       </div>
       <br />
       <button class="btn btn-success" type="submit">Simpan</button>

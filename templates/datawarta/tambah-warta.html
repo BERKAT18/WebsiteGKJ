@@ -1,6 +1,13 @@
 {% extends "templates/base.html" %} {% block content %}
-<div class="card">
-  <div class="card-body">
+
+    <div class="card shadow-lg">
+      <div class="card-header bg-primary">
+        <div class="text-center">
+          <h2>FORM TAMBAH WARTA</h2>
+        </div>
+      </div>
+      <div class="card-body" style="background-color:whitesmoke">
+
     {% if messages %} {% for message in messages %}
     <p class="alert alert-warning alert-dismissible fade show" role="alert"> {{ message }}</p>
     {% endfor %} {% endif %}
@@ -10,7 +17,6 @@
 
     <form action="{% url 'posttambah_warta' %}" method="POST">
       {% csrf_token %}
-      <h1>FORM TAMBAH WARTA</h1>
       <div class="form-group">
         <p>ID WARTA :</p>
         <input

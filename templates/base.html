@@ -10,16 +10,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
     margin-left: 20px;
     list-style: none;
     padding: 0;
-}
+  }
 </style>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AdminLTE 3 | Starter</title>
+    <title>WEBSITE GKJ </title>
+
+    <!--select2-->
+    <link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}">
+
+
 
     
-
+    
     <!-- Google Font: Source Sans Pro -->
     <link
       rel="stylesheet"
@@ -32,8 +38,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
     />
     <!-- Theme style -->
     <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css'%}" />
+    <!--Datatables-->
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css'%}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css'%}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css'%}"
+    />
   </head>
-  <body class="hold-transition layout-fixed sidebar-mini fixed layout-navbar-fixed">
+  <body
+    {% comment %} class="hold-transition layout-fixed sidebar-mini fixed layout-navbar-fixed sidebar-close sidebar-collapse" {% endcomment %}
+  >
     <div class="wrapper">
       <!-- Navbar -->
       <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -44,26 +65,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
               ><i class="fas fa-bars"></i
             ></a>
           </li>
-          <li class="nav-item d-none d-sm-inline-block">
+          {% comment %} <li class="nav-item d-none d-sm-inline-block">
             <a href="index3.html" class="nav-link">Home</a>
           </li>
           <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Contact</a>
-          </li>
+          </li> {% endcomment %}
         </ul>
 
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
           <!-- Navbar Search -->
           <li class="nav-item">
-            <a
+            {% comment %} <a
               class="nav-link"
               data-widget="navbar-search"
               href="#"
               role="button"
             >
               <i class="fas fa-search"></i>
-            </a>
+            </a> {% endcomment %}
             <div class="navbar-search-block">
               <form class="form-inline">
                 <div class="input-group input-group-sm">
@@ -92,10 +113,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
           <!-- Messages Dropdown Menu -->
           <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
+            {% comment %} <a class="nav-link" data-toggle="dropdown" href="#">
               <i class="far fa-comments"></i>
               <span class="badge badge-danger navbar-badge">3</span>
-            </a>
+            </a> {% endcomment %}
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
               <a href="#" class="dropdown-item">
                 <!-- Message Start -->
@@ -175,7 +196,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
           </li>
           <!-- Notifications Dropdown Menu -->
-          {% comment %} <li class="nav-item dropdown">
+          {% comment %}
+          <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
               <i class="far fa-bell"></i>
               <span class="badge badge-warning navbar-badge">15</span>
@@ -207,14 +229,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <a class="nav-link" data-widget="fullscreen" href="#" role="button">
               <i class="fas fa-expand-arrows-alt"></i>
             </a>
-          </li> {% endcomment %}
+          </li>
+          {% endcomment %}
           <li class="nav-item">
-            <a
-              class="nav-link"
-             
-              role="button"
-              href="{% url 'logout'%}">Logout
-             
+            <a class="nav-link" role="button" href="{% url 'logout'%}"
+              >
+              <i class="fas fa-sign-out-alt"></i> Logout
             </a>
           </li>
         </ul>
@@ -281,11 +301,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <a href="{%url 'home'%}" class="nav-link">
                   <i class="nav-icon fas fa-house-user"></i>
                   <p>
-                    Dashboard
-                    {% comment %} <i class="right fas fa-angle-left"></i> {% endcomment %}
+                    Dashboard {% comment %}
+                    <i class="right fas fa-angle-left"></i> {% endcomment %}
                   </p>
                 </a>
-                {% comment %} <ul class="nav ">
+                {% comment %}
+                <ul class="nav">
                   <li class="nav-item">
                     <a href="#" class="nav-link active">
                       <i class="far fa-circle nav-icon"></i>
@@ -298,22 +319,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <p>Inactive Page</p>
                     </a>
                   </li>
-                </ul> {% endcomment %}
+                </ul>
+                {% endcomment %}
               </li>
               <li class="nav-item">
-                <a href="{%url 'beranda'%}" class="nav-link">
-                  <i class="nav-icon fas fa-home"></i>
-                  <p>
-                    Tampilan Beranda
-                  </p>
+                <a id="beranda" href="{%url 'beranda'%}" class="nav-link">
+                  <i class="nav-icon fas fa-globe"></i>
+                  <p>Tampilan Beranda</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{%url 'profilpendeta'%}"  class="nav-link">
+                <a id="profil" href="{%url 'profilpendeta'%}" class="nav-link">
                   <i class="nav-icon fas fa-user-tie"></i>
-                  <p>
-                    Profile Pendeta
-                  </p>
+                  <p>Profile Pendeta</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -326,71 +344,68 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{%url 'khotbah'%}" class="nav-link">
+                    <a id="khotbah" href="{%url 'khotbah'%}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Khotbah</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="warta" class="nav-link">
+                    <a id="warta" href="warta" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Warta</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{%url 'renungan'%}" class="nav-link">
+                    <a id="renungan"  href="{%url 'renungan'%}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Renungan</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{%url 'dokumentasi'%}" class="nav-link">
+                    <a id="dokumentasi" href="{%url 'dokumentasi'%}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Document</p>
                     </a>
                   </li>
                 </ul>
               </li>
-              {% comment %} <li class="nav-item">
+              {% comment %}
+              <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-info"></i>
-                  <p>
-                    About us
-                  </p>
+                  <p>About us</p>
                 </a>
-              </li> {% endcomment %}
+              </li>
+              {% endcomment %}
               <li class="nav-item">
-                <a href="{%url 'keluarga'%}" class="nav-link">
-                  <i class="nav-icon fas fa-user"></i>
-                  <p>
-                    Keluarga
-                  </p>
+                <a id="keluarga" href="{%url 'keluarga'%}" class="nav-link">
+                  <i class="nav-icon fas fa-home"></i>
+                  <p>Keluarga</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{%url 'jemaat'%}" class="nav-link">
+                <a id="jemaat" href="{%url 'jemaat'%}" class="nav-link">
                   <i class="nav-icon fas fa-users"></i>
-                  <p>
-                    Jemaat
-                  </p>
+                  <p>Jemaat</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{%url 'pengurus_jemaat'%}" class="nav-link">
-                  <i class="nav-icon fas fa-user"></i>
-                  <p>
-                    Pengurus Jemaat
-                  </p>
+                <a
+                  id="pengurus_jemaat"
+                  href="{%url 'pengurus_jemaat'%}"
+                  class="nav-link"
+                >
+                  <i class="nav-icon fas fa-cogs"></i>
+                  <p>Pengurus Jemaat</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'pengurus_kategorial'%}" class="nav-link" >
-                  <i class="nav-icon fas fa-book-open"></i>
-                  <p>
-                    Pengurus Kategorial
-                  </p>
+                <a id="pengurus_kategorial" href="{% url 'pengurus_kategorial'%}" class="nav-link">
+                  <i class="nav-icon fas fa-tags"></i>
+                  <p>Pengurus Kategorial</p>
                 </a>
-                {% comment %} <ul class="nav nav-treeview">
+                {% comment %}
+                <ul class="nav nav-treeview">
                   <li class="nav-item">
                     <a href="{% url 'pengurus_kategorial'%}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
@@ -416,61 +431,48 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </a>
                   </li>
                 </ul>
+              </li>
+              {% endcomment %}
+              {% comment %} <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-donate"></i>
+                  <p>Jenis Persembahan</p>
+                </a>
               </li> {% endcomment %}
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-user"></i>
-                  <p>
-                    Jenis Persembahan
-                  </p>
+                <a id="jenis_ibadah" href="{%url 'jenis_ibadah' %}" class="nav-link">
+                  <i class="nav-icon fas fa-praying-hands"></i>
+                  <p>Jenis Ibadah</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{%url 'jenis_ibadah' %}" class="nav-link">
-                  <i class="nav-icon fas fa-user"></i>
-                  <p>
-                    Jenis Ibadah
-                  </p>
+                <a id="jenis_tugas" href="{%url 'jenis_tugas_ibadah' %}" class="nav-link">
+                  <i class="nav-icon fas fa-tasks"></i>
+                  <p>Jenis Tugas Ibadah</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{%url 'jenis_tugas_ibadah' %}" class="nav-link">
-                  <i class="nav-icon fas fa-user"></i>
-                  <p>
-                    Jenis Tugas Ibadah
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{%url 'jadwal_ibadah' %}" class="nav-link">
+                <a id="jadwal" href="{%url 'jadwal_ibadah' %}" class="nav-link">
                   <i class="nav-icon fas fa-clock"></i>
-                  <p>
-                    Jadwal Ibadah
-                  </p>
+                  <p>Jadwal Ibadah</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{%url 'petugas_ibadah' %}" class="nav-link">
-                  <i class="nav-icon fas fa-user"></i>
-                  <p>
-                    Petugas Ibadah
-                  </p>
+                <a id="petugas" href="{%url 'petugas_ibadah' %}" class="nav-link">
+                  <i class="nav-icon fas fa-user-shield"></i>
+                  <p>Petugas Ibadah</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-user"></i>
-                  <p>
-                    Persembahan
-                  </p>
+                <a id="persembahan" href="{%url 'kolekte' %}" class="nav-link">
+                  <i class="nav-icon fas fa-hand-holding-usd"></i>
+                  <p>Persembahan</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-user"></i>
-                  <p>
-                    Kehadiran
-                  </p>
+                <a id="kehadiran" href="{%url 'kehadiran' %}" class="nav-link">
+                  <i class="nav-icon fas fa-user-check"></i>
+                  <p>Kehadiran</p>
                 </a>
               </li>
             </ul>
@@ -487,13 +489,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                {% comment %} <h1 class="m-0">Dashboard</h1> {% endcomment %}
+                {% comment %}
+                <h1 class="m-0">Dashboard</h1>
+                {% endcomment %}
               </div>
               <!-- /.col -->
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                  
-                  {% comment %} <li class="breadcrumb-item active">Starter Page</li> {% endcomment %}
+                  {% comment %}
+                  <li class="breadcrumb-item active">Starter Page</li>
+                  {% endcomment %}
                 </ol>
               </div>
               <!-- /.col -->
@@ -507,8 +512,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Main content -->
         <div class="content">
           <div class="container-fluid">
-            {% block content %}{% endblock %}
-            {% comment %} <div class="row">
+            {% block content %}{% endblock %} {% comment %}
+            <div class="row">
               <div class="col-lg-6">
                 <div class="card">
                   <div class="card-body">
@@ -571,7 +576,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
               </div>
               <!-- /.col-md-6 -->
-            </div> {% endcomment %}
+            </div>
+            {% endcomment %}
             <!-- /.row -->
           </div>
           <!-- /.container-fluid -->
@@ -595,16 +601,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- To the right -->
         <div class="float-right d-none d-sm-inline"></div>
         <!-- Default to the left -->
-        <strong
-          >Copyright &copy; 2023
-          <a href="">Kelompok P2</a>.</strong
-        >
+        <strong>Copyright &copy; 2023 <a href="">Kelompok P2</a>.</strong>
         Pengembagan Perangkat Lunak.
       </footer>
     </div>
     <!-- ./wrapper -->
 
     <!-- REQUIRED SCRIPTS -->
+
+    <script>
+      window.onload = function () {
+        menuActive();
+      };
+
+      function menuActive() {
+        var menu = document.getElementById("{{ menu }}");
+        menu.classList.add("active");
+      }
+    </script>
 
     <!-- jQuery -->
     <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
@@ -619,5 +633,170 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- AdminLTE App -->
     <script src="dist/js/adminlte.min.js"></script>
     {% endcomment %}
+    
+
+    <!-- select2 -->
+    <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'plugins/select2/js/select2.full.min.js' %}"></script>
+
+    <script>
+      // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+      $('#status_dalam_keluarga').select2();
+    });
+    </script>
+    <script>
+      // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+      $('#kode_jemaat').select2();
+    });
+    </script>
+
+
+
+    <!-- DataTables  & Plugins -->
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js'%}"></script>
+    <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js'%}"></script>
+    <script src="{% static 'plugins/datatables-responsive/js/dataTables.responsive.min.js'%}"></script>
+    <script src="{% static 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js'%}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/dataTables.buttons.min.js'%}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js'%}"></script>
+    <script src="{% static 'plugins/jszip/jszip.min.js'%}"></script>
+    <script src="{% static 'plugins/pdfmake/pdfmake.min.js'%}"></script>
+    <script src="{% static 'plugins/pdfmake/vfs_fonts.js'%}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/buttons.html5.min.js'%}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/buttons.print.min.js'%}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/buttons.colVis.min.js'%}"></script>
+
+    <!-- Page specific script -->
+    <script>
+      $(document).ready(function () {
+        // DataTable for example1
+        var table1 = $("#example1").DataTable({
+          responsive: false,
+          lengthChange: false,
+          autoWidth: false,
+          buttons: [
+            {
+              extend: "excel",
+              text: "Export Excel",
+              title: "DATA JEMAAT",
+              exportOptions: {
+                columns: ":visible", // Hanya kolom yang terlihat akan diikutsertakan
+              },
+            },
+            {
+              extend: "pdf",
+              text: "Export PDF",
+              title: "DATA JEMAAT",
+              exportOptions: {
+                columns: ":visible", // Hanya kolom yang terlihat akan diikutsertakan
+              },
+            },
+            {
+              extend: "print",
+              text: "PRINT",
+              title: "DATA JEMAAT",
+              exportOptions: {
+                columns: ":visible" // Hanya kolom yang terlihat akan diikutsertakan
+                },
+            },
+            
+            "colvis",
+          ],
+        });
+        table1.buttons().container().appendTo("#example1_wrapper .col-md-6:eq(0)");
+
+        // DataTable for example1
+        var table1 = $("#example4").DataTable({
+          responsive: false,
+          lengthChange: false,
+          autoWidth: false,
+          buttons: [
+            {
+              extend: "excel",
+              text: "Export Excel",
+              title: "PETUGAS IBADAH",
+              exportOptions: {
+                columns: ":visible", // Hanya kolom yang terlihat akan diikutsertakan
+              },
+            },
+            {
+              extend: "pdf",
+              text: "Export PDF",
+              title: "PETUGAS IBADAH",
+              exportOptions: {
+                columns: ":visible", // Hanya kolom yang terlihat akan diikutsertakan
+              },
+            },
+            {
+              extend: "print",
+              text: "PRINT",
+              title: "PETUGAS IBADAH",
+              exportOptions: {
+                columns: ":visible" // Hanya kolom yang terlihat akan diikutsertakan
+                },
+            },
+            
+            "colvis",
+          ],
+        });
+        table1.buttons().container().appendTo("#example4_wrapper .col-md-6:eq(0)");
+    
+        // DataTable for example2
+        $("#example2").DataTable({
+          paging: true,
+          lengthChange: false,
+          searching: false,
+          ordering: true,
+          info: true,
+          autoWidth: false,
+          responsive: true,
+        });
+    
+        // DataTable for example3
+        var table3 = $("#example3").DataTable({
+          paging: true,
+          lengthChange: false,
+          searching: true,
+          ordering: false,
+          info: false,
+          autoWidth: false,
+          responsive: false,
+          // buttons: ["excel", "pdf"], // Berkomentar karena menyebabkan kesalahan sintaks
+        });
+        table3.buttons().container().appendTo("#example3_wrapper .col-md-6:eq(0)");
+    
+        // DataTable for example7
+        var table7 = $("#example7").DataTable({
+          responsive: false,
+          lengthChange: false,
+          autoWidth: false,
+          buttons: [
+            {
+              extend: "excel",
+              text: "Export Excel",
+              exportOptions: {
+                columns: ":not(.exclude-export)", // Mengecualikan kolom dengan kelas "exclude-export"
+              },
+            },
+            {
+              extend: "pdf",
+              text: "Export PDF",
+              exportOptions: {
+                columns: ":not(.exclude-export)", // Mengecualikan kolom dengan kelas "exclude-export"
+              },
+            },
+            "print",
+            "colvis",
+          ],
+        });
+        table7.buttons().container().appendTo("#example7_wrapper .col-md-6:eq(0)");
+      });
+    </script>
+
+
+    
+    
   </body>
 </html>

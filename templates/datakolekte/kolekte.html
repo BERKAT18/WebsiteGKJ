@@ -1,0 +1,57 @@
+{% extends "templates/base.html" %} {% block content %}
+    {% if messages %} {% for message in messages %}
+    <p class="alert alert-warning alert-dismissible fade show" role="alert"> {{ message }}</p>
+    {% endfor %} {% endif %}
+    
+    <div class="card shadow-lg">
+      <div class="card-header bg-teal">
+        <div class="text-center">
+          <h2>PERSEMBAHAN</h2>
+        </div>
+      </div>
+      <div class="card-body" style="background-color: whitesmoke">
+
+  <td>
+    <a class="btn btn-info" href="{% url 'tambah_kolekte'  %}" class="nav-link">
+      <i class="nav-icon fas fa-plus"> TAMBAH PERSEMBAHAN</i>
+    </a>
+  <br>
+  <br>
+  </td>
+  <table  id="example1"  class="table table-bordered table-striped table-hover">
+    <thead  class="bg-secondary">
+      <tr  class="text-center">
+        <th class="col-2">ID IBADAH</th>
+        <th class="col-3">JENIS PERSEMBAHAN</th>
+        <th class="col-3">JUMLAH PERSEMBAHAN</th>
+        <th class="col-4">ACTION</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for dk in data_kolekte %}
+      <tr class="text-center">
+        <td>{{ dk.id_ibadah.id_ibadah}}|{{ dk.id_ibadah.kode_jenis_ibadah.nama_jenis_ibadah }}</td>
+        <td class="text-left">{{ dk.kode_jenis_persembahan.nama_jenis_persembahan }}</td>
+        <td>Rp.{{ dk.jumlah_persembahan }}</td>
+
+        <td class="">
+          <a
+            class="btn btn-warning"
+            href="{% url 'update_kolekte' dk.id %}"
+            >
+            <i class="fas fa-pencil-alt"></i>UPDATE</a
+          >|
+          <a
+            class="btn btn-danger"
+            onclick="return confirm('Apakah anda ingin menghapus data ini?')"
+            href="{% url 'delete_kolekte' dk.id %}"
+            >
+            <i class="fas fa-trash-alt"></i>DELETE</a
+          >
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

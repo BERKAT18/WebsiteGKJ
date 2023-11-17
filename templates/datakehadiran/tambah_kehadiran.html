@@ -1,0 +1,59 @@
+{% extends "templates/base.html" %} {% block content %}
+
+    {% if messages %} {% for message in messages %}
+    <p class="alert alert-warning alert-dismissible fade show" role="alert">
+      {{ message }}
+    </p>
+    {% endfor %} {% endif %}
+
+    <div class="card shadow-lg">
+      <div class="card-header bg-primary">
+        <div class="text-center">
+          <h2>FORM TAMBAH KEHADIRAN</h2>
+        </div>
+      </div>
+      <div class="card-body" style="background-color:whitesmoke">
+    
+
+    <form action="{% url 'post_kehadiran' %}" method="POST">
+      {% csrf_token %}
+    
+      <div class="form-group">
+        <p>ID IBADAH</p>
+        <select class="form-control" name="id_ibadah" id="id_ibadah">
+            <option value="" disabled selected> --pilih-- </option>
+            {% for dj in data_jadwal %}
+                <option value="{{ dj.id_ibadah }}">{{ dj.id_ibadah }}|{{dj.kode_jenis_ibadah.nama_jenis_ibadah}}|{{dj.tanggal_ibadah|date:"l, d F Y"}}</option>
+            {% endfor %}
+        </select
+          required
+        />
+      </div>
+      <div class="form-group">
+        <p>KATEGORIAL</p>
+        <select class="form-control" name="kodekategorial" id="kodekategorial">
+            <option value="" disabled selected> --pilih-- </option>
+            {% for dk in datakategorial %}
+                <option value="{{ dk.kodekategorial }}">{{ dk.kodekategorial }}|{{dk.namakategorial}}</option>
+            {% endfor %}
+        </select
+          required
+        />
+      </div>
+      <div class="form-group">
+        <p>JUMLAH KEHADIRAN :</p>
+        <input
+          class="form-control"
+          type="number"
+          name="jumlah_kehadiran"
+          id="jumlah_kehadiran"
+          required
+        />
+      </div>
+      <br />
+      <br />
+      <button class="btn btn-success" type="submit">Simpan</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

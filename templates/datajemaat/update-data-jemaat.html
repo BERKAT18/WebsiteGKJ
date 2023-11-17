@@ -1,12 +1,18 @@
 {% extends "templates/base.html" %}
 {% block content %}
-<div class="card">
-  <div class="card-body">
-    {% if messages %}
-    {% for message in messages %}
-    <p class="alert alert-warning alert-dismissible fade show" role="alert">{{ message }}</p>
-    {% endfor %}
-    {% endif %}
+{% if messages %}
+{% for message in messages %}
+<p class="alert alert-warning alert-dismissible fade show" role="alert">{{ message }}</p>
+{% endfor %}
+{% endif %}
+
+    <div class="card shadow-lg">
+      <div class="card-header bg-primary">
+        <div class="text-center">
+          <h2>FORM UPDATE JEMAAT</h2>
+        </div>
+      </div>
+      <div class="card-body" style="background-color:whitesmoke">
     
     <form
       action="{% url 'postupdate_jemaat' datajemaat.kode_jemaat %}"
@@ -14,7 +20,6 @@
       enctype="multipart/form-data"
     >
       {% csrf_token %}
-      <h1>FORM UPDATE JEMAAT</h1>
 
       <div class="form-group">
         <p>KODE JEMAAT :</p>
@@ -22,7 +27,7 @@
           class="form-control"
           type="text"
           name="kode_jemaat"
-          id="kode_jemaat"
+          id=""
           maxlength="10"
           required
           value="{{datajemaat.kode_jemaat }}"

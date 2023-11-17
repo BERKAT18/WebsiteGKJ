@@ -1,0 +1,145 @@
+    {% block content %}
+    <div class="container">
+        {% if messages %}
+        {% for message in messages %}
+        <p class="alert alert-warning alert-dismissible fade show" role="alert">{{ message }}</p>
+        {% endfor %}
+        {% endif %}
+        <style>
+            @media screen {
+                body {
+                    font-family: Georgia, serif;
+                    font-size: 12pt;
+                }
+
+                table.data {
+                    border: 1px solid;
+                    width: 100%;
+                    border-collapse: collapse;
+                }
+                table.data>tbody>tr>td {
+                    border: 1px solid;
+                    padding: 10px;
+                    word-wrap: break-word; /* Memungkinkan teks patah menjadi beberapa baris jika terlalu panjang */
+                    white-space: normal; /* Memastikan spasi putih diatur dengan benar */
+                    font-size: 12px; /* Atur ukuran font sesuai kebutuhan */
+                }
+
+                table.data>thead>tr>th {
+                    border: 1px solid;
+                    background-color: #eaeaea;
+                    padding: 10px; /* Menambahkan padding lebih besar untuk sel-sel header */
+                }
+
+                .left {
+                    text-align: left;
+                }
+
+                .right {
+                    text-align: right;
+                }
+
+                .center {
+                    text-align: center;
+                }
+
+                .bg-gray {
+                    background-color: #eaeaea;
+                    padding: 10px !important;
+                    font-weight: bold;
+                }
+            }
+
+            /* CSS untuk pengaturan kertas ketika dicetak */
+            @media print {
+                body {
+            font-family: Georgia, serif;
+            font-size: 12pt;
+            size: A4 landscape; /* Mengatur ukuran kertas menjadi A4 landscape */
+        }
+
+                table.data {
+                    border: 1px solid;
+                    width: 100%;
+                    border-collapse: collapse;
+                    table-layout: fixed; /* Menetapkan lebar tabel */
+                }
+
+                table.data>tbody>tr>td {
+                    border: 1px solid;
+                    padding: 5px; /* Mengubah padding untuk memberikan lebih banyak ruang */
+                }
+
+                table.data>thead>tr>th {
+                    border: 1px solid;
+                    background-color: #eaeaea;
+                    padding: 5px; /* Mengubah padding untuk memberikan lebih banyak ruang */
+                }
+
+                .left {
+                    text-align: left;
+                }
+
+                .right {
+                    text-align: right;
+                }
+
+                .center {
+                    text-align: center;
+                }
+
+                .bg-gray {
+                    background-color: #eaeaea;
+                    padding: 10px !important;
+                    font-weight: bold;
+                }
+            }
+        </style>
+
+        <body>
+            <div class="container">
+                <h1 class="center">Data Penjualan</h1>
+                <table class="data" border="1">
+                    <thead>
+                        <tr>
+                            <th>KODE JEMAAT</th>
+                            <th>KODE KELUARGA</th>
+                            <th>NAMA JEMAAT</th>
+                            <th>STATUS DALAM KELUARGA</th>
+                            <th>TANGGAL LAHIR</th>
+                            <th>JENIS KELAMIN</th>
+                            <th>KODE KATEGORIAL</th>
+                            <th>STATUS BAPTIS</th>
+                            <th>STATUS SIDI</th>
+                            <th>NOMOR TELEPON</th>
+                            <th>PENDIDIKAN</th>
+                            <th>PEKERJAAN</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for dj in datajemaat %}
+                        <tr>
+                            <td>{{ dj.kode_jemaat }}</td>
+                            <td>{{ dj.kode_keluarga.kode_keluarga}}</td>
+                            <td>{{ dj.nama_jemaat }}</td>
+                            <td>{{ dj.status_dalam_keluarga }}</td>
+                            <td>{{ dj.tanggal_lahir }}</td>
+                            <td>{{ dj.jenis_kelamin}}</td>
+                            <td>{{ dj.kodekategorial.kodekategorial}}</td>
+                            <td>{{ dj.status_baptis}}</td>
+                            <td>{{ dj.status_sidi}}</td>
+                            <td>{{ dj.nomor_telepon}}</td>
+                            <td>{{ dj.pendidikan}}</td>
+                            <td>{{ dj.pekerjaan}}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4">Tidak ada data penjualan.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </body>
+    </html>
+    {% endblock %}

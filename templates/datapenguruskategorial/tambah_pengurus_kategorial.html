@@ -1,13 +1,19 @@
 {% extends "templates/base.html" %} {% block content %}
-<div class="card">
-  <div class="card-body">
-    {% if messages %} {% for message in messages %}
-    <p>{{ message }}</p>
-    {% endfor %} {% endif %}
+{% if messages %} {% for message in messages %}
+<p>{{ message }}</p>
+{% endfor %} {% endif %}
+
+    <div class="card shadow-lg">
+      <div class="card-header bg-primary">
+        <div class="text-center">
+          <h2>FORM TAMBAH PENGURUS KATEGORIAL</h2>
+        </div>
+      </div>
+      <div class="card-body" style="background-color:whitesmoke">
+
 
     <form action="{% url 'post_pengurus_kategorial' %}" method="POST">
       {% csrf_token %}
-      <h1>FORM TAMBAH PENGURUS KATEGORIAL</h1>
       <div class="form-group">
         <p>PERIODE :</p>
         <input
@@ -34,7 +40,9 @@
       <select class="form-control" name="jabatan_kategorial" id="jabatan_kategorial">
           <option value="" disabled selected> --pilih-- </option>
           {% for dak in data_organisasi %}
+          {% comment %} {% if dak.kodekategorial.jabatan_kategorial not in data_pengkat %} {% endcomment %}
               <option value="{{ dak.jabatan_kategorial }}">{{ dak.jabatan_kategorial }}</option>
+              {% comment %} {% endif %} {% endcomment %}
           {% endfor %}
       </select
       required>

@@ -7,37 +7,49 @@
   <p class="alert alert-warning alert-dismissible fade show" role="alert">{{ message }}</p>
   {% endfor %}
   {% endif %}
+  <div class="card shadow-lg">
+    <div class="card-header bg-teal">
+      <div class="text-center">
+        <h2>DATA WARTA</h2>
+      </div>
+    </div>
+    <div class="card-body" style="background-color: whitesmoke">
 
     <a  class= "btn btn-info"href="{% url 'tambah_warta'  %}" class="nav-link">
       <i class="nav-icon fas fa-plus"> TAMBAH WARTA</i>
     </a>
     <br>
     <br>
-    <table class="table table-striped table-hover">
-      <thead class="table-dark">
-        <tr>
-        <th>ID WARTA</th>
-        <th>JUDUL WARTA</th>
-        <th>ISI WARTA</th>
-        <th>TANGGAL</th>
-        <th>ACTION</th>
+    <table id="example1" class="table table-bordered table-striped table-responsive text-center">
+      <thead class="bg-secondary">
+      <tr>
+        <tr class="text-center">
+        <th class="col-2">ID WARTA</th>
+        <th class="col-2">JUDUL WARTA</th>
+        <th class="col-2">ISI WARTA</th>
+        <th class="col-2">TANGGAL</th>
+        <th class="col-3">ACTION</th>
       </tr>
     </thead>
     <tbody>
       {% for dw in data_warta %}
       <tr>
-        <td>{{ dw.id_warta }}</td>
+        <td class="text-center">{{ dw.id_warta }}</td>
         <td>{{ dw.judul_warta }}</td>
-        <td>{{ dw.isi_warta }}</td>
+        <td class="text-left">{{ dw.isi_warta }}</td>
         <td>{{ dw.tanggal_warta}}</td>
 
-        <td class="">
-          <a class="btn btn-warning" href="{% url 'update_warta' dw.id_warta %}">UPDATE</a>     
-          <a class="btn btn-danger" onclick="return confirm('Apakah anda ingin menghapus data ini?')" href="{% url 'delete_warta' dw.id_warta %}">DELETE</a>
+        <td class="text-center">
+          <a class="btn btn-warning" href="{% url 'update_warta' dw.id_warta %}">
+            <i class="fas fa-pencil-alt"></i>UPDATE</a>     
+          <a class="btn btn-danger" onclick="return confirm('Apakah anda ingin menghapus data ini?')" href="{% url 'delete_warta' dw.id_warta %}">
+            <i class="fas fa-trash-alt"></i>DELETE</a>
         </td>
       </tr>
     {% endfor %}
   </tbody>
+
+</div>
 </table>
 </div>
 {% endblock %}

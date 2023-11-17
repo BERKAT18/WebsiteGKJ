@@ -1,17 +1,24 @@
 {% extends "templates/base.html" %} {% block content %}
-<div class="card">
-  <div class="card-body">
+
     {% if messages %} {% for message in messages %}
     <p class="alert alert-warning alert-dismissible fade show" role="alert">
       {{ message }}
     </p>
     {% endfor %} {% endif %}
 
+        <div class="card shadow-lg">
+          <div class="card-header bg-primary">
+            <div class="text-center">
+              <h2>FORM TAMBAH IBADAH</h2>
+            </div>
+          </div>
+          <div class="card-body" style="background-color:whitesmoke">
+        
+
     <form action="{% url 'post_jenis_ibadah' %}" method="POST">
       {% csrf_token %}
-      <h1>FORM TAMBAH IBADAH</h1>
     
-      <div class="form-group">
+      {% comment %} <div class="form-group">
         <p>KODE JENIS IBADAH</p>
         <input
           class="form-control"
@@ -21,7 +28,7 @@
           maxlength="50"
           required
         />
-      </div>
+      </div> {% endcomment %}
       <div class="form-group">
         <p>NAMA JENIS IBADAH</p>
         <input

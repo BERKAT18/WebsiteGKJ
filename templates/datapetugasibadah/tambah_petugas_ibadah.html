@@ -1,64 +1,85 @@
 {% extends "templates/base.html" %} {% block content %}
-<div class="card">
-  <div class="card-body">
+<div class="card shadow-lg">
+  <div class="card-header bg-primary">
+    <div class="text-center">
+      <h2>FORM TAMBAH PETUGAS IBADAH</h2>
+    </div>
+  </div>
+  <div class="card-body" style="background-color:whitesmoke">
     {% if messages %} {% for message in messages %}
     <p class="alert alert-warning alert-dismissible fade show" role="alert">
       {{ message }}
     </p>
     {% endfor %} {% endif %}
 
-    <form action="{% url 'post_petugas_ibadah' %}" method="POST">
+    <form action="{% url 'post_petugas_ibadah' %} " method="POST">
       {% csrf_token %}
-      <h1>FORM TAMBAH PETUGAS IBADAH</h1>
-    
-      <div class="form-group">
+      <!-- <h1>FORM TAMBAH PETUGAS IBADAH</h1> -->
+
+      <!-- <div class="form-group">
         <p>ID IBADAH</p>
         <select class="form-control" name="id_ibadah" id="id_ibadah">
-            <option value="" disabled selected> --pilih-- </option>
-            {% for dj in data_jadwal %}
-                <option value="{{ dj.id_ibadah }}">{{ dj.id_ibadah }}|{{dj.kode_jenis_ibadah.nama_jenis_ibadah}}</option>
-            {% endfor %}
-        </select
-          required
-        />
-      </div>
+          <option value="" disabled selected> --pilih-- </option>
+          {% for dj in data_jadwal %}
+          <option value="{{ dj.id_ibadah }}">{{ dj.id_ibadah }}|{{dj.kode_jenis_ibadah.nama_jenis_ibadah}}</option>
+          {% endfor %}
+        </select required />
+      </div> -->
+
+      <input type="text" name="id_ibadah" value="{{ selected_ibadah }}">
+
       <div class="form-group">
         <p>KODE JENIS TUGAS IBADAH</p>
-        <select class="form-control" name="kode_jenis_tugas_ibadah" id="kode_jenis_tugas_ibadah">
-            <option value="" disabled selected> --pilih-- </option>
-            {% for di in data_tugas_ibadah %}
-                <option value="{{ di.kode_jenis_tugas_ibadah }}">{{ di.kode_jenis_tugas_ibadah }}|{{di.jenis_tugas_ibadah}}</option>
-            {% endfor %}
-        </select
-          required
-        />
+        
+        {{ selected_ibadah.id_ibadah }}
+        <select class="form-control" name="kode_jenis_tugas_ibadah" id="kode_jenis_tugas_ibadah" required>
+          <option value="" disabled selected> --pilih-- </option>
+          {% for di in data_tugas_ibadah %}
+          {% if di.kode_jenis_ibadah.kode_jenis_ibadah == selected_ibadah %}
+          <option value="{{ di.kode_jenis_tugas_ibadah }}">{{ di.kode_jenis_tugas_ibadah }}|{{di.jenis_tugas_ibadah}}
+          </option>
+          {% endif %}
+          {% endfor %}
+        </select  />
       </div>
       <div class="form-group">
         <p>KODE JEMAAT :</p>
-        <select class="form-control" name="kode_jemaat" id="kode_jemaat">
-            <option value="" disabled selected> --pilih-- </option>
-            {% for dje in datajemaat %}
-                <option value="{{ dje.kode_jemaat }}">{{ dje.kode_jemaat }}|{{dje.nama_jemaat}}</option>
-            {% endfor %}
-        </select
-          required
-        />
+        <select class="form-control" name="kode_jemaat" id="kode_jemaat" required>
+          <option value="" disabled selected> --pilih-- </option>
+          {% for dje in datajemaat %}
+          <option value="{{ dje.kode_jemaat }}">{{ dje.kode_jemaat }}|{{dje.nama_jemaat}}</option>
+          {% endfor %}
+        </select  />
       </div>
       <div class="form-group">
         <p>NOMOR URUT :</p>
-        <input
-          class="form-control"
-          name="nomor_urut"
-          id="nomor_urut"
-          maxlength="100"
-          required
-        />
+        <input class="form-control" name="nomor_urut" id="nomor_urut" maxlength="100" required />
       </div>
-      
+
       <br />
       <br />
       <button class="btn btn-success" type="submit">Simpan</button>
     </form>
   </div>
 </div>
+<!-- <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var idIbadahSelect = document.getElementById("id_ibadah");
+    var kodeJenisTugasSelect = document.getElementById("kode_jenis_tugas_ibadah");
+    
+    idIbadahSelect.addEventListener("change", function() {
+        var selectedIdIbadah = this.value;
+        
+        // Menghapus opsi yang ada sebelumnya
+        kodeJenisTugasSelect.innerHTML = '<option value="" disabled selected> --pilih-- </option>';
+        
+        // Menampilkan hanya opsi yang sesuai dengan id ibadah yang dipilih
+        Array.from(kodeJenisTugasSelect.options).forEach(function(option) {
+            if (option.dataset.idIbadah === selectedIdIbadah || option.value === "") {
+                kodeJenisTugasSelect.appendChild(option.cloneNode(true));
+            }
+        });
+    });
+});
+</script> -->
 {% endblock %}

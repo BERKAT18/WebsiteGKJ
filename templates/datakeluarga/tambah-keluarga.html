@@ -1,11 +1,19 @@
 {% extends "templates/base.html" %} {% block content %}
+{% if messages %}
+{% for message in messages %}
+<p class="alert alert-warning alert-dismissible fade show" role="alert">{{ message }}</p>
+{% endfor %}
+{% endif %}
+
 <div class="card">
   <div class="card-body">
-    {% if messages %}
-    {% for message in messages %}
-    <p class="alert alert-warning alert-dismissible fade show" role="alert">{{ message }}</p>
-    {% endfor %}
-    {% endif %}
+    <div class="card shadow-lg">
+      <div class="card-header bg-primary">
+        <div class="text-center">
+          <h2>FORM TAMBAH KELUARGA</h2>
+        </div>
+      </div>
+      <div class="card-body" style="background-color:whitesmoke">
     
     <form
       action="{% url 'post_keluarga' %}"
@@ -13,20 +21,19 @@
       enctype="multipart/form-data"
     >
       {% csrf_token %}
-      <h1>FORM TAMBAH KELUARGA</h1>
 
       <div class="form-group">
         <p>NAMA KEPALA KELUARGA :</p>
         <input  class="form-control" type="text" name="nama_kepala_keluarga" id="nama_kepala_keluarga" maxlength="50" required>
       </div>
 
-      <div class="form-group">
+      {% comment %} <div class="form-group">
         <p>KODE KELUARGA :</p>
         <input  class="form-control" type="text" name="kode_keluarga" id="kode_keluarga"
         maxlength="500"
         required
       />
-      </div>
+      </div> {% endcomment %}
 
       <div class="form-group">
         <p>ALAMAT KELUARGA :</p>
