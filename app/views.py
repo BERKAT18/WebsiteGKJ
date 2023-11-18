@@ -558,7 +558,7 @@ def detail_khotbah(request, id_khotbah):
 def send_email(request):
     data_gereja = MGereja.objects.all()
     if request.method == 'POST':
-        to_email = 'henochyanuar13@gmail.com' #Untuk Testing Pake Email Sendiri Dulu Aja
+        to_email = 'berkat.selamat.d@mail.ukrim.ac.id' #Untuk Testing Pake Email Sendiri Dulu Aja
         # to_email = 'henochyanuar13@gmail.com'
         #Konfigurasi Email di settings.py
         sender_email = request.POST.get('email')
