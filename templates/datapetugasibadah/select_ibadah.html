@@ -22,13 +22,13 @@
         <select class="form-control" name="id_ibadah" id="id_ibadah">
           <option value="" disabled selected> --pilih-- </option>
           {% for dj in data_jadwal_ibadah %}
-          <option value="{{ dj.kode_jenis_ibadah.kode_jenis_ibadah }}">
+          <option value="{{ dj.id_ibadah }} {{ dj.kode_jenis_ibadah.kode_jenis_ibadah }}">
             {{ dj.kode_jenis_ibadah.kode_jenis_ibadah }}|
             {{dj.kode_jenis_ibadah.nama_jenis_ibadah}}|
             {{ dj.tanggal_ibadah|date:"l, d F Y" }}
-        </option>
+          </option>
           {% endfor %}
-        </select required />
+        </select required >
       </div>
       <br />
       <br />

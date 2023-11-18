@@ -1343,7 +1343,7 @@ def select_ibadah(request):
 
 def tambah_petugas_ibadah(request):
     if request.method == 'POST':
-        selected_ibadah = request.POST.get('id_ibadah')
+        id_ibadah, selected_ibadah = request.POST.get('id_ibadah').split()
         
         data_petugas = MPtgsibadah.objects.all()
         data_jadwal = MJdwlibadah.objects.all()
@@ -1351,6 +1351,7 @@ def tambah_petugas_ibadah(request):
         data_ibadah = MJenisibadah.objects.all()
         datajemaat = MJemaat.objects.all()
         context = {
+            'id_ibadah' : id_ibadah,
             'selected_ibadah' : selected_ibadah,
             'data_petugas' : data_petugas,
             'data_jadwal' : data_jadwal,
@@ -1366,7 +1367,6 @@ def post_petugas_ibadah(request):
     kode_jenis_tugas_ibadah = request.POST['kode_jenis_tugas_ibadah'] 
     kode_jemaat = request.POST['kode_jemaat']
     nomor_urut = request.POST['nomor_urut']
-  
   
     m_jdwl = MJdwlibadah.objects.get(id_ibadah=id_ibadah)
     m_jns = MJnstgsibd.objects.get(kode_jenis_tugas_ibadah=kode_jenis_tugas_ibadah)

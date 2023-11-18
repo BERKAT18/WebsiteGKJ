@@ -116,7 +116,7 @@ class MJnstgsibd(models.Model):
     kode_jenis_ibadah =models.ForeignKey(MJenisibadah, on_delete=models.CASCADE)
     nomor_urut = models.CharField(max_length=50)
     jenis_tugas_ibadah = models.CharField(max_length=50)
-    
+
 class MJdwlibadah(models.Model):
     id_ibadah = models.CharField(primary_key=True,max_length=50)
     kode_jenis_ibadah =models.ForeignKey(MJenisibadah, on_delete=models.CASCADE)

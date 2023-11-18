@@ -26,12 +26,12 @@
         </select required />
       </div> -->
 
-      <input type="text" name="id_ibadah" value="{{ selected_ibadah }}">
+      <input type="text" name="id_ibadah" id="id_ibadah" value="{{ id_ibadah }}">
 
       <div class="form-group">
         <p>KODE JENIS TUGAS IBADAH</p>
         
-        {{ selected_ibadah.id_ibadah }}
+        {% comment %} {{ selected_ibadah }} {% endcomment %}
         <select class="form-control" name="kode_jenis_tugas_ibadah" id="kode_jenis_tugas_ibadah" required>
           <option value="" disabled selected> --pilih-- </option>
           {% for di in data_tugas_ibadah %}
